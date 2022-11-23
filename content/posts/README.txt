@@ -1,0 +1,1 @@
+This directory contains posts.  For info on how it's parsed, see lib/mdx.ts
