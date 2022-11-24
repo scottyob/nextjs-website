@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from 'styled-components';
 
 const Wrapper = styled.section`
   width: 80%;
@@ -42,10 +42,10 @@ const SelectedLink = styled(AnimatedLink)`
   :after {
     width: 40%;
   }
-`
+`;
 
 interface SmartLinkProps {
-  text: String;
+  text: string;
   underlined?: boolean;
 }
 
@@ -59,7 +59,7 @@ function SmartLink(props: SmartLinkProps) {
 export default function Header() {
   return (
     <Wrapper>
-      <h1>Scott O'Brien</h1>
+      <h1>Scott O&apos;Brien</h1>
       <h2>
         <SmartLink text="Writings/Projects" underlined />&nbsp;&#x2022;&nbsp;
         <SmartLink text="About" />&nbsp;&#x2022;&nbsp;
