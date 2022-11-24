@@ -21,26 +21,39 @@ const Wrapper = styled.section`
   }
 `;
 
-const AnimatedLink = styled.a`
-  text-decoration: none;
-  position: relative;
-  :after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 20%;
+/*
+Component styling to show underlined headings.
+Will animate the underlining of a menu item on mouse over and always
+show the underline under the selected item
+*/
+const NavBar = styled.h2`
+  a {
+    text-decoration: none;
+    position: relative;
+    :after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0%;
+      width: 0%;
+      border-bottom: 2px solid rgba(102, 153, 204, 0.4);
+      transition: 0.4s;
+    }
+    :not(:first-child):before {
+      content: " • ";
+    }
+    :hover:after {
+      width: 40% !important;
+    }
+  }
+  a.selected {
+    font-weight: 400;
+    :after {
+      width: 40%;
+    }
+  }
+  :hover a.selected:after {
     width: 0%;
-    border-bottom: 2px solid rgba(102, 153, 204, 0.4);
-    transition: 0.4s;
-  }
-  :hover:after {
-    width: 40%;
-  }
-`;
-
-const SelectedLink = styled(AnimatedLink)`
-  :after {
-    width: 40%;
   }
 `
 
@@ -50,23 +63,20 @@ interface SmartLinkProps {
 }
 
 function SmartLink(props: SmartLinkProps) {
-  if (props.underlined) {
-    return <SelectedLink>{props.text}</SelectedLink>;
-  }
-  return <AnimatedLink>{props.text}</AnimatedLink>;
+  return <a className={props.underlined ? "selected" : undefined}>{props.text}</a>;
 }
 
 export default function Header() {
   return (
     <Wrapper>
       <h1>Scott O'Brien</h1>
-      <h2>
-        <SmartLink text="Writings/Projects" underlined />&nbsp;&#x2022;&nbsp;
-        <SmartLink text="About" />&nbsp;&#x2022;&nbsp;
-        <SmartLink text="Bucket List" />&nbsp;&#x2022;&nbsp;
-        <SmartLink text="Cooking" />&nbsp;&#x2022;&nbsp;
+      <NavBar>
+        <SmartLink text="Writings/Projects" underlined />
+        <SmartLink text="About" />
+        <SmartLink text="BucketList" />
+        <SmartLink text="Cooking" />
         <SmartLink text="Flying" />
-      </h2>
+      </NavBar>
     </Wrapper>
   );
 }
