@@ -6,7 +6,6 @@ const titleFont = DM_Serif_Display({ weight: "400", subsets: ["latin"] });
 const articleFont = DM_Sans({ weight: "400", subsets: ["latin"] });
 
 export default function Article(props: { post: Post }) {
-  console.log(props.post);
 
   return (
     <div>

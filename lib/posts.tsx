@@ -7,17 +7,20 @@ export interface Post {
   excerpt: string;
 }
 
-export async function getAllPosts() {
-  const regex = /^app\/(.*)\/page\.mdx$/;
+export interface PostFrontmatter {
+  title: string;
+}
 
-  let jsfiles = await glob("app/Post/**/*.mdx", { ignore: "node_modules/**" });
+export async function getAllPosts() {
+  const regex = /^posts\/(.*)\/page\.mdx$/;
+
+  let jsfiles = await glob("posts/**/*.mdx", { ignore: "node_modules/**" });
   const posts: Post[] = jsfiles.map((file) => {
     const m = matter.read(file, {excerpt: true});
-    console.log("Matter: ", m);
     return {
       title: m.data["title"],
       excerpt: m.excerpt || m.content,
-      path: "/" + (file.match(regex)?.[1] ?? "") + "/",
+      path: "/post/" + (file.match(regex)?.[1] ?? "") + "/",
     };
   });
   return posts;
