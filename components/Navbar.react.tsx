@@ -31,7 +31,7 @@ export default function Navbar() {
     >
       <li className={liClass}>
         <Link href="/">Writings/Projects</Link>
-        {pathname === "/" ? selected : unselected}
+        {pathname === "/" || pathname.toLowerCase().startsWith("/post") ? selected : unselected}
       </li>
       <li className={liClass}>
         <Link href="/About">About</Link>
