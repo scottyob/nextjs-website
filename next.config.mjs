@@ -16,7 +16,9 @@ const nextConfig = {
     },
     
     // This is a static page, no dynamic content
-    output: "export"
+    output: "export",
+    trailingSlash: true,
+    images: { unoptimized: true }
 }
 
 const withMDX = nextMdx({
