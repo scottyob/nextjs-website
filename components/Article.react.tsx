@@ -11,7 +11,7 @@ export default async function Article(props: { post: Post }) {
   // Load up the image
   let hero = null;
   if (props.post.hero != null) {
-    const img = await import("/posts/Nextjs-Website/" + props.post.hero);
+    const img = (await import(`/siteContent/posts/${props.post.slug}/${props.post.hero}`)).default;
     hero = <Image width={200} src={img} alt="Post picture" />;
   }
 

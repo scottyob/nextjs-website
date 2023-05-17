@@ -10,7 +10,7 @@ type PostProps = {
 
 export default async function Post(props: PostProps) {
   // Load up the MDX post
-  const {frontmatter, default: Component} = await import(`/posts/${props.params.slug}/page.mdx`);
+  const {frontmatter, default: Component} = await import(`/siteContent/posts/${props.params.slug}/page.mdx`);
   const meta = frontmatter as PostFrontmatter;
 
   return <article className="prose lg:prose-lg">

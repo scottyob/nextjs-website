@@ -34,11 +34,14 @@ export default function Navbar() {
         {pathname === "/" || pathname.toLowerCase().startsWith("/post") ? selected : unselected}
       </li>
       <li className={liClass}>
-        <Link href="/About">About</Link>
-        {pathname === "/About" ? selected : unselected}
+        <Link href="/about">About</Link>
+        {pathname.startsWith("/about") ? selected : unselected}
       </li>
       <li className={liClass}>Bucket List{unselected}</li>
-      <li className={liClass}>Cooking{unselected}</li>
+      <li className={liClass}>
+        <Link href="/recipes">Cooking</Link>
+        {pathname.startsWith("/recipes") ? selected : unselected}
+      </li>
       <li className={liClass}>Flying{unselected}</li>
     </ul>
   );

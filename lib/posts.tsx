@@ -15,13 +15,12 @@ export interface PostFrontmatter {
 }
 
 export async function getAllPosts() {
-  const regex = /^posts\/(.*)\/page\.mdx$/;
+  const regex = /^siteContent\/posts\/(.*)\/page\.mdx$/;
 
-  let jsfiles = await glob("posts/**/*.mdx", { ignore: "node_modules/**" });
+  let jsfiles = await glob("siteContent/posts/**/*.mdx", { ignore: "node_modules/**" });
   const posts: Post[] = jsfiles.map((file) => {
   const slug = (file.match(regex)?.[1] ?? "")
     const m = matter.read(file, {excerpt: true, excerpt_separator: "{/* EXCERPT */}"});
-    console.log(m.excerpt)
     return {
       title: m.data["title"],
       excerpt: m.excerpt || m.content,
