@@ -42,7 +42,10 @@ export default function Navbar() {
         <Link href="/recipes">Cooking</Link>
         {pathname.startsWith("/recipes") ? selected : unselected}
       </li>
-      <li className={liClass}>Flying{unselected}</li>
+      <li className={liClass}>
+        <Link href="/flying">Flying</Link>
+        {pathname.startsWith("/flying") ? selected : unselected}
+      </li>
     </ul>
   );
 }
