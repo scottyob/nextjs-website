@@ -1,0 +1,3 @@
+[submodule "public/logbook"]
+	path = public/logbook
+	url = https://github.com/scottyob/paragliding-logbook.git
