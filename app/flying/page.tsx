@@ -4,8 +4,8 @@ import { Duration } from "luxon";
 export default async function Flying() {
   const results = await GetFlights();
 
-  const tableRows = results.map((r, i) => {
-    const duration = Duration.fromMillis(r.durationSeconds * 1000);
+  const tableRows = results.map(async (r, i) => {
+    const duration = Duration.fromMillis(r?.durationSeconds ?? 0 * 1000);
 
     return <tr key={i} className="odd:bg-slate-100">
       < td > {i + 1}</td >
@@ -14,8 +14,8 @@ export default async function Flying() {
       <td>{duration.toFormat("hh:mm")}</td>
       <td></td>
       <td></td>
-      <td></td>
-      <td>{r.comment}</td>
+      <td>{r.fileName}</td>
+      <td>{r.comments}</td>
     </tr >
   });
 
