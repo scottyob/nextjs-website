@@ -1,0 +1,5 @@
+// Exports content that should have a non-full screen margin in an appropriate width
+export default function MarginLayout({children}: {children: React.ReactNode;}) {
+  return <div className="self-center mt-7">{children}</div>
+}
+

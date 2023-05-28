@@ -31,9 +31,7 @@ export default function RootLayout({
             </h1>
             <Navbar />
           </div>
-          <div className="max-w-2xl w-[80%] self-center mt-7">
-            {children}
-          </div>
+          {children}
         </div>
       </body>
     </html>
