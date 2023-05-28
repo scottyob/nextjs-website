@@ -17,6 +17,7 @@ import { glob } from "glob";
 import path from "path";
 import fs from "fs";
 import matter from "gray-matter";
+import {DateTime} from "luxon";
 
 export interface Flight {
   date: string;
@@ -39,7 +40,7 @@ export interface Flight {
    * Computed fields
    */
   number?: number; // The record number of the flight
-  launchTime?: number; //Timestamp, useful for orderinhg and sequence
+  launchTime: number; //Timestamp, useful for orderinhg and sequence
 }
 
 /*
@@ -99,9 +100,11 @@ async function getSpreadsheetFlights(): Promise<Flight[]> {
     return obj;
   });
 
-  return results.map(r => {
+  return results.map((r, i) => {
+    const date = r["date"] ?? "01-01-1980";
     return {
-      date: r["date"] ?? "01-01-1980",
+      date: date,
+      launchTime: DateTime.fromISO(date).toMillis() + i,
       launchName: r.launchName ?? "",
       durationSeconds: Number(r.durationSeconds ?? 0),
       wing: r.wing,
@@ -171,7 +174,7 @@ async function gscFlights(): Promise<Flight[]> {
   const buffer = readFileSync('public/logbook/launches.json', { flag: "r", encoding: "utf8" })
   const launches: Launch[] = JSON.parse(buffer);
 
-  const igcs = await glob('public/logbook/flights/**/*.igc', {nocase: true});
+  const igcs = await glob('public/logbook/flights/**/*.igc', { nocase: true });
   return await Promise.all(igcs.map(async (f) => {
     // Load the igc file into memory
     const buffer = readFileSync(f, { flag: "r", encoding: "utf8" });
@@ -182,8 +185,8 @@ async function gscFlights(): Promise<Flight[]> {
     // Load in the comments from disk
     const igcDirectory = path.dirname(f);
     const commentsFile = path.join(igcDirectory, 'comments.mdx');
-    if(fs.existsSync(commentsFile)) {
-      const m = matter.read(commentsFile, {excerpt: true, excerpt_separator: "{/* EXCERPT */}"});
+    if (fs.existsSync(commentsFile)) {
+      const m = matter.read(commentsFile, { excerpt: true, excerpt_separator: "{/* EXCERPT */}" });
       ret.comments = m.excerpt || m.content;
     }
 
@@ -198,6 +201,12 @@ async function populateFlights() {
   const spreadsheetFlights = await getSpreadsheetFlights();
   const igcFlights = await gscFlights();
   flights = [...spreadsheetFlights, ...igcFlights];
+  flights.sort((a, b) => a.launchTime - b.launchTime);
+  flights.forEach((f, i) => {
+    f.number = i + 1;
+  });
+  // Sort from most recent first
+  flights = flights.reverse();
 }
 
 // Gets, caches, and returns flights
