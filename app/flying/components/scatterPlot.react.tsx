@@ -40,6 +40,7 @@ export default function ScatterPlot(props: { flights: Flight[] }) {
 
   return <Plot data={[data]} className="w-full h-[600px]"
     useResizeHandler={true}
+    style={{width: "100%"}}
     layout={{
       legend: {
         orientation: "h"
@@ -49,7 +50,7 @@ export default function ScatterPlot(props: { flights: Flight[] }) {
         l: 30,
         t: 30,
         pad: 0
-      }
+      },
     }}
     config={{
       displayModeBar: false,

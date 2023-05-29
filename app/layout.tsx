@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex w-full flex-col pt-8 pb-8">
+        <div className="flex max-w-full w-full flex-col pt-8 pb-8">
           <div className="self-center">
             <h1
               className={["text-center text-4xl", capriola.className].join(" ")}

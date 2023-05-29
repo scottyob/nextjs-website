@@ -51,7 +51,7 @@ export default function FlightGraphs(props: { flights: Flight[] }) {
   const { flights } = props;
   const [selected, setSelected] = useState("Flights");
 
-  return <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700 mb-4">
+  return <div className="max-w-full text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700 mb-4">
     <ul className="flex flex-wrap -mb-px">
       <TabItem selected={selected} setSelected={setSelected} title="Flights" />
       <TabItem selected={selected} setSelected={setSelected} title="By Year" />

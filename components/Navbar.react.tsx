@@ -16,7 +16,7 @@ export default function Navbar() {
   const underlineClass =
     "block group-hover:max-w-[70%] ml-2 transition-all duration-500 h-0.5";
     const unselected = (
-    <span className={underlineClass + " max-w-0 bg-orange-400"} />
+    <span className={underlineClass + " max-w-0 bg-orange-50 group-hover:bg-orange-400"} />
   );
   const selected = (
     <span className={underlineClass + " max-w-[70%] bg-orange-500"} />

@@ -1,5 +1,6 @@
 import { Flight } from "@/lib/flying";
 import { Duration } from "luxon";
+import Link from "next/link";
 import tw from "tailwind-styled-components"
 
 
@@ -31,11 +32,11 @@ export default function DescriptionList(props: { flights: Flight[] }) {
     return <div key={i} className="pb-4 text-sm text-gray-500">
       <div className="grid grid-cols-2">
         <Header>#</Header>
-        <Content>{r.number}</Content >
+        <Content><Link href={`/flying/flight/${r.number}`}>{r.number}</Link></Content >
       </div>
       <div className="grid grid-cols-2">
         <Header>Location</Header>
-        <Content>{r.location}</Content>
+        <Content><Link href={`/flying/location/${r.location?.replace(' ', '-')}`}>{r.location}</Link></Content>
       </div>
       <div className="grid grid-cols-2">
         <Header>Date</Header>
