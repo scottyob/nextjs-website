@@ -19,6 +19,7 @@
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
+    "buffer": "^6.0.3",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
     "geolocation-utils": "^1.2.5",
@@ -30,9 +31,11 @@
     "markdown-to-jsx": "^7.2.0",
     "next": "13.4.1",
     "next-mdx-remote": "^4.4.1",
+    "plotly.js": "^2.23.2",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-plotly.js": "^2.6.0",
     "reading-time": "^1.5.0",
     "remark-frontmatter": "^4.0.1",
     "remark-mdx-frontmatter": "^3.0.0",
@@ -41,5 +44,9 @@
     "tailwind-styled-components": "^2.2.0",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@types/plotly.js": "^2.12.18",
+    "@types/react-plotly.js": "^2.6.0"
   }
 }
