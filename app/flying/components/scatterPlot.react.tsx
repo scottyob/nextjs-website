@@ -3,7 +3,9 @@
 import { Flight } from '@/lib/flying';
 import { Duration } from 'luxon';
 import * as Plotly from 'plotly.js';
-import Plot from 'react-plotly.js';
+
+import dynamic from 'next/dynamic';
+const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
 function humanFlightTime(flight: Flight) {
   return Duration.fromMillis((flight.durationSeconds ?? 0) * 1000)

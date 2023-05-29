@@ -1,7 +1,8 @@
 'use client';
 
 import { Flight } from '@/lib/flying';
-import Plot from 'react-plotly.js';
+import dynamic from 'next/dynamic';
+const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
 export function HoursByYear(props: { flights: Flight[] }) {
   const { flights } = props;

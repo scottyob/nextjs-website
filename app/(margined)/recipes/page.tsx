@@ -1,13 +1,9 @@
-// import { getAllRecipes } from "@/lib/recipes"
-
 import { getAllRecipes } from '@/lib/recipes';
 import { RecipeCard } from './RecipeCard';
 
 export default async function Home() {
-  {
-    /* @ts-expect-error Server Component */
-  }
   const cards = (await getAllRecipes()).map((r) => (
+    // @ts-expect-error Server Component
     <RecipeCard key={r.path} recipe={r} />
   ));
 

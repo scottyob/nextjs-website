@@ -9,14 +9,14 @@ const Header = tw.td`text-xd font-medium text-gray-700 pr-4`;
 const Value = tw.td``;
 
 type Props = {
-  params: { slug: number };
+  params: { slug: string };
 };
 
 export default async function Page(props: Props) {
   const flightNo = props.params.slug;
 
   const flights = await GetFlights();
-  const flight = flights.filter((f) => f.number == flightNo)[0];
+  const flight = flights.filter((f) => f.number?.toString() == flightNo)[0];
 
   return (
     <article className="max-w-3xl">
@@ -95,4 +95,11 @@ export default async function Page(props: Props) {
       </section>
     </article>
   );
+}
+
+export async function generateStaticParams() {
+  const flights = await GetFlights();
+  return flights.map((f) => {
+    return { slug: f.number?.toString() };
+  });
 }

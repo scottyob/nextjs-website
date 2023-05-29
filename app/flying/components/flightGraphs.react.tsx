@@ -76,9 +76,11 @@ export default function FlightGraphs(props: { flights: Flight[] }) {
           title="By Location"
         />
       </ul>
-      {selected == 'Flights' && <ScatterPlot flights={flights} />}
-      {selected == 'By Year' && <HoursByYear flights={flights} />}
-      {selected == 'By Location' && <HoursBySite flights={flights} />}
+      <div className="min-h-[600px]">
+        {selected == 'Flights' && <ScatterPlot flights={flights} />}
+        {selected == 'By Year' && <HoursByYear flights={flights} />}
+        {selected == 'By Location' && <HoursBySite flights={flights} />}
+      </div>
     </div>
   );
 }

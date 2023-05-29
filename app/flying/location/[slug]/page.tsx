@@ -29,9 +29,23 @@ export default async function FlightsForLocation(props: Props) {
             {location}
           </h2>
         </div>
-        {/* Need to load up the dynamic site information here */}
+        {/* TODO Need to load up the dynamic site information here */}
       </article>
       <FlightsList flights={results} />
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  const flights = await GetFlights();
+  return flights.map((f) => {
+    let location = f.location ?? 'Unknown';
+    if (location == '') {
+      location = 'Unknown';
+    }
+    location = location.replace(' ', '-');
+
+    console.log('Location', location);
+    return { slug: location };
+  });
 }
