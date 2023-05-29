@@ -1,17 +1,17 @@
 /**
  * Page will return all of the flights for a given site
-*/
+ */
 
-import { GetFlights } from "@/lib/flying"
-import FlightsList from "../../components/flightsList.react";
-import { DM_Sans } from "next/font/google";
-import Link from "next/link";
+import { GetFlights } from '@/lib/flying';
+import FlightsList from '../../components/flightsList.react';
+import { DM_Sans } from 'next/font/google';
+import Link from 'next/link';
 
-const articleFont = DM_Sans({ weight: "400", subsets: ["latin"] });
+const articleFont = DM_Sans({ weight: '400', subsets: ['latin'] });
 
 type Props = {
-  params: { slug: string }
-}
+  params: { slug: string };
+};
 
 export default async function FlightsForLocation(props: Props) {
   let results = await GetFlights();
@@ -20,16 +20,18 @@ export default async function FlightsForLocation(props: Props) {
   // Filter out the flights that are for this location
   results = results.filter((f) => f.location == location);
 
-  return <div className="min-w-full">
-    <article className="prose min-w-full">
-      <div className={articleFont.className}>
-        <h2 className="text-center mt-2">
-          <Link href="/flying">Flying</Link> {' > '} 
-          {location}
-        </h2>
-      </div>
-      {/* Need to load up the dynamic site information here */}
-    </article>
-    <FlightsList flights={results} />
-  </div>
+  return (
+    <div className="min-w-full">
+      <article className="prose min-w-full">
+        <div className={articleFont.className}>
+          <h2 className="text-center mt-2">
+            <Link href="/flying">Flying</Link> {' > '}
+            {location}
+          </h2>
+        </div>
+        {/* Need to load up the dynamic site information here */}
+      </article>
+      <FlightsList flights={results} />
+    </div>
+  );
 }

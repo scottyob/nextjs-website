@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Flight } from "@/lib/flying";
-import Plot from "react-plotly.js";
+import { Flight } from '@/lib/flying';
+import Plot from 'react-plotly.js';
 
 export function HoursByYear(props: { flights: Flight[] }) {
   const { flights } = props;
@@ -9,7 +9,7 @@ export function HoursByYear(props: { flights: Flight[] }) {
   // Grouping data by year and location
   const groupedData: { [year: number]: { [location: string]: number } } = {};
   flights.forEach((f) => {
-    const location = f.location ?? "Unknown";
+    const location = f.location ?? 'Unknown';
 
     const year = new Date(f.date).getFullYear();
     if (!groupedData[year]) {
@@ -23,40 +23,46 @@ export function HoursByYear(props: { flights: Flight[] }) {
   });
 
   // Extracting years and locations
-  const years = Object.keys(groupedData).map((year) => parseInt(year)).sort();
+  const years = Object.keys(groupedData)
+    .map((year) => parseInt(year))
+    .sort();
   const locations = Array.from(
-    new Set(flights.map((entry) => entry.location ?? "Unknown"))
+    new Set(flights.map((entry) => entry.location ?? 'Unknown'))
   );
 
   // Creating data series
   const series: Plotly.Data[] = locations.map((location) => ({
     x: years,
     y: years.map((year) => groupedData[year][location] || 0),
-    type: "bar",
-    name: location,
+    type: 'bar',
+    name: location
   }));
 
   const layout: Partial<Plotly.Layout> = {
-    barmode: "stack",
-    yaxis: { title: "Duration (hrs)", tickformat: "d" },
+    barmode: 'stack',
+    yaxis: { title: 'Duration (hrs)', tickformat: 'd' },
     height: 400,
-    legend: { orientation: "h", font: {size: 9}},
+    legend: { orientation: 'h', font: { size: 9 } },
     margin: {
       r: 0,
       l: 40,
       t: 30,
       pad: 0
-    },
+    }
   };
 
   const config: Partial<Plotly.Config> = {
     displayModeBar: false,
-    displaylogo: false,
-  }
+    displaylogo: false
+  };
 
-  return <Plot 
-    className="w-full h-[400px]"
-    data={series} layout={layout} config={config}
-    useResizeHandler={true}
-  />;
+  return (
+    <Plot
+      className="w-full h-[400px]"
+      data={series}
+      layout={layout}
+      config={config}
+      useResizeHandler={true}
+    />
+  );
 }
