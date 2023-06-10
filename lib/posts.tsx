@@ -8,6 +8,7 @@ export interface Post {
   excerpt: string;
   hero?: string;
   slug: string;
+  date: Date;
 }
 
 export interface PostFrontmatter {
@@ -37,9 +38,14 @@ export async function getAllPosts() {
       title: m.data['title'],
       excerpt: m.excerpt || m.content,
       hero: m.data['hero'],
+      date: m.data['date'],
       path: '/post/' + slug,
       slug
     };
   });
+
+  // Sort them from newest to oldest
+  posts.sort((a, b) => (+b.date - +a.date));
+
   return posts;
 }
