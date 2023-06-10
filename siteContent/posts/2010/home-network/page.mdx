@@ -1,0 +1,28 @@
+---
+title: Home networking is back
+author: scottyob
+type: post
+date: 2010-11-07T13:09:51+00:00
+url: /2010/11/07/home-networking-is-back/
+categories:
+  - nerd
+tags:
+  - iptables
+  - network
+  - routing
+
+---
+so, since I had the scare with my Asterisk VoIP box being hacked and a telephone call to Antarctica having being made, I decided to do something about it....
+
+{/* --- */}
+
+My home network now consists of my D-Link Wireless router being put into Bridge mode, with all services pretty much turned off on the thing.
+
+My internal network is 10.12.0.0/16. I plan to sub-divide up this address space later, but for now, I'm pretty much just keeping it in one big heap until I set up my servers and want to separate them further from the wireless workstations, for this reason though, I'm keeping my setup pretty simple all pretty much in a 10.12.1.0/24 space..
+
+Anyway, I'm doing what I should have done a long, long time ago. I've set up iptables to block all traffic (except ICMP for now, and ssh inbound.)
+
+I'm being a bit lighter on resources on this cheap little router.  The [FIT PC](http://www.productwiki.com/compulab-fit-pc/) I'm using dnsmasq for DNS and DHCP.
+
+Plans for the future. I want to have a pool of ipv6 addresses that my DHCP server can assign and make them publicly addressable through some ipv6 trunk somewhere. That'd be pretty sick.
+

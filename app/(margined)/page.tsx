@@ -2,10 +2,13 @@ import Article from '@/components/Article.react';
 import { getAllPosts } from '@/lib/posts';
 
 export default async function Home() {
-  const posts = (await getAllPosts()).map((p) => (
+  const posts = (await getAllPosts()).map((p, i) => {
+    console.log(`Doing ${p.path}`)
+    const imagePlacement = i % 2 == 0 ? 'left' : 'right';
+
     // @ts-expect-error Server Component
-    <Article key={p.path} post={p} />
-  ));
+    return <Article key={p.path} post={p} imagePlacement={imagePlacement} />
+  });
 
   return <div>{posts}</div>;
 }

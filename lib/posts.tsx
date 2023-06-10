@@ -1,6 +1,6 @@
 import { glob } from 'glob';
 import * as matter from 'gray-matter';
-import { compile } from '@mdx-js/mdx';
+import fs from "fs";
 
 export interface Post {
   title: string;
@@ -12,6 +12,8 @@ export interface Post {
 
 export interface PostFrontmatter {
   title: string;
+  hero?: string;
+  image?: string;
 }
 
 export async function getAllPosts() {
@@ -21,16 +23,21 @@ export async function getAllPosts() {
     ignore: 'node_modules/**'
   });
   const posts: Post[] = jsfiles.map((file) => {
+    const fileContents = fs.readFileSync(file, 'utf-8')
+      .split('\n')
+      .filter(line => !line.trim().startsWith('import'))
+      .join('\n');
+
     const slug = file.match(regex)?.[1] ?? '';
-    const m = matter.read(file, {
+    const m = matter.default(fileContents, {
       excerpt: true,
-      excerpt_separator: '{/* EXCERPT */}'
+      excerpt_separator: '{/* --- */}'
     });
     return {
       title: m.data['title'],
       excerpt: m.excerpt || m.content,
       hero: m.data['hero'],
-      path: '/post/' + slug + '/',
+      path: '/post/' + slug,
       slug
     };
   });

@@ -1,0 +1,62 @@
+---
+title: 'Happy New Year – Resolution #1, Network & Data'
+author: scottyob
+type: post
+date: 2011-01-01T12:02:53+00:00
+url: /2011/01/01/happy-new-year-resolution-1-network-data/
+categories:
+- nerd
+- Personal
+tags:
+- fitpc
+- network
+- routing
+hero: IMG_0121-full.jpg
+
+---
+
+import img from "./IMG_0121-full.jpg"
+import routerConfig from "./Router_Config.jpg"
+import networkMap from "./Network_Map.jpg"
+import networkStack from "./Network_Stack.jpg"
+
+It’s a new year and time to start getting new years resolutions into action. I’ve moved into my new area in the study so I’ve started setting it up how I like.
+
+The first step is to get my router set up. The router I’m using is a little ‘fit-pc’ box with two ethernet cables. As you can see, it’s pretty tiny but [doesn’t pack much in terms of power](http://www.fit-pc.com/fit-pc1/fit-pc-1-0-specifications.html).
+
+{/* --- */}
+
+<img alt="server" src={img.src} />
+
+I’ve put my router in bridge mode (so it just acts as a layer two modem/bridge) and let my router then establish a pppoe session with my ISP and do all the routing with iptables (I’ve got to update my firewall script and services running on the box and post up the how-to’s later on for that.) Now the little crappy d-link thing doesn’t fall over and die when torrenting (the router will do all the routing and torrenting without hogging up entries in the NAT table is always a good thing)
+
+One of my new years resolutions is to digitise everything (and make it reliable to do so) so I don’t have to worry about any paper floating around in my life (I HATE paperwork). To do this, I want to add a few more features in my home network, whilst improving security (especially after my VoIP was hacked a while ago)
+
+I’m splitting my network into ‘trusted’ and ‘not so trusted’ zones. The beauty is because my router now has two nicks, putting a small 8 port switch into the equation will allow me to route traffic between these zones in a nice firewalled way.
+
+I’d generally be lazy and put WPA-PSK security on the access point.
+
+I feel safe doing this, from [a zdnet article](http://www.zdnet.com/blog/ou/wireless-lan-security-myths-that-wont-die/454)
+ 
+
+> All you need to do is use WPA-PSK security with a random alpha-numeric pass-phrase that has a minimum of 10 characters. I estimated that a truly random alpha-numeric 10-character pass-phrase using modern single-core computers will take one thousand PCs working in parallel 500 years to crack
+
+I lol’d a bit where it says “.. you could run WEP (104 bit AKA 128) security, which might take a semi-skilled script kiddy using two PCs in an active attack configuration 10 minutes to break.
+
+At the moment, my wireless is secured by only a 64 bit WEP key (shock horror!) Why? Because I’ve got damn devices like the Nintendo DS sitting on here which I’ve been wasting a bit of time on lately that don’t support WPA.
+
+I could hide my SSID, do MAC filtering and not run DHCP, all that jazz, but the end of the story is that this can all be hacked by people who know what they’re doing (Mac addresses can be spoofed, if you’re using your wireless network then you’re still broadcasting stuff.)
+
+I’m not terribly worried at the moment if someone hacks in, they can steal some of my crappy 1.5Mbit internet, they can print to my printer (have fun). My workstations themselves are to some degree protected, but what about when I build my file server and start storing bank statements, tax file numbers? all that stuff? The more layers of security the better! (I learnt this the hard way, trust me)
+
+As I’ve already said, the way I’m lessening my fear of these security problems is by splitting my network into trusted and not so trusted zones.
+
+<img alt="Router config" src={routerConfig.src} />
+
+<img alt="network map" src={networkMap.src} />
+
+User Isolation security means that the wireless clients won’t be able to see each other on the network. I’ll allow traffic too and from certain devices on the trusted network (the printer for instance.) but to gain access to any of my secure boxes (Fileserver, other workstations) then wireless clients will have to first connect through WEP, then establish a secured VPN connection into the trusted zone. With this setup, even if someone breaks into my WiFi, good on them, they get crippled net (I might cripple WiFi net bandwidth to the net, not decided yet) and access to.. well, my printer again *sigh*
+
+<img alt="network stack" src={networkStack.src} />
+Network stack lol!
+

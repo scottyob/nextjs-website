@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+.prose img {
+  margin: auto;
+}

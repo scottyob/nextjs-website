@@ -4,23 +4,15 @@ hero: header.png
 ---
 
 A friend of mine made fun of me for re-writing my website so many times, the latest iteration this time around
-is in NextJS.  
+is in NextJS.  It moves my old Hugo blog to a new React, Tailwind CSS website with Typescript.
 
-This page details the details of why, then how I setup my blog in NextJS.  It goes into details on how I've setup
-a public source to store my flying logbook and climbing records.
+{/* --- */}
 
-{/* EXCERPT */}
-
-This is probably the third iteration of the design of this website.  The first was back in first year university where I setup
+This is *probably* the third iteration of my website.  The first was back in first year university where I setup
 a LAMP stack to host a Wordpress blog on a cheap $2/month VPS.  Of course, I stopped paying at some point and didn't have a backup
 of the database, so all content was lost.  After some time, I decided that all of my content is static, so I went through a process
 to move all of my content to static markdown files and went down the Hugo route.  Hugo worked great! My wife still uses it for her
 website which is just a blog.  My problem is, a blog is only one part of my website.  I had built these big complex pipelines for 
-importing my paragliding flight logs, and, it was just not pleasant to use, so I didn't.
+importing my paragliding flight logs, and, it was just not pleasant to use, so I found I didn't.
 
-Now, the how.  I'm moving from Hugo to React.  I could have built react themes for Hugo, but having complete control over this
-seems easier in the long run.  I use React a lot at work (with Facebook having invented it!) and have been using it for side-projects
-enough that I feel very comfortable in this space.  NextJS seems like a really nice approach to me.  I can keep my content mostly
-"server side" generated, export the generated content to plain old HTML/CSS, then host it on any CDN like Github pages, like I used
-to do with my old Hugo website.
-
+NextJS has an "external" deployment method, meaning I still get to generate static HTML/CSS, which is a goal for my site.

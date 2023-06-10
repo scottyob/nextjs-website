@@ -1,0 +1,125 @@
+---
+title: Filesystem Snapshots
+author: scottyob
+type: post
+date: 2011-03-18T12:10:36+00:00
+url: /2011/03/18/3-setting-up-filesystems-and-snapshots/
+categories:
+- FileServer
+tags:
+- fileserver
+- ZFS
+
+---
+*Note: This post is one in a series aimed to be a tutorial eventually, it’s not currently finalised and at the moment exists as a place for collating thought and collecting feedback_*
+
+Setting up the FileSystems is a trivial task.  First, you can see that when we’ve created a storage pool ‘datastore’ it created a filesystem for us (also called datastore) that can act as a container for child file systems.  I’m going to go ahead and create a place to store my media and downloads now
+
+{/* --- */}
+
+```
+# zfs create datastore/media
+```
+
+for now I’ll also want a place to store my backups.  It’s worth noting that while my media filesystem will contain compressed MP3’s and the like, it’s kind of a waste of CPU power to compress it, but my backups will be a lot of PHP pages and what not, so lets go ahead and enable compression on this one
+
+```
+# zfs create datastore/backups
+```
+
+```
+# zfs set compression=on datastore/backups
+```
+
+As appalled as I am of my mums backup habits, one of the requirements of this server was to provide a medium for backing up her data without her having to do anything, so lets set up backup locations for my laptop (MacShell) and a place for mum (mum) assigning both of these 20GB quota’s (ok, MacShell gets 120GB)
+
+```
+# zfs create datastore/backups/MacShell
+# zfs create datastore/backups/mum
+# zfs set quota=120G datastore/backups/MacShell
+# zfs set quota=20GB datastore/backups/mum
+# zfs get datastore/backups/mum
+```
+
+Now, the idea is that a cron job will run rsyncing over the files every hour, on the hour.  For many reasons (in case I get a virus and need to revert back, in case somebody hacks in and does bad stuff, etc, etc) I’m going to choose to [create Snapshots](http://docs.huihoo.com/opensolaris/solaris-zfs-administration-guide/html/ch06.html) so I can roll back to a previous version.
+
+The convention I want is hourly.HOUR, daily.DAY, weekly.WEEK for up to 7 days and 4 weeks.  This also means that once I delete a file, I won’t recover the space that it took (once a snapshot of the file has been created) in my data pool until the end of the 4 week period.  for instance, hourly.0 will be the last hours snapshot, hourly.1 will be the 2nd last hours snapshot, etc.
+
+the following bash script will take care of the desired snapshots.  It’s based on a concept I took from this [rolling snapshots made easy](http://blogs.sun.com/mmusante/entry/rolling_snapshots_made_easy) post but I like [my scripted way of doing rotating snapshots](/img/old/2011/03/snapshot.sh) much better.
+
+```bash
+#!/bin/bash
+
+#print out usage
+if [ $# -ne 2 ]
+then
+  echo "Usage: snapshot.sh [snapName] [max]"
+  echo "  eg. snapshot.sh hour 24"
+fi
+
+#if the max snapshot already exists, just delete it
+if [ $(zfs list -t snapshot | grep datastore@$1.$2 | wc -l) -eq 1 ]
+then
+  zfs destroy -r datastore@$1.$2
+fi
+
+for ((i=$2-1; i >= 0; i--)); do
+  if [ $(zfs list -t snapshot | grep datastore@$1.$i | wc -l) -eq 1 ]
+  then
+    #this snapshot exists, so we want to move it up one
+    zfs rename -r datastore@$1.$i @$1.$[$i+1]
+  fi
+done
+
+zfs snapshot -r datastore@$1.0
+```
+
+so with this snapshot beauty in place, lets say I had an existing file and structure in place
+```
+root@thumper:/datastore/backups/MacShell# pwd
+/datastore/backups/MacShell
+root@thumper:/datastore/backups/MacShell# tree
+.
+|– hello_world.txt
+|– someDir
+|- someFile.dat
+
+1 directory, 2 files
+```
+
+BUT, I had a snapshot in place
+```
+# /snapshot.sh hourly 24
+```
+
+then I did something silly like delete my entire backup directory (Oh No!!)
+
+```
+# rm -R *
+# ls -l
+
+total 0
+```
+
+never fear! check the snapshots
+```
+root@thumper:/datastore/backups/
+MacShell/.zfs/snapshot/hourly.0# tree
+|– hello_world.txt
+ – someDir
+`– someFile.dat
+```
+
+they’ll eventually roll off my snapshot cycle and be removed in 4 weeks with my plan, but hey, pretty good at this point 🙂
+
+See [Part 2](http://www.scottyob.com/?p=96) for a post on how to set up cron jobs to automatically call this script
+
+### other posts to come in the series:
+
+1. Selecting the hardware
+2. Installing the Operating System
+3. Setting up File systems & Snapshots
+4. Allowing access through NFS & SAMBA
+5. Setting up encrypted off-site backups
+6. Configuring Windows & Linux clients to dump backup info to the FileServer
+7. My router setup, configuring IP tables & torrents on a low-powered server.

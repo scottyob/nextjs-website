@@ -1,0 +1,81 @@
+---
+title: Monitoring SRX Chassis Cluster
+author: scottyob
+type: post
+date: 2012-07-09T04:44:35+00:00
+url: /2012/07/09/monitoring-srx-chassis-cluster/
+categories:
+- nerd
+tags:
+- Juniper
+- Nagios
+- SNMP
+- SRX
+
+---
+Just finishing off a few things at work this week.  We've got a few sites around the place where we have HA internet powered by two Juniper SRX100's.  The Two SRX100's operate in a Chassis Cluster and peer with our ISP using BGP across both active/passive devices.
+
+{/* --- */}
+
+Below is a little Nagios check script that I wrote to hook into our in-house Nagios monitoring platform.  It makes sure the chassis cluster has not failed over operating in a degraded state, and makes sure that there are two BGP peers connected.
+
+NOTE:  I was aiming for simplicity in this setup, if you've got a bigger environment or require instant notifications you might wish to set up snmp traps to get instant notifications.
+
+```#!/bin/bash
+
+# Bash script to check the status of a SRX cluster.
+#  Works by SSHing into cluster to check "show chassis cluster status" command and SNMP walking to make sure BGP peers
+#  are both in a connected state
+
+STATE_OK=0
+STATE_WARNING=1
+STATE_CRITICAL=2
+STATE_UNKNOWN=3
+
+clusterAddress=$1
+privateKey=$2
+clusterStatus=`ssh nagios@$clusterAddress -i $privateKey "show chassis cluster status"`
+
+declare -i primaryCount
+declare -i secondaryCount
+declare -i failoverCount
+declare -i activeBgpPeers
+
+activeBgpPeers=`snmpwalk -Os -c public -v 1 $clusterAddress .1.3.6.1.2.1.15.3.1.2 | grep "INTEGER: 6" | wc -l`
+primaryCount=`echo "$clusterStatus" | grep primary | wc -l`
+secondaryCount=`echo "$clusterStatus" | grep secondary | wc -l`
+failoverCount=`echo "$clusterStatus" | grep "Failover count: 0" | wc -l`
+
+if [ $primaryCount -ne 2 ]
+then
+  echo "No two primary redundancy groups"
+  echo "$clusterStatus"
+  exit $STATE_CRITICAL
+fi
+
+if [ $secondaryCount -ne 2 ]
+then
+  echo "No two secondary redundancy groups"
+  echo "$clusterStatus"
+  exit $STATE_CRITICAL
+fi
+
+if [ $failoverCount -ne 2 ]
+then
+  echo "SRX has fallen over on a redundancy group"
+  echo "$clusterStatus"
+  exit $STATE_WARNING
+fi
+
+if [ $activeBgpPeers -ne 2 ]
+then
+  echo "NOT 2 Active BGP Peers"
+  exit $STATE_CRITICAL
+fi
+
+echo "OK, 2 peers.  OK: Chassis Cluster status OK"
+echo "$clusterStatus"
+exit $STATE_OK
+```
+
+ 

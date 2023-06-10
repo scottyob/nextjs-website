@@ -1,0 +1,24 @@
+---
+title: 'ESPChess NewGame Bug'
+type: post
+author: scottyob
+date: 2022-04-05
+categories:
+ - nerd
+tags:
+ - chess
+hero: logo.png
+---
+
+Ordering is a little off here, but I wanted to writeup about a bug I'm seeing in the ESPChess project (post to come) and how I intend to fix it.
+
+{/* --- */}
+
+The chessboard uses AWS IoT Shadow Service (MQTT accessed key-value store) to keep track of your and your opponents chess board state.  It has a sequence number that's incremeneted to flag when we should update our current state to match our opponents.
+
+Once a game is finished, it shows who won the game.  Once all the pieces are back in their starting position, it attempts to restart the game, and flip the black and white players around.  The problem is, when testing this out with my father, that it's not all that user friendly, and it's a bit finicky.  When a game is finished, the colors show the delta with the old game, and not a new game.  I think the new logic should be:
+- We store lastGameState
+- We store lastGamePreviousMoveState
+- If the sequence number is 0, and the current board state matches the lastGameState or lastGamePreviousMoveState, then show the winner or delta, otherwise show the delta with the current (presumably new game) board state.
+- When a board finishes the game, it should update the lastGameState, lastGamePreviousMoveState to the current winning move state.  gameState and gamePreviousMoveState should be reset to a new starting position.
+- In the event of the opponents sequence number being 0, and ours not, update our state to match our opponents (with the isWhite value flipped)

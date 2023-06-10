@@ -1,0 +1,32 @@
+---
+title: 'Compliance with Cisco IOS Devices & Bulk Changes'
+author: scottyob
+type: post
+date: 2014-07-19T00:11:38+00:00
+url: /2014/07/18/compliance-with-cisco-ios-devices-bulk-changes/
+categories:
+- Uncategorized
+
+---
+One of the biggest problems in the environment I work in is that almost all of the deployment of our 300+ devices is that everything has been hand crafted.  Usually this isn't such a big problem, but add that with a design decision to route right to the access layer of our campus network with a multi-VRF network and you can start to see how mistakes, or changes in design along the deployment has meant inconsistencies.  Not only that, but when it comes time to go and change something, that means going through and altering near 300 devices, a massive pain that is hard to scale.
+
+{/* --- */}
+
+Usually this problem is solved with network management solutions.  We have [Cisco NCM](http://www.cisco.com/c/en/us/products/cloud-systems-management/ciscoworks-network-compliance-manager/index.html) that's used for this task, but I have to admit, it's horrible and hard to do anything other than the basics (not to mention end-of-life'd, probably for good reason).
+
+Now that I've got [Rancid](http://www.shrubbery.net/rancid/) backing up my configs to git, I decided to write a (very simple) compliance manager myself that will allow us to build compliance checks in standard python.  This works by using my [IOSDevice wrapper](https://github.com/scottyob/pyiosdevice) to load up the configuration files, then dynamically loading a list of classes that subclass the compliance check, and start loading them up to perform the check.
+
+By over-riding specific methods (like checkRequired), you're able to determine if the check is required on that device, then give a status of if it's failed or not.  There's methods for generating fix config (that will later be able to be executed on the end device) then the ability to run commands to check if it's succeeded.
+
+The reason I decided to write this is because we're soon going to be ripping out and merging VRF's and making our routing a lot simpler in the campus network (inter-vrf gateway, etc) and there is no way I'm going to be doing this by hand on each device.
+
+If you're a python head, [check it out](https://github.com/scottyob/ioscompliance)!
+
+```
+Switchport Mode Access ........(211/301)
+* b123-ba-asw-01
+* b17-mr-wlc-01
+* sbs-18a-asw-01
+* beg-340-asw-01
+...
+```

@@ -1,0 +1,29 @@
+---
+title: Downloading HTTP in off-peak
+author: scottyob
+type: post
+date: 2011-01-25T00:38:18+00:00
+url: /2011/01/24/downloading-http-in-off-peak/
+categories:
+- nerd
+tags:
+- debian
+- linux
+- wget
+
+---
+I want to write a quick and dirty blog post to tell you a little solution on downloading HTTP files in your off-peak usage using linux.
+
+{/* --- */}
+
+The tools I’ll be using for this is my old favourite [wget](http://www.gnu.org/software/wget/) and a new tool, [“at”](http://linux.about.com/library/cmd/blcmdl1_at.htm).
+
+The at daemon is required to be running first, so on debian or ubuntu
+
+> /etc/init.d/atd start
+
+Then downloading your file at an off-peak time (4am for me) is as simple as
+
+> echo “wget –c [http://ubuntu.virginmedia.com/releases//maverick/ubuntu-10.10-desktop-i386.iso](http://ubuntu.virginmedia.com/releases//maverick/ubuntu-10.10-desktop-i386.iso)” | at 04:00
+
+Simple hey 😄

@@ -1,0 +1,34 @@
+---
+title: Finding overlaps in address space
+author: scottyob
+type: post
+date: 2014-02-24T06:05:36+00:00
+url: /2014/02/24/finding-overlaps-in-address-space/
+categories:
+- nerd
+- networking
+tags:
+- Cisco
+- IOS
+- IOSDevice
+- Python
+
+---
+We have an interesting problem at my workplace, we have an MPLS VPN design for separation of security zones (e.g., staff from students.) and we don't have MPLS support on our edge. With a L3 to the edge design though this means that while every edge switch has its own address space (per VRF), it also has a /30 uplink (once again, per VRF) back to the PE device.
+
+{/* --- */}
+
+While this (rightly or wrongly decided) slightly more complicated design in itself isn't a problem, I've been working on programatically putting all of this data into an IPAM (IP Address Management) solution. Doing this from the devices themselves (as apposed to a spreadsheet where it was previously kept) has provided the best way moving forward, so good in fact, that my IPAM started throwing exceptions when duplicate IP addresses and overlapping spaces were attempted to be added in the system.
+
+The following Python script uses my [Cisco IOS python library](https://github.com/scottyob/pyiosdevice) to be able to identify IP address overlaps from a bunch of my saved device configs.
+
+It works by the following:
+
+1. Adds all L3 interfaces addresses and secondary addresses to a list
+2. Sorts list such that larger subnets are at the front, smaller (/32's and the such) are at the back of the list.
+3. Walks through each subnet, if the network addresses is not in the routing table, add it in, if it is, add it to a list of colliding subnets.
+4. With the list of colliding subnets (subnets that have been multiply defined, or are of overlapping size):
+1. If they are /30's and there are only two places of definition, skip
+2. if the subnet values are not equal OR an address appears twice in the subnet.  Print it out as a colliding address (space)
+
+You can find the [script as a ghist here](https://gist.github.com/scottyob/9182695) (note:  This assumes the devices have been picked and loaded as a Picked list of IOSDevice's)

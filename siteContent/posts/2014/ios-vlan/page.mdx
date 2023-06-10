@@ -1,0 +1,176 @@
+---
+title: Automating VLAN changes for ESXi Switchports in Cisco IOS.
+author: scottyob
+type: post
+date: 2014-01-29T10:51:35+00:00
+url: /2014/01/29/automating-vlan-changes-for-esxi-switchports-in-cisco-ios/
+categories:
+- Uncategorized
+hero: product_bulletin_cisco_catalyst_6509_enhanced_vertical_chassis-1.jpg
+---
+
+import img from "./product_bulletin_cisco_catalyst_6509_enhanced_vertical_chassis-1.jpg";
+
+At the organisation I'm currently working for, we recently experienced [what appears to be a common issue](http://www.vspecialist.co.uk/do-my-esxi-hosts-have-the-same-vlans/), VLAN's trunked down to ESXi nodes were inconsistent.
+
+In our DC, we're still running the old school Cisco Catalyst switches.  If we were running a fabric, or Nexus switches [we could put port profiles to action](http://blog.alwaysthenetwork.com/tutorials/nexus-port-profiles/) or if we lucky enough to have some equipment running Junos ❤️  we could be [using apply-groups for this](http://packetpushers.net/junos-configuration-groups/).
+
+{/* --- */}
+
+Being stuck with 6500's in the DC as our L2 platform (and a VSS for the L3 MPLS PE) this is a quick little hack job to automate configuration changes across switchports in Cisco IOS based on dynamically finding ports that are matching an interface description.
+
+In our DC, we have a bunch of switches (defined at the top of this script) and all our switchports that go to ESXi switchports that should have this template applied are matched on the interface description containing ‘ESXHOST'
+<img src={img.src} alt="6509 chassis" />
+
+This relies on the [python EXScript module](https://github.com/knipknap/exscript/wiki/Python-API-Tutorial)
+
+```python
+# This script is used for updating the VLANs that are trunked down to ESX boxes.
+#  It works by logging in to each switch in the DC then looking at the interfaces that have 'ESXHOST'
+#  in the description.  For each of those switchports, it will run the 'alter' commands
+
+from Exscript.Account import Account
+from Exscript.protocols import SSH2
+import argparse
+import getopt
+import getpass
+import sys
+
+#A list of the switches to interigate.  These are the switches that have ESXi hosts in them
+SWITCHES = [
+    '10.0.0.2',
+    '10.0.0.3',
+    '10.0.0.4',
+    '10.0.0.5',
+    '10.0.0.7'
+    ]
+
+#Commands to execute for every switchport
+vlan_commands = """
+  switchport trunk allowed vlan add 5,10,15,20-25,30,40,50
+  switchport trunk allowed vlan add 60,69,70,100-1000
+"""
+
+def query_yes_no(question, default="yes"):
+    """Ask a yes/no question via raw_input() and return their answer.
+
+    "question" is a string that is presented to the user.
+    "default" is the presumed answer if the user just hits &lt;Enter&gt;.
+        It must be "yes" (the default), "no" or None (meaning
+        an answer is required of the user).
+
+    The "answer" return value is one of "yes" or "no".
+    """
+    valid = {"yes":True,   "y":True,  "ye":True,
+             "no":False,     "n":False}
+    if default == None:
+        prompt = " [y/n] "
+    elif default == "yes":
+        prompt = " [Y/n] "
+    elif default == "no":
+        prompt = " [y/N] "
+    else:
+        raise ValueError("invalid default answer: '%s'" % default)
+
+    while True:
+        sys.stdout.write(question + prompt)
+        choice = raw_input().lower()
+        if default is not None and choice == '':
+            return valid[default]
+        elif choice in valid:
+            return valid[choice]
+        else:
+            sys.stdout.write("Please respond with 'yes' or 'no' "\
+                             "(or 'y' or 'n').\n")
+
+def returnInterfacesFromShowDescription(text):
+    """
+    Returns a LIST of interfaces from the output of 'show interface desc' from a cisco device
+    """
+    return [ x.split()[0] for x in text.split("\n") ]
+
+def genUpdateConfigForInterfaces(config, interfaces):
+    """
+    Takes in a configuration block to run, a list of interfaces and generates the appropriate int range commands with the
+    config block after
+    """
+    updateConfig = ""
+    while len(interfaces) &gt; 0:
+        updateConfig += "int range " + ",".join(interfaces[:5])
+        interfaces = interfaces[5:]
+        updateConfig += "\n  %s\n" % config.strip()
+    return updateConfig
+
+def updateSwitchportsWithDescription(switch, description, username, password, commands):
+    """
+    Function is used to log into a switch, find all switchports that CONTAINS the description
+    with each of the said switchports, it will then execute the given commands.
+
+    switch:  Device to log into
+    description:  Search string to try and find in the switchport description
+    username:  Username to log into the switch with
+    password:  The password to log into the switch with
+    commands:  A list of commands that should be executed
+    """
+
+    print "Working with switch: %s" % switch
+
+    #establish a SSH connection to the host
+    conn = SSH2()
+    account = Account(username, password)
+    conn.connect(switch)
+    conn.login(account)
+
+    #Do some pre-setup
+    conn.execute('')
+
+    #Make sure we're in super user mode
+    conn.execute('enable')
+    conn.execute('terminal length 0')
+
+    #find all ports that have ESXHOST (or whatever is set in description) in the description
+    conn.execute('show int desc | i %s' % description)
+    ports = conn.response.strip()
+
+    print "Ports are:"
+    print ports
+    portsList = returnInterfacesFromShowDescription(ports)[1:-1]
+
+    #go into config mode and get ready to run the update commands
+    #Generate a list of the update commands that should be ran
+    updateCommands = genUpdateConfigForInterfaces(commands, portsList).split("\n")
+    conn.execute('conf t')
+    print conn.response.strip()
+    print "! About to execute the following commands."
+    for line in updateCommands:
+        print "! " + line
+
+    if query_yes_no('Execute Commands?', default="no"):
+        #Run the set of commands given
+        for command in updateCommands:
+            conn.execute(command)
+            print conn.response
+
+        #Exit out of config mode
+        conn.execute("exit")
+        conn.execute("exit")
+        print conn.response
+        print
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="DC ESX VLAN Utility")
+    parser.add_argument('--user', help='The username that should be used to log into the switches with')
+
+    args = parser.parse_args()
+    if args.user:
+        username = args.user
+    else:
+        username = getpass.getuser()
+
+    password = getpass.getpass()
+
+    # Generate a list of commands
+    for switch in SWITCHES:
+        updateSwitchportsWithDescription(switch, 'ESXHOST', username, password, vlan_commands)
+
+```

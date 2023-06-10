@@ -1,0 +1,186 @@
+---
+title: throttling guest internet on Apple Airport Extreme
+author: scottyob
+type: post
+date: 2013-12-18T13:09:03+00:00
+url: /2013/12/18/throttling-guest-internet-on-apple-airport-extreme/
+categories:
+- Uncategorized
+hero: photo-1.jpg
+---
+
+import apple from "./apple-airport-extreme-base-station_1.jpg";
+import photo1 from "./photo-1.jpg";
+import photo2 from "./photo-2.png";
+import airport1 from "./AirPort-Utility1.jpg";
+import airport2 from "./AirPort-Utility-2.jpg";
+
+I've been happily running my Apple Airport Extreme as m home router for the past few years (since my debian router died, and I've been too lazy to replace it).  One of the cool features was the ability to create a guest network (SSID) to access the internet without being able to access your trusted network.  One feature I wanted was the ability to throttle the speed guests can access the internet at.  While I couldn't do this with the Airport Extreme alone, Add a Juniper SRX100 into the mix that the awesome [Cooper Lees](http://cooperlees.com) gave me into the mix and problem solved.
+
+{/* --- */}
+
+<img src={apple.src} />
+
+<img src={photo1.src} />
+
+SRX100, signed by the #1 Juniper Engineer
+
+<img src={airport1.src} />
+<img src={airport2.src} />
+
+In not so many words, performing these actions will do a number of things.  The gig ethernet switch on the back of the airport will be bridged with the WAN port.  Any traffic from your normal SSID(s) and switchports will be sent out the WAN port _untagged._  Traffic from your guest network will be sent .1q tagged with vlan 1003.
+
+I popped this into fe-0/0/1 on my SRX100 and the following config works the magic.
+
+```
+[interfaces]
+    fe-0/0/1 {
+        unit 0 {
+            family ethernet-switching {
+                port-mode trunk;
+                vlan {
+                    members vlan-guest;
+                }
+                native-vlan-id 3;
+            }
+        }
+    }
+
+    vlan {
+        unit 0 {
+            family inet {
+                address 10.0.1.1/24;
+            }
+        }
+        unit 1003 {
+            family inet {
+                filter {
+                    input limit_guest_upload;
+                    output limit_guest_download;
+                }
+                address 10.0.2.1/24;
+            }
+        }
+    }
+
+[system services]
+        dhcp {
+            pool 10.0.1.0/24 {
+                address-range low 10.0.1.2 high 10.0.1.199;
+                router {
+                    10.0.1.1;
+                }
+            }
+            pool 10.0.2.0/24 {
+                address-range low 10.0.2.2 high 10.0.2.254;
+                router {
+                    10.0.2.1;
+                }
+            }
+            propagate-settings fe-0/0/0.0;
+        }
+
+[security]
+    nat {
+        source {
+            rule-set private-to-internet {
+                from zone [ guest trust ];
+                to zone untrust;
+                rule source-nat-rule {
+                    match {
+                        source-address 0.0.0.0/0;
+                    }
+                    then {
+                        source-nat {
+                            interface;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    policies {
+        from-zone trust to-zone untrust {
+            policy trust-to-untrust {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone guest to-zone untrust {
+            policy guest-to-internet {
+                description "Allows guest access to internet";
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+    }
+
+[security zones]
+        security-zone guest {
+            host-inbound-traffic {
+                system-services {
+                    dns;
+                    ping;
+                    traceroute;
+                }
+            }
+            interfaces {
+                vlan.1003;
+            }
+        }
+
+firewall {
+    policer guest-shaping {
+        if-exceeding {
+            bandwidth-limit 500k;
+            burst-size-limit 300k;
+        }
+        then discard;
+    }
+    filter limit_guest_download {
+        term guest-shaping {
+            then {
+                policer guest-shaping;
+                accept;
+            }
+        }
+    }
+    filter limit_guest_upload {
+        term guest-shaping {
+            then {
+                policer guest-shaping;
+                accept;
+            }
+        }
+    }
+}
+vlans {
+    vlan-guest {
+        vlan-id 1003;
+        l3-interface vlan.1003;
+    }
+    vlan-trust {
+        vlan-id 3;
+        l3-interface vlan.0;
+    }
+}
+
+```
+
+And there you have it! A really simple way of limiting the bandwidth of guest users on your network using the power of Junos with an Airport Extreme!
+
+ 
+<img src={photo2.src} />
+

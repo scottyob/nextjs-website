@@ -1,0 +1,109 @@
+---
+title: 'What’s the harm in Google DNS?Performance!'
+author: scottyob
+type: post
+date: 2011-07-02T14:40:05+00:00
+url: /2011/07/02/whats-the-harm-in-google-dns-performance/
+categories:
+- nerd
+tags:
+- DNS
+- IP
+- routing
+
+---
+**EDIT:**It looks like Google has recently starting peering in more places in AU with an anycast solution that fixes these issues.
+
+On a little side note to the tutorial series I've been writing up lately for building a ZFS fileserver. This one is about Why Google DNS is bad for your performance (well, depending on where you live)
+A real quick run down, we all know what DNS does yeah? It translates domains like www.scottyob.com into IP addresses like 112.140.183.97. A DNS server has a job of translating these domain names to the IP addresses we can use.
+
+{/* --- */}
+
+Now, when it comes to Google DNS, if you believe in the propaganda [http://code.google.com/speed/public-dns/](http://code.google.com/speed/public-dns/) where Google DNS is said to
+
+- [Speed up your browsing experience](http://code.google.com/speed/public-dns/docs/performance.html)
+- [Improve your Security.](http://code.google.com/speed/public-dns/docs/security.html)
+
+What google doesn't tell you is that it interferes with DNS servers that might try and give you a server that's close to your home. I've been using Google DNS for months here at home, but only just have I decided against using it, and I'll run through exactly what causes some performance issues.
+
+I was trying to watch a program on iView on TPG's internet connection. Now, TPG don't have the best international links on peak times, so I first started getting frustrated at them for not letting me watch my iView program with buffer lags on my 8Mbit plan. I checked my Signal to Noise ratio and dropped packets, etc.. it was fine. I checked the bandwith going out on my ppp interface on the router to see if I was maxing out the net connection at home, but nope, that was fine too, so the problem must have been with TPG.
+
+Looking at what was going on, I did a little traceroute to www.abc.net.au
+
+```
+traceroute: Warning: www.abc.net.au has multiple addresses; using 125.252.224.73
+traceroute to a1632.g.akamai.net (125.252.224.73), 64 hops max, 52 byte packets
+1 10.1.1.254 (10.1.1.254) 1.919 ms 1.260 ms 1.202 ms
+2 * * *
+3 202.7.173.17 (202.7.173.17) 27.056 ms 26.317 ms 26.693 ms
+4 syd-sot-ken-crt1-ge-5-1-0.tpgi.com.au (202.7.162.173) 26.283 ms 26.884 ms 26.100 ms
+5 ix-11-1-0-507.tcore2.tv2-tokyo.as6453.net (116.0.88.21) 153.325 ms 135.736 ms 126.568 ms
+6 if-14-0-0-1720.core1.tv2-tokyo.as6453.net (209.58.61.121) 1481.461 ms
+if-1-0-0-1715.core1.tv2-tokyo.as6453.net (209.58.61.125) 298.270 ms
+if-14-0-0-1720.core1.tv2-tokyo.as6453.net (209.58.61.121) 282.141 ms
+7 if-10-0-0-981.core3.hk2-hongkong.as6453.net (116.0.82.85) 208.232 ms
+if-5-0-0.core3.hk2-hongkong.as6453.net (116.0.82.1) 199.170 ms
+if-10-0-0-981.core3.hk2-hongkong.as6453.net (116.0.82.85) 206.027 ms
+8 vlan31.icore1.hk2-hongkong.as6453.net (116.0.82.18) 219.937 ms 204.963 ms 196.273 ms
+9 80.150.169.25 (80.150.169.25) 333.519 ms 306.138 ms 307.031 ms
+10 80.156.224.6 (80.156.224.6) 358.402 ms 320.029 ms 349.133 ms
+11 a125-252-224-73.deploy.akamaitechnologies.com (125.252.224.73) 332.188 ms 331.008 ms 314.833 ms
+```
+
+Looking at this traceroute, the first thing I thought was “Why on earth is ABC hosting it's website in hongkong (or so the traffic has to go via hongkong.)? Immediately reject ABC would do this and I blame TPG's stupid routing decisions.
+Looking at the IP address further [http://www.dnsstuff.com/tools/ipall/?tool_id=67&token=&toolhandler_redirect=0&ip=125.252.224.73](http://www.dnsstuff.com/tools/ipall/?tool_id=67&token=&toolhandler_redirect=0&ip=125.252.224.73) It looks like it's hosted in Singapore, and some googling shows akamaitechnologies is the web host for ABC.. ok, so what is going on here?
+
+then I did a little DIGging around on the ABC domain and check this out.
+
+Using Google DNS (8.8.8.8, hosted in America):
+```
+; <<>> DiG 9.6.0-APPLE-P2 <<>> www.abc.net.au @8.8.8.8
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 16084
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 0
+;; QUESTION SECTION:
+;www.abc.net.au. IN A
+;; ANSWER SECTION:
+www.abc.net.au. 882 IN CNAME www.abc.net.au.edgesuite.net.
+www.abc.net.au.edgesuite.net. 21581 IN CNAME a1632.g.akamai.net.
+a1632.g.akamai.net. 2 IN A 63.150.131.41
+a1632.g.akamai.net. 2 IN A 63.150.131.33
+;; Query time: 161 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Sun Jul 3 00:37:00 2011
+;; MSG SIZE rcvd: 135
+```
+And using TPG's DNS servers (203.12.160.35)
+
+```
+; <<>> DiG 9.6.0-APPLE-P2 <<>> www.abc.net.au @203.12.160.35
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 11673
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 0
+;; QUESTION SECTION:
+;www.abc.net.au. IN A
+;; ANSWER SECTION:
+www.abc.net.au. 523 IN CNAME www.abc.net.au.edgesuite.net.
+www.abc.net.au.edgesuite.net. 12274 IN CNAME a1632.g.akamai.net.
+a1632.g.akamai.net. 10 IN A 202.7.177.66
+a1632.g.akamai.net. 10 IN A 202.7.177.83
+;; Query time: 29 msec
+;; SERVER: 203.12.160.35#53(203.12.160.35)
+;; WHEN: Sun Jul  3 00:38:20 2011
+;; MSG SIZE  rcvd: 135
+```
+So there we go, hosted in Sydney Australia.. So how does the traceroute compare?
+
+```
+macshell:~ scott$ traceroute www.abc.net.au
+traceroute: Warning: www.abc.net.au has multiple addresses; using 202.7.177.83
+traceroute to a1632.g.akamai.net (202.7.177.83), 64 hops max, 52 byte packets
+1  10.1.1.254 (10.1.1.254)  1.711 ms  1.134 ms  1.100 ms
+2  * * *
+3  202.7.173.17 (202.7.173.17)  27.047 ms  26.072 ms  26.502 ms
+4  syd-sot-ken-ak2-83.tpgi.com.au (202.7.177.83)  26.540 ms  26.835 ms  26.540 ms
+```
+Different nameservers can be set up to resolve to different addresses based on geographic positioning, in more of a first in best dressed kind of effort.  So if you're using Google DNS servers (8.8.8.8), it so happens that because this is in America (check out their IP address, CA), then I started getting update servers and the like on DNS that were closest in latency terms to America then Sydney Australia.
+Simply by changing from Google DNS servers to my ISP's, I get healthier latency, and am no longer sending traffic over saturated overseas links.  So how does this compare with ABC iView?

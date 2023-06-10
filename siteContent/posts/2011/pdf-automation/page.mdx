@@ -1,0 +1,35 @@
+---
+title: PDF Automator in OSX
+author: scottyob
+type: post
+date: 2011-01-17T00:09:46+00:00
+url: /2011/01/16/pdf-automator-in-osx/
+categories:
+- nerd
+tags:
+- OSX
+hero: Merge_Duplex_PDFs.jpg
+---
+
+import img from "./Merge_Duplex_PDFs.jpg"
+
+As you may have been aware from my previous blog posts, I've been trying to make my life digital, that means any papers I get, I scan and file on a FileServer (with remote backups, etc, etc).
+
+My scanner at home has a document feeder on it. The problem is that it doesn't do duplex, only a set of sides. So far, I can scan one side of the document, flip the paper of, then scan the back pages. This will result two PDF's with two sets of pages
+```
+ Set A: 1,3,5,7
+ SET B: 8,6,4,2
+````
+{/* --- */}
+
+To merge the two, I could open them both up in Adobe PDF, Preview and start clicking and dragging my time away, but that's pointless. I'd like to introduce you to Automator in OSX.
+
+<img alt="screenshot" src={img.src} />
+
+Using a [pdftk binary for OSX](http://fredericiana.com/2010/03/01/pdftk-1-41-for-mac-os-x-10-6/) and the automator script above, all I need to do now is select my two pdf documents (Set A & B), right hand click, then select ‘Duplex Merge PDF's'. After that, I'll have a nice merged.pdf file on my desktop that's the resulting page.
+
+(the shell script uses pdftk to make a /tmp/2.pdf file that's a set 2,4,6,8. Copies the Set A to /tmp/1.pdf and then pipes it through some pdf tools built into OSX to merge the sets into 1,2,3,4.. etc
+
+Who needs to spend lots of money on a duplex scanner hey?
+
+ 

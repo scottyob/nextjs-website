@@ -1,0 +1,70 @@
+---
+title: Backup your site!
+author: scottyob
+type: post
+date: 2010-10-09T14:31:22+00:00
+url: /2010/10/09/backup-your-site/
+categories:
+  - nerd
+tags:
+  - backups
+
+---
+In my previous post I mentioned how I didn't back up or migrate any of my data before we stopped paying the hosting company, so it's all lost.
+
+This has me thinking how much of a shame it would be if I build a wealth of information or a blog that I can use to identify myself and my work, only to have it go if the machine it's hosted on dies. That would be bad, so this post is a short tutorial on how perform nightly backups of your website without you having to lift a finger.
+
+{/* --- */}
+
+## About
+This method uses [RSync](http://en.wikipedia.org/wiki/Rsync) to transfer files (including a dump of the database) to another machine so you've got a live backup should things turn pear shaped. In this short tutorial, we'll be transferring files from our *webhost* server to our *Backup* server.
+
+### Step 1. SSH RSA KEYS
+We will be using ssh to transfer, securely, the data between our two hosts. Because this is a scripted and automated method, we can't be there to type in a password each time we wish to run the backups. So we'll be using a RSA public/private key pair for secure authentication. This will allow us password-less authentication for ssh sessions, transferring files with scp, etc. 
+
+First, log in to the *webhost* where we can generate the local public and private keys.
+
+```
+$ ssh-keygen -t rsa
+```
+
+This will prompt you for a location to save the key and a passphrase, you can just enter past those and accept all the defaults.
+
+Our next step is to transfer the public key across to our backup server.
+
+```
+$ ssh-copy-id -i ~/.ssh/id_rsa.pub backupUser@backupserver.com
+```
+
+Site Note on using OSX or disto where you don't have ssh-copy-id.. This will work just as well
+
+```
+cat ~/.ssh/id_rsa.pub | ssh backups@backupserver.com &#8220;cat &#8211; >> ~/.ssh/authorized_keys&#8221;
+```
+
+This will prompt you for the login password for the host, then copy the keyfile for you, creating the correct directory and fixing the permissions as necessary.
+
+Now test to make sure you can log into the *backupserver* without requiring a password.
+
+### Step 2. Creating the backup script
+I made a backup script (backup.sh, me sure to "chmod u+x backup.sh" once it's been created) to run through these few backup procedures. The first step is to do a dump of the database to file. You could very well host an SQL server on the other side and mirror the database to get things up and running faster, but that was overkill for my needs.. Besides, always remember there are many ways to skin a cat and this one seemed to work nice for all intents and purposes.
+
+
+The backup script has two parts in it, basically do a dump of the database, then copy that over to the server as well as all the public_html or htdocs or where you put your public hosted files.
+
+```bash
+echo "Running backup script"
+echo "Running a dump of the database.."
+mysqldump user=scottyob password=somePassword all-databases > /var/www/scottyob.com/backup/database.dump #backup of database
+echo "Syncing the backup directory.."
+rsync -a -e ssh /var/www/scottyob.com/backup/ backups@backuphost.com:backups/<br />rsync -a -e ssh /var/www/scottyob.com/htdocs/ backups@backuphost.com:htdocs/
+echo "Backup made on " `date` >> /var/www/scottyob.com/backuplog.txt
+```
+
+And there you have it, a script to backup your website to a user on the server.
+
+
+### Step 3. Automated..ness
+
+This is no good for me unless it's automated. I just ran this script under a cron job to automate this procedure
+

@@ -1,0 +1,48 @@
+---
+title: Symfony not sortable in CRUD
+draft: true
+author: scottyob
+type: post
+date: 2011-01-01T12:15:37+00:00
+url: /2011/01/01/symfony-not-sortable-generate-admin-crud/
+categories:
+- nerd
+tags:
+- AdminGenerator
+- Symfony
+
+---
+
+I've recently come up across some problems with the CRUD generator in Symfony, so in case anyone is googling for a solution out there, I'll try and help you along (or at least bump up the page references to the articles that helped me 😉 )
+
+{/* --- */}
+
+I had a problem today where I was trying to use Symfony's (1.4) generate-admin [CRUD](http://en.wikipedia.org/wiki/Create,_read,_update_and_delete#User_interface) generator. The issue was that my titles were not sortable when adjusting the fields to display in the generator.yml file
+
+```text
+config:
+ actions: ~
+ fields: ~
+ list:
+ batch_actions: {}
+ object_actions: {}
+ display: [pin, **firstName**, **lastName**, location, institution]
+ filter:
+ display: [firstName, lastName]
+ form: ~
+ edit: {}
+ new: {}
+```
+
+The issue with the firstName and lastName fields is that, if written like **first_name** and **last_name** it will fail to become sortable. I found a solution as to why in a [blog post](http://oldforum.symfony-project.org/index.php/t/22636/) from a man with the same issue (Symfony 1.2)
+
+**Foreign keys not Sortable:**Another issue I had was where there is a foreign key in Symfony, the CRUD generator won't know how to make this sortable. I solved this by moving to [ahAdminGeneratorThemesPlugin](http://www.symfony-project.org/plugins/ahAdminGeneratorThemesPlugin) for the generate-admin modules.. Read the read-me in that guide and you'll be sweet! 🙂
+
+{/* --- */}
+
+**Also See**
+
+- An interesting post on doing more with the admin generator [http://blog.centresource.com/2010/01/13/code-that-saves-the-day-symfony-admin-generator/](http://blog.centresource.com/2010/01/13/code-that-saves-the-day-symfony-admin-generator/)
+- Jobeet Backend Modules page (Very useful) [http://www.symfony-project.org/jobeet/1_4/Doctrine/en/12](http://www.symfony-project.org/jobeet/1_4/Doctrine/en/12)
+
+
