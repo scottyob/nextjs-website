@@ -15,6 +15,7 @@ export interface PostFrontmatter {
   title: string;
   hero?: string;
   image?: string;
+  date: string;
 }
 
 export async function getAllPosts() {

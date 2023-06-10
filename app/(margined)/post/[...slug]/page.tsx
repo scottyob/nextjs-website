@@ -16,23 +16,28 @@ export default async function Post(props: PostProps) {
   );
   const meta = frontmatter as PostFrontmatter;
 
+  const date = new Date(meta.date);
+
   let hero = undefined;
   if (meta.hero != null) {
     const img = (
       await import(`/siteContent/posts/${props.params.slug.join('/')}/${meta.hero}`)
     ).default;
 
-    hero = <div className="not-prose">
-      <Image src={img} alt="Post picture" />
-    </div>;
+    hero = <Image src={img} alt="Post picture" className="m-auto mb-5" />;
   }
 
   return (
-    <article className="prose lg:prose-lg">
+    <article className="">
       <div className={articleFont.className + ' mb-9'}>
-        <h2>{meta.title}</h2>
+        <h2 className={titleFont.className + " text-2xl"}>{meta.title}</h2>
+        <div className="text-xs text-gray-400 italic mb-5">
+          Created: {date.toLocaleDateString()}
+        </div>
         {hero}
-        <Component />
+        <div className="prose lg:prose-lg">
+          <Component />
+        </div>
       </div>
     </article>
   );
