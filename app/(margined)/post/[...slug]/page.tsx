@@ -1,6 +1,10 @@
+import { getSinglePost } from '@/lib/mdx';
+import { getMDXComponent } from "mdx-bundler/client";
 import { PostFrontmatter, getAllPosts } from '@/lib/posts';
 import { DM_Sans, DM_Serif_Display } from 'next/font/google';
 import Image from "next/image";
+import React from 'react';
+import ClientMdxRenderer from '@/components/MdxRenderer.react';
 
 const titleFont = DM_Serif_Display({ weight: '400', subsets: ['latin'] });
 const articleFont = DM_Sans({ weight: '400', subsets: ['latin'] });
@@ -10,16 +14,18 @@ type PostProps = {
 };
 
 export default async function Post(props: PostProps) {
+  // Load up the MDX file
+  const slug = props.params.slug.join("/");
+  const post = await getSinglePost(slug);
+//  return <ClientMdxRenderer code={post.code} />;
+
   // Load up the MDX post
-  const { frontmatter, default: Component } = await import(
-    `/siteContent/posts/${props.params.slug.join('/')}/page.mdx`
-  );
-  const meta = frontmatter as PostFrontmatter;
+  const meta = post.frontmatter as PostFrontmatter;
 
   const date = new Date(meta.date);
 
   let hero = undefined;
-  if (meta.hero != null) {
+  if (!meta.hideHero && meta.hero != null) {
     const img = (
       await import(`/siteContent/posts/${props.params.slug.join('/')}/${meta.hero}`)
     ).default;
@@ -36,7 +42,7 @@ export default async function Post(props: PostProps) {
         </div>
         {hero}
         <div className="prose lg:prose-lg">
-          <Component />
+          <ClientMdxRenderer code={post.code} />
         </div>
       </div>
     </article>

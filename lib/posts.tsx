@@ -14,6 +14,7 @@ export interface Post {
 export interface PostFrontmatter {
   title: string;
   hero?: string;
+  hideHero?: boolean;
   image?: string;
   date: string;
 }
@@ -39,6 +40,7 @@ export async function getAllPosts() {
       title: m.data['title'],
       excerpt: m.excerpt || m.content,
       hero: m.data['hero'],
+      hideHero: m.data['hideHero'],
       date: m.data['date'],
       path: '/post/' + slug,
       slug

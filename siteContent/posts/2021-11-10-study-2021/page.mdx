@@ -8,8 +8,16 @@ tags:
  - woodwork
  - physical
 hero: reel/completed1.jpg
+hideHero: true
 ---
 import design from "./design.pdf"
+import a1_1 from "./reel/completed1.jpg";
+import a1_2 from "./reel/completed2.jpg";
+import a1_3 from "./reel/frame.jpg";
+import a1_4 from "./reel/image3.png";
+import a1_5 from "./reel/image4.png";
+import a1_6 from "./reel/image5.png";
+import ImageGallery from 'react-image-gallery';
 
 My partner and I recently started renting an old place in Palo Alto.  With COVID, we've been working from home for almost two years now, and sharing a desk at times things felt a little cramped (especially with the occsional electronics project).
 
@@ -19,4 +27,13 @@ I'm no expert in woodwork, so decided to 3D model it before building the desk.  
 
 Only thing I'd change if I were to do it again is the supporting plywood on each side.  If I had made them longer than the main surface, it could have also been used to support the side returns.  The frame is designed to butt up against the wall on each side to hold the desk steady.  The two support beams are then bolted together to hold it firmly. 
 
-TODO:  Galery for everything under reel
+<ImageGallery items={
+    [
+        a1_1,
+        a1_2,
+        a1_3,
+        a1_4,
+        a1_5,
+        a1_6,
+    ].map((img, i) => {return {original: img, thumbnail: img}})}
+/>

@@ -13,6 +13,7 @@ tags:
 - SRX
 - VMWare
 hero: New-Network.jpg
+hideHero: true
 ---
 
 import oldNetwork from "./Old-Network-1.jpg"
@@ -49,12 +50,12 @@ If you’re reading this, I’m guessing your current network topology looks som
 
 mine used to.  You have a single internet connection, single router/firewall, single switch and a bunch of hosts hanging from that switch.  In the event of a system failure, your system administrator (me in this case) will have to hop in a cab and rush to the server room to fix the problem.
 
-<img src={oldNetwork.src} alt="Old network topology" />
+<img src={oldNetwork} alt="Old network topology" />
 
 
 The goal with this tutorial is to attempt to help your administrators sleep at night.  We will eliminate every single point of failure such that in the event of a system outage/failure, the system can self recover with at most a minute of unscheduled down time.
 
-<img src={newNetwork.src} alt="Old network topology" />
+<img src={newNetwork} alt="Old network topology" />
 
 #### Physical Switches
 
@@ -126,11 +127,11 @@ The steps on configuring the vSwitch (virtual switch) are pretty simple. Virtual
 
 First, ensure that we have two NIC’s setup on our vSwitch.
 
-<img src={vSwitch.src} alt="vSwitch design" />
+<img src={vSwitch} alt="vSwitch design" />
 
 Next, look at the following configuration properties I’ve made to the NIC teaming information.  This basic configuration will ensure that when the link on vmnic0 is available (our active switch), it’ll use it.  When the link becomes unavailable, it will fail over to vmnic1.
 
-<img src={vSwitch2.src} alt="vSwitch config" />
+<img src={vSwitch2} alt="vSwitch config" />
 
 ##### Setting up border firewall’s
 
@@ -140,7 +141,7 @@ In my role, I replaced an active/backup GNU based firewall solution (backup bein
 
 Let me give a bit more detail to our new example network topology here in this example so you can gain a better idea of how these settings work.
 
-<img src={networkSetup.src} alt="Network topology" />
+<img src={networkSetup} alt="Network topology" />
 
 For the internal gateway address to fail over to the other switch should your link off Firewall1 die, You’ll want to make the following configuration
 

@@ -9,8 +9,6 @@ categories:
 hero: product_bulletin_cisco_catalyst_6509_enhanced_vertical_chassis-1.jpg
 ---
 
-import img from "./product_bulletin_cisco_catalyst_6509_enhanced_vertical_chassis-1.jpg";
-
 At the organisation I'm currently working for, we recently experienced [what appears to be a common issue](http://www.vspecialist.co.uk/do-my-esxi-hosts-have-the-same-vlans/), VLAN's trunked down to ESXi nodes were inconsistent.
 
 In our DC, we're still running the old school Cisco Catalyst switches.  If we were running a fabric, or Nexus switches [we could put port profiles to action](http://blog.alwaysthenetwork.com/tutorials/nexus-port-profiles/) or if we lucky enough to have some equipment running Junos ❤️  we could be [using apply-groups for this](http://packetpushers.net/junos-configuration-groups/).
@@ -20,7 +18,6 @@ In our DC, we're still running the old school Cisco Catalyst switches.  If we w
 Being stuck with 6500's in the DC as our L2 platform (and a VSS for the L3 MPLS PE) this is a quick little hack job to automate configuration changes across switchports in Cisco IOS based on dynamically finding ports that are matching an interface description.
 
 In our DC, we have a bunch of switches (defined at the top of this script) and all our switchports that go to ESXi switchports that should have this template applied are matched on the interface description containing ‘ESXHOST'
-<img src={img.src} alt="6509 chassis" />
 
 This relies on the [python EXScript module](https://github.com/knipknap/exscript/wiki/Python-API-Tutorial)
 

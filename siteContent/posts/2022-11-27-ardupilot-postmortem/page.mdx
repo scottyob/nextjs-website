@@ -22,6 +22,12 @@ import crashedServos from "./crashed_servos.jpg"
 import badServo from "./bad_servo.mp4"
 import logFile from "./log.bin"
 
+import baro_1 from "./baro/baro.jpg"
+import baro_2 from "./baro/baro_debugging.jpg"
+import baro_3 from "./baro/glue.jpg"
+
+import YouTube from "react-youtube"
+import ImageGallery from 'react-image-gallery';
 
 *A big thanks to those who helped from the [Ardupilot Forum](https://discuss.ardupilot.org/t/crash-postmortem-why-the-pitch-down/93666/13)*
 
@@ -52,11 +58,11 @@ The flight controller has a BMP280 barometer to measure the altitude quickly, an
 #### 1. Bad Altitude Readings Pre-Launch
 The first noteworthy item is that the altitude readings from the barometer and accelerometer are bogus.  I seem to be getting more realistic readings from the GPS.  Going forward, any screenshots will be from the GPS altitude.
 
-<video width="100%" loop="true" controls autoplay muted>
+<video width="100%" loop controls autoPlay muted>
     <source src={altitude} />
 </video>
 
-<img src={altitudeImg.src} alt="Altitude" />
+<img src={altitudeImg} alt="Altitude" />
 
 The altitude readings are super interesting here.  You can tell even before I launch the plane, the GPS altitude readings are between -13m and 0m.  Not sure what this altitude is (above sea level?  Above ground level?? Either way, this flight took place very nearly at sea level.)
 
@@ -68,31 +74,39 @@ As mentioned, the Ardupilot software uses a combination of an accelerometer, GPS
 On this flight controller, the barometer is on the bottom of the board.  It has a little tiny hole in it to allow pressure sensing.  In my 🤡'y install, this is covered by hot glue and velcro.
 
 While this didn't cause a crash, it shows that I didn't ground test the altitude, and any attempts at keeping altitude in autopilot mode may have been dangerous.
-TODO gallery baro
+
+
+<ImageGallery items={
+    [
+        baro_1,
+        baro_2,
+        baro_3,
+    ].map((img, i) => {return {original: img, thumbnail: img}})}
+/>
 
 
 #### 2. Launch
 
 The maiden launch itself in manual mode was nominal.  You can hear me saying "Good luck little plane".  It needed more than luck it seems!
-TODO Youtube "https://www.youtube.com/embed/D03_c0LWJhM"
+<YouTube videoId="D03_c0LWJhM" />
 
 #### 3. Fly-By-Wire Test
 
 At ~1 minute 22 seconds into the flight, I turned the flight mode from manual to [Fly by wire A](https://ardupilot.org/plane/docs/fbwa-mode.html), which should have had the effect of assisting the plane in straight line.  Looking at the radio stick input, I did not change the heading, but the autopilot sent this into a steep dive at this time.  A near miss where we avoided a crash here.
 
-<img src={fbw.src} alt="Fly by wire setup" />
+<img src={fbw} alt="Fly by wire setup" />
 
 
 ##### Reversed Elevator
-<img src={nosedive1.src} alt="Graph showing first nose dive" />
+<img src={nosedive1} alt="Graph showing first nose dive" />
 12:24 is interesting here. If we look at the time we engage the autopilot, we can see the pitch heading down into the ground, before our roll even begins to change.  It ends up to a point where it's almost completely nose down before we save it by switching to manual flight mode.
 
 ##### Root Cause
 
 What's interesting is that the pitch continues to fall, and the AETR elevator gets more and more positive.  Is it possible that we're trying to correct the nose down and instead making it worse?  Here I did NOT check how the autopilot responds on the ground, and I instead tested in manual mode, and adjusted the Servo Output functions to work.  I should have instead checked this in combination with the Radio Calibration reverse settings
 
-<img src={controllers.src} alt="Controllers" />
-<img src={servos.src} alt="Servos" />
+<img src={controllers} alt="Controllers" />
+<img src={servos} alt="Servos" />
 
 ### 4. Crash (elevator failure?)
 
@@ -106,14 +120,14 @@ This event makes me believe that I had an elevator failure during the flight. In
 * After loosing much altitude, in a panic, RTL is engaged
 * Plane starts pitching nose down further once RTL is engaged (reversed elevator theory?) causing the epic crash with almost full speed, full nose down
 
-<video width="100%" controls autoplay muted>
+<video width="100%" controls autoPlay muted>
     <source src={crash} />
 </video>
 
 Upon inspection, the suspected failed elevator servo is the one shown in black here.  When moving the control horns without power, I noticed that it slipped.  It's possible it could have slipped in flight causing the loss of the ability to pitch up.  It's also possible that the 915mhz SIK radio I was flying with for telemetry interfered with the servo (they do twitch then they're close, but I had thought I had moved this far enough away).  I guess we'll never truly know!
 
-<img src={crashedServos.src} alt="Crashed servos" />
-<video width="100%" controls autoplay loop muted>
+<img src={crashedServos} alt="Crashed servos" />
+<video width="100%" controls autoPlay loop muted>
     <source src={badServo} />
 </video>
 

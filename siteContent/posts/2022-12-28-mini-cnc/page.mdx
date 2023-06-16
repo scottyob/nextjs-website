@@ -13,7 +13,7 @@ tags:
 hero: logo.jpg
 
 ---
-import img from "./chatgpt.jpg"
+import YouTube from "react-youtube"
 
 After [crashing my RC Plane](/post/ardupilot-postmortem/) I decided to experiment with the flight controller using the cheapest possible RC planes I could build.
 
@@ -27,11 +27,11 @@ I want a CNC machine to do either laser cutting or sawing to save this time.  I 
 
 When it comes to measuring position, there are a few options.  ChatGPT says:
 
-<img src={img.src} />
+![Chat GPT](./chatgpt.jpg)
 
 My goal is to attempt to do this with just a Vision System:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/kP53Sx1OHHE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<YouTube videoId="kP53Sx1OHHE" />
 
 ### Computer Vision with OpenCV
 
@@ -42,8 +42,7 @@ My hope was that I could use OpenCV’s ArUco markers to perform the vision syst
 * [Measure Script](https://gist.github.com/scottyob/331027d9f06431d32395281d47b5f27b)
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/r8fBJO7SEhI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+<YouTube videoId="r8fBJO7SEhI" />
 
 After taking a heap of frames from the camera, the distance was terribly inaccurate.
 

@@ -12,7 +12,7 @@ tags:
 - network
 - routing
 hero: IMG_0121-full.jpg
-
+hideHero: true
 ---
 
 import img from "./IMG_0121-full.jpg"
@@ -26,7 +26,7 @@ The first step is to get my router set up. The router I’m using is a little �
 
 {/* --- */}
 
-<img alt="server" src={img.src} />
+<img alt="server" src={img} />
 
 I’ve put my router in bridge mode (so it just acts as a layer two modem/bridge) and let my router then establish a pppoe session with my ISP and do all the routing with iptables (I’ve got to update my firewall script and services running on the box and post up the how-to’s later on for that.) Now the little crappy d-link thing doesn’t fall over and die when torrenting (the router will do all the routing and torrenting without hogging up entries in the NAT table is always a good thing)
 
@@ -51,12 +51,12 @@ I’m not terribly worried at the moment if someone hacks in, they can steal som
 
 As I’ve already said, the way I’m lessening my fear of these security problems is by splitting my network into trusted and not so trusted zones.
 
-<img alt="Router config" src={routerConfig.src} />
+<img alt="Router config" src={routerConfig} />
 
-<img alt="network map" src={networkMap.src} />
+<img alt="network map" src={networkMap} />
 
 User Isolation security means that the wireless clients won’t be able to see each other on the network. I’ll allow traffic too and from certain devices on the trusted network (the printer for instance.) but to gain access to any of my secure boxes (Fileserver, other workstations) then wireless clients will have to first connect through WEP, then establish a secured VPN connection into the trusted zone. With this setup, even if someone breaks into my WiFi, good on them, they get crippled net (I might cripple WiFi net bandwidth to the net, not decided yet) and access to.. well, my printer again *sigh*
 
-<img alt="network stack" src={networkStack.src} />
+<img alt="network stack" src={networkStack} />
 Network stack lol!
 

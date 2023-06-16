@@ -7,6 +7,7 @@ url: /2012/06/03/easily-accessing-geoip-restricted-sites-in-your-network/
 categories:
 - nerd
 hero: Network-Config.jpg
+hideHero: true
 ---
 
 import img from "./Network-Config.jpg"
@@ -17,7 +18,7 @@ This solution will tunnel only the sites you want over a VPN connection to be 
 
 {/* --- */}
 
-<img src={img.src} alt="Network Config" />
+<img src={img} alt="Network Config" />
 
 First we want to set up OpenVPN on the remote host by issuing “openvpn –genkey –secret static.key” then creating a file in (/etc/openvpn/server.conf)
 ```

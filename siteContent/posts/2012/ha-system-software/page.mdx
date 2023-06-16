@@ -13,6 +13,7 @@ tags:
 - NFS
 - Nginx
 hero: Heartbeat-1.jpg
+hideHero: true
 ---
 
 import oldNetwork from "./Old-Network-1.jpg";
@@ -26,7 +27,7 @@ It’s all good having a redundant network design, but putting web servers and t
 
 {/* --- */}
 
-<img src={oldNetwork.src} alt="Old Netowrk" />
+<img src={oldNetwork} alt="Old Netowrk" />
 
 In this example, I’m going to talk about a few pretty cool pieces of software that you can use to make a highly available (HA) service stack for hosting Apache web sites from a MySQL data store.  This post isn’t going to be about all the in’s and out’s of how to accomplish, but hopefully it will answer some questions you might have when setting out to accomplish this task as well as point you to the appropriate articles to help you achieve what you’re after.
 
@@ -34,19 +35,19 @@ In this example, I’m going to talk about a few pretty cool pieces of software 
 
 Lets look first at an example of a previous example.  Lets take a simple network where we have a web server with a client.  The A record for www.example.com points to our web server at 192.168.0.10 (of course we’d use NAT on the firewalls in my example to expose it to the internet).
 
-<img src={skitched3.src} alt="Old Example" />
+<img src={skitched3} alt="Old Example" />
 
 From my previous post, we can tell that the network topology to reach our web server on 192.168.0.10 is highly redundant, if the server itself, or the physical machine it’s hosted on in the case of virtual machines does die, we can no longer serve web pages.
 
 To solve this problem, we’re going to create multiple web servers. The A record for www.example.com is now no longer going to be pointing to the web server itself, but a proxy server (I recommend [Nginx](http://wiki.nginx.org/Configuration).) Now you can see that if either web server dies, our proxy server is able to start handing out requests through the other server. This method is also recommended because it mitigates load from a single server. If your web site got more popular, we can just start scaling out and adding more web servers into the mix to handle the load. Now, I know what you’re thinking, and yes, we have just moved the single point of failure from the web server to the proxy server, but please read on to find out how to protect that host from failure.
 
-<img src={proxyServer.src} alt="Proxy server" />
+<img src={proxyServer} alt="Proxy server" />
 
 #### Heartbeat, keep your servers beating
 
 In the previous example, we had a server that was a single point of failure.  If the proxy server in this case died, then our web site would go down.  To plan against the failure of this machine, you can set up a tool such as [Heartbeat](http://www.howtoforge.com/high_availability_heartbeat_centos).  An example works like the following, your proxy server above is running the Nginx daemon handling your client’s requests, but it does so using a virtual network adaptor where it’s IP address 192.168.0.10 sits.  You put a second server in here in the mix with the same Nginx daemon and the same configuration, but it’s not running or serving anything, this is known as our slave server.  The slave server is sending heartbeat messages to the master server.  In the event that the master server stops responding to the slave’s heartbeat messages, it assumes the master is down and will create a virtual adaptor assuming the working IP address (192.168.0.10 in our example) and brings up the master services.
 
-<img src={heartbeat.src} alt="Heartbeat" />
+<img src={heartbeat} alt="Heartbeat" />
 
 I use heartbeat extensively through my HA configurations. Not only for allowing services to be taken up by a slave in the event of a master failure, but also where I have clusters (for example, a MySQL cluster). When the slave assumes the master’s IP address, it’s handy to write a little script/service here to stop any replication and assume the master’s role.
 

@@ -9,6 +9,7 @@ categories:
 tags:
 - OSX
 hero: Merge_Duplex_PDFs.jpg
+hideHero: true
 ---
 
 import img from "./Merge_Duplex_PDFs.jpg"
@@ -24,7 +25,7 @@ My scanner at home has a document feeder on it. The problem is that it doesn't d
 
 To merge the two, I could open them both up in Adobe PDF, Preview and start clicking and dragging my time away, but that's pointless. I'd like to introduce you to Automator in OSX.
 
-<img alt="screenshot" src={img.src} />
+<img alt="screenshot" src={img} />
 
 Using a [pdftk binary for OSX](http://fredericiana.com/2010/03/01/pdftk-1-41-for-mac-os-x-10-6/) and the automator script above, all I need to do now is select my two pdf documents (Set A & B), right hand click, then select ‘Duplex Merge PDF's'. After that, I'll have a nice merged.pdf file on my desktop that's the resulting page.
 

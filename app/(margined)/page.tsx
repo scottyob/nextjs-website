@@ -3,7 +3,6 @@ import { getAllPosts } from '@/lib/posts';
 
 export default async function Home() {
   const posts = (await getAllPosts()).map((p, i) => {
-    console.log(`Doing ${p.path}`)
     const imagePlacement = i % 2 == 0 ? 'left' : 'right';
 
     // @ts-expect-error Server Component

@@ -13,8 +13,6 @@ tags:
 hero: f9b7b2fc.screenshot.jpg
 ---
 
-import img from "./f9b7b2fc.screenshot.jpg"
-
 At UOW we had a challenge.  We wanted to allow proxy-free internet, but wanted to keep an eye on how much data was being consumed by what sort of users.  For this we built Project Herbert [http://uowits.github.io/herbert-gui/docs.html](http://uowits.github.io/herbert-gui/docs.html).
 
 It uses netflow from inside our network and some syslog monitoring scripts to match up our private RFC1918 address space to the users who have it at that time, process the flows in near-realtime so we can adjust throttling and firewall policy to be reactive with the environment.
@@ -23,4 +21,3 @@ The idea was to build this as a distributed system and allow it to scale-out to 
 
 {/* --- */}
 
-<img src={img.src} alt="Traffic Attribution Project" />

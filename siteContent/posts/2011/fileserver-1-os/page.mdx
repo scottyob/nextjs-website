@@ -10,6 +10,7 @@ tags:
 - fileserver
 - ZFS
 hero: image.png
+hideHero: true
 ---
 
 import img from "./image.png"
@@ -68,7 +69,7 @@ From this point on, that concludes the base setup with networking that I’m usi
 Setting up the storage pool
 
 Now we can get into the fun part. The first thing I want to do with this server is be able to store my data on it, so lets set up our storage pool. In my VM I’m using to test this I’ve added the disks I want to include in my pool (1GB disks for this test)
-<img src={img.src} />
+<img src={img} />
 
 Once we’ve booted out VM (first thing I always do is ‘sudo bash’ because I’m evil in these silly little test environments).
 I want to find out the device ID’s for these hard disks I just added
