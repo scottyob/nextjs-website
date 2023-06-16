@@ -13,7 +13,7 @@ tags:
 hero: logo.jpg
 
 ---
-import YouTube from "react-youtube"
+import YouTube from '@u-wave/react-youtube';
 
 After [crashing my RC Plane](/post/ardupilot-postmortem/) I decided to experiment with the flight controller using the cheapest possible RC planes I could build.
 
@@ -31,7 +31,7 @@ When it comes to measuring position, there are a few options.  ChatGPT says:
 
 My goal is to attempt to do this with just a Vision System:
 
-<YouTube videoId="kP53Sx1OHHE" />
+<YouTube width="100%" height="400px" video="kP53Sx1OHHE" />
 
 ### Computer Vision with OpenCV
 
@@ -42,7 +42,7 @@ My hope was that I could use OpenCV’s ArUco markers to perform the vision syst
 * [Measure Script](https://gist.github.com/scottyob/331027d9f06431d32395281d47b5f27b)
 
 
-<YouTube videoId="r8fBJO7SEhI" />
+<YouTube width="100%" height="400px" video="r8fBJO7SEhI" />
 
 After taking a heap of frames from the camera, the distance was terribly inaccurate.
 

@@ -29,6 +29,7 @@ export const getSinglePost = async (slug: string) => {
     },
     esbuildOptions: options => {
       options.outdir = path.join(process.cwd(), "public", imagesUrl);
+      options.target = "es6";
       options.platform = "node";
       // options.target = "es5";
       options.loader = {
