@@ -29,7 +29,7 @@ export default function Navbar() {
   return (
     <ul
       className={[
-        'flex flex-wrap justify-center space-x-2 text-gray-400 italic pt-3 max-w-full',
+        'flex flex-wrap justify-center space-x-2 text-gray-400 italic pt-3 max-w-full mb-8',
         exo_2.className
       ].join(' ')}
     >
@@ -43,7 +43,10 @@ export default function Navbar() {
         <Link href="/about">About</Link>
         {pathname.startsWith('/about') ? selected : unselected}
       </li>
-      <li className={liClass}>Bucket List{unselected}</li>
+      <li className={liClass}>
+        <Link href="/bucketlist">Bucket List</Link>
+        {pathname.startsWith('/bucketlist') ? selected : unselected}
+      </li>
       <li className={liClass}>
         <Link href="/recipes">Cooking</Link>
         {pathname.startsWith('/recipes') ? selected : unselected}

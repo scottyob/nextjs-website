@@ -22,12 +22,12 @@ export default async function Article(props: Props) {
     ).default;
 
     hero = <div className="not-prose">
-      <Image width={240} src={img} alt="Post picture" className={floatCls + " p-4 pb-0 pt-0 mb-0"} />
+      <Image src={img} alt="Post picture" className={floatCls + " p-4 pb-0 pt-0 mb-0 w-[165px] sm:w-[240px]"} />
     </div>;
   }
 
   return (
-    <div className="pb-12 clear-both overflow-auto">
+    <div className="pb-12 clear-both overflow-auto mb-8">
       <h2 className={titleFont.className + ' text-2xl'}>
         <Link href={props.post.path}>{props.post.title}</Link>
       </h2>

@@ -40,6 +40,7 @@
     "plotly.js": "^2.23.2",
     "postcss": "8.4.23",
     "prettier": "^2.8.8",
+    "pretty-modal": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-gist": "^1.2.4",
