@@ -29,7 +29,7 @@ export default function FlightTable(props: { flights: Flight[] }) {
         <td className="px-5 py-4 hidden lg:table-cell whitespace-nowrap">
           {r.wing}
         </td>
-        <td className="px-5 py-4">{r.comments}</td>
+        <td className="px-5 py-4">{r.commentsTruncated}</td>
       </tr>
     );
   });

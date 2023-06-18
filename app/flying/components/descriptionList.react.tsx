@@ -24,7 +24,7 @@ export default function DescriptionList(props: { flights: Flight[] }) {
       comments = (
         <div className="grid grid-cols-1">
           <Header>Comments</Header>
-          <Content className="p-1 pt-0">{r.comments}</Content>
+          <Content className="p-1 pt-0">{r.commentsTruncated}</Content>
         </div>
       );
     }

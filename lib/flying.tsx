@@ -29,6 +29,7 @@ export interface Flight {
   altitudeGainMeters?: number;
   fileName?: string;
   comments?: string;
+  commentsTruncated?: string;
 
   /*
    * Additional information from launch database (or manual CSV)
@@ -54,6 +55,22 @@ export type Launch = {
 
 // Cache of all the flights in the database
 let flights: Flight[] = [];
+
+function truncateComments(comments: string, maxLength: number): string {
+  if (comments.length <= maxLength) {
+    return comments;
+  }
+
+  const truncatedText = comments.substring(0, maxLength);
+  const lastSpaceIndex = truncatedText.lastIndexOf(' ');
+
+  if (lastSpaceIndex !== -1) {
+    return truncatedText.substring(0, lastSpaceIndex) + '...';
+  }
+
+  return truncatedText + '...';
+}
+
 
 // Gets flights from google docs
 async function getSpreadsheetFlights(): Promise<Flight[]> {
@@ -242,6 +259,9 @@ async function populateFlights() {
   flights.sort((a, b) => a.launchTime - b.launchTime);
   flights.forEach((f, i) => {
     f.number = i + 1;
+    if (f.comments !== undefined) {
+      f.commentsTruncated = truncateComments(f.comments, 100);
+    }
   });
   // Sort from most recent first
   flights = flights.reverse();
