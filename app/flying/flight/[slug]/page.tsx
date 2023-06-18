@@ -89,7 +89,7 @@ export default async function Page(props: Props) {
         {flight.comments && (
           <>
             <strong>Comments:</strong>
-            <div id="comments">{flight.comments}</div>
+            <div id="comments" className="prose">{flight.comments}</div>
           </>
         )}
       </section>

@@ -1,22 +1,81 @@
 import Item from "./Item.react"
+import YouTube from "@/components/YouTube.react"
+import Image from "next/image"
+
+import lava from "./img/lava.jpg"
+import glider from "./img/glider.jpg"
+
+<title>The Bucket List</title>
 
 ## The Bucket List
 
-The bucket list was started back in Feburary, 2013.  The idea is to create a list of all the things that I'd like to accomplish and experience over the years.
+The bucket list was started back in February, 2013.  The idea is to create a list of all the things that I'd like to accomplish and experience over the years.
 
 I hope this list being in a public place will want people to experience these with me.  This list is ever growing, shrinking, and changing (and yes, was inspired by the movie)
 
 ### Outstanding
 <ul>
-  <Item title="Scuba dive the Great Barrier Reef" />
+  <Item title="Scuba dive the Great Barrier Reef">
+    This one is kind of funny.  Things that are so close to your doorstep you don't tend to do.
+    I'm now half way around the world and this will likely be the "Good Barrier Reef" before I get a chance to do it.
+  </Item>
+  <Item title="Paramotor Horseshoe Bend">
+    I'd need to learn to Paramotor first.
+
+    Paragliding is definitely a passion these days.  This looks amazing though!
+    <YouTube videoId="p9Ltv5S-qKk" />
+  </Item>
   <Item title="Picnic under a tree watching clouds from above">
-      This one is going to seem silly
+      This one is going to seem silly.  I'd like it to be a very low cloud day, so we can watch the clouds rise, looking like big marshmallows from above while relaxing with a picnic rug, under a tree, for hours.
+  </Item>
+  <Item title="Learn to Kite Surf" />
+  <Item title="See something majestic" />
+  <Item title="Ski down a double black run at Perisher (confidently)" />
+  <Item title="Learn Flight of the Bublebee on Piano">
+    It's hard..
+    <YouTube videoId="QZWW5xG_1wM" />
+  </Item>
+  <Item title="Write a piece of music I'm very proud of" />
+  <Item title="See flowing lava">
+    Bethany and I got to see flowing lava at the Halemaʻumaʻu crater in Hawaii. This was just before the 2018 eruptions, so got lucky with our timing. Due to there not being flowing lava at the time, we only saw this from afar. I would very much like to keep this on the bucket list in hope of one day seeing it free-flowing up close.
+    <Image src={lava} />
+  </Item>
+  <Item title="Visit the Maldives (Nathan Hu recommends Tahiti instead)" />
+  <Item title="Maintain a bee hive" />
+  <Item title="Snow Mobile">
+    Maybe try <a href="https://laketahoesnowmobile.com/book-your-tour-now/">this?</a>
   </Item>
 </ul>
+
+### Paragliding bucket list
+- Get to 15,000 ft of altitude
+- Mission to Ed and back
+
+### Completed Paragliding Bucket List
+- Cove Club
+- Mission to Ed Levin
 
 ### Completed
 <ul>
   <Item title="White water rafing down a river">
-      This is some content about this item
+    Story and photo to go here
+  </Item>
+  <Item title="Sky Diving (done twice, Completed last in 2012)" />
+  <Item title="Skydive Solo (completed late 2013)" />
+  <Item title="Hang Gliding (completed 20th December, 2012)" />
+  <Item title="CCNA Certified (Completed early 2012)" />
+  <Item title="Fly a plane (Completed early 2012)">
+    This one is interesting.  Something I always wanted to do.  I've been very fortunante to have had a number of pilot friends let me take controls over the years.  It's amazing, but, far too expensive for me to want to pick up.  I'll stick with Paragliding 
+  </Item>
+  <Item title="Fly a glider">
+    Got to complete it on November 2018. Went with Sam, Nick and Jay and did a lesson day at Hollister. Loved it, but far too expensive as a hobby. I'm very much into Paragliding now as a cheaper source of flying the skies
+    <Image src={glider} />
   </Item>
 </ul>
+
+### Challenges
+A new life goal is to set and try and achieve a little challenge every year. Past challenges have been as follows. I don’t tend to do these any more 😥
+
+- 2012 - NO coffee
+- 2013 - Enter a gym at least 2 days a week
+- 2014 - Learn [Pirates of the Caribbean](https://www.youtube.com/watch?v=n4JD-3-UAzM) (Jarrod Radnich Version)

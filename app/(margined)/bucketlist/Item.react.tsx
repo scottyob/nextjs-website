@@ -30,9 +30,10 @@ export default function Item(props: Props) {
       </div>
       {props.children}
     </Modal>
-    <a href="" onClick={(event) => { setIsOpen(true); event.preventDefault(); }}>
-      <li>{title}</li>
-    </a>
+    <li>{title}{" "}
+      <a href="" onClick={(event) => { setIsOpen(true); event.preventDefault(); }}>...
+      </a>
+    </li>
 
   </>
 

@@ -14,22 +14,28 @@ export default function HoursBySite(props: HoursByLocationProps) {
 
   // Grouping data by location and year
   const groupedData: { [location: string]: { [year: number]: number } } = {};
+  const timeByLocation: { [location: string]: number } = {};
   flights.forEach((f) => {
     const location = f.location ?? 'Unknown';
     const year = new Date(f.date).getFullYear();
 
     if (!groupedData[location]) {
       groupedData[location] = {};
+      timeByLocation[location] = 0;
     }
     if (!groupedData[location][year]) {
       groupedData[location][year] = 0;
     }
     // Seconds to hours
-    groupedData[location][year] += (f.durationSeconds ?? 0) / 60 / 60;
+    const hrs = (f.durationSeconds ?? 0) / 60 / 60;
+    groupedData[location][year] += hrs;
+    timeByLocation[location] += hrs;
   });
 
   // Extracting locations and years
   const locations = Object.keys(groupedData);
+  locations.sort((a, b) => { return timeByLocation[b] - timeByLocation[a] });
+
   const years = Array.from(
     new Set(flights.map((entry) => new Date(entry.date).getFullYear()))
   ).sort();
