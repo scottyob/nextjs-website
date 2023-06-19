@@ -21,6 +21,11 @@ jobs:
           cache: "npm"
 
       - name: Build
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          CLIENT_EMAIL: ${{ vars.CLIENT_EMAIL }}
+          CLIENT_ID: ${{ vars.CLIENT_ID }}
+          PROJECT_ID: ${{ vars.PROJECT_ID }}
         run: |
           npm i --force
           npm run build
