@@ -79,13 +79,13 @@ async function getSpreadsheetFlights(): Promise<Flight[]> {
   const auth = new google.auth.GoogleAuth({
     credentials: {
       private_key: Buffer.from(
-        process.env.private_key as string,
+        process.env.PRIVATE_KEY as string,
         'base64'
       ).toString(),
-      client_email: process.env.client_email,
-      client_id: process.env.client_id
+      client_email: process.env.CLIENT_EMAIL,
+      client_id: process.env.CLIENT_ID
     },
-    projectId: process.env.project_id,
+    projectId: process.env.PROJECT_ID,
     scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly']
   });
 
