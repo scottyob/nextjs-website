@@ -13,7 +13,6 @@ const nextConfig = {
   // Configure pageExtensions to include md and mdx
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: true,
-  assetPrefix: isProd ? '/nextjs-website/' : '',
 
   // Experimental mdxRs needs to be OFF to work with remarkFrontmatter
   // plugin to be able to strip the Frontmatter.
