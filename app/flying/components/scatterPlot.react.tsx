@@ -36,12 +36,20 @@ export default function ScatterPlot(props: { flights: Flight[] }) {
     x: flights.map((f) => f.date),
     y: durations,
     text: flights.map(
-      (f) => `
-      <b>${humanFlightTime(f)}</b><br />
-      Flight: ${f.number}<br />
-      ${f.location}<br />
-      <i>${f.launchName}</i>
-    `
+      (f) => {
+        let hover = `
+          <b>${humanFlightTime(f)}</b><br />
+          Flight: ${f.number}<br />
+          ${f.location}<br />
+          <i>${f.launchName}</i>
+          `
+        if(f.commentsTruncated) {
+          hover += `
+            <br /><br />${f.commentsTruncated}
+          `
+        }
+        return hover;
+      }
     ),
     hovertemplate: '%{text}'
   };

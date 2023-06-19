@@ -45,7 +45,6 @@ export async function generateStaticParams() {
     }
     location = location.replace(' ', '-');
 
-    console.log('Location', location);
     return { slug: location };
   });
 }

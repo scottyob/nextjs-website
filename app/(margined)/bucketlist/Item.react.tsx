@@ -28,7 +28,9 @@ export default function Item(props: Props) {
           X
         </button>
       </div>
-      {props.children}
+      <div className='max-w-2xl prose'>
+        {props.children}
+      </div>
     </Modal>
     <li>{title}{" "}
       <a href="" onClick={(event) => { setIsOpen(true); event.preventDefault(); }}>...
