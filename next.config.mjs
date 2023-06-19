@@ -3,11 +3,17 @@ import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 import nextMdx from '@next/mdx'
 
 
+// For setting up on Github Pages
+// https://github.com/gregrickaby/nextjs-github-pages
+
+const isProd = process.env.NODE_ENV === 'production'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Configure pageExtensions to include md and mdx
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: true,
+  assetPrefix: isProd ? '/nextjs-website/' : '',
 
   // Experimental mdxRs needs to be OFF to work with remarkFrontmatter
   // plugin to be able to strip the Frontmatter.
