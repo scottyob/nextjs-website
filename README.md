@@ -21,3 +21,4 @@ client_id=
 * get page x/y working
 * taxonomy
 * RSS feed
+* Look to add a heatmap [like this](https://cal-heatmap.com/docs/showcase)

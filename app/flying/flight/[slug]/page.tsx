@@ -5,6 +5,7 @@
 import ClientMdxRenderer from '@/components/MdxRenderer.react';
 import { GetFlights } from '@/lib/flying';
 import { getSingleFlight } from '@/lib/mdx';
+import { Duration } from 'luxon';
 import tw from 'tailwind-styled-components';
 
 const Header = tw.td`text-xd font-medium text-gray-700 pr-4`;
@@ -27,7 +28,7 @@ export default async function Page(props: Props) {
     commentsCode = flightMdx.code;
   }
 
-  // Link to the file name if there's an IGC file for this
+  const duration = Duration.fromMillis((flight?.durationSeconds ?? 0) * 1000);
 
 
   return (
@@ -56,7 +57,7 @@ export default async function Page(props: Props) {
               </tr>
               <tr>
                 <Header>Duration:</Header>
-                <Value>{flight.durationSeconds}</Value>
+                <Value>{duration.toFormat('hh:mm')}</Value>
               </tr>
               <tr>
                 <Header>Launch:</Header>

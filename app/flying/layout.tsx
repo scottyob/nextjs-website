@@ -5,7 +5,7 @@ export default function MarginLayout({
   children: React.ReactNode;
 }) {
   return <>
-    <title>Flying - Scott O'Brien</title>
+    <title>{"Flying - Scott O'Brien"}</title>
     <div className="max-w-full self-center mt-7 pl-2 pr-2">{children}</div>
   </>;
 }
