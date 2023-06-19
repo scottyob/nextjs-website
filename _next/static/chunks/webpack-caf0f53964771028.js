@@ -151,7 +151,7 @@
 /******/ 		// This function allow to reference all chunks
 /******/ 		__webpack_require__.miniCssF = function(chunkId) {
 /******/ 			// return url for filenames based on template
-/******/ 			return "static/css/" + {"185":"3e9b3a0481517a1f","417":"401b22ca9d657229","534":"2a6e5ad2919d26f7","639":"401b22ca9d657229","726":"401b22ca9d657229"}[chunkId] + ".css";
+/******/ 			return "static/css/" + {"185":"0d26c7c4f71e78d1","417":"99e3bcfff854f17e","534":"b5ef6c0ef379d6b8","639":"99e3bcfff854f17e","726":"99e3bcfff854f17e"}[chunkId] + ".css";
 /******/ 		};
 /******/ 	}();
 /******/ 	
@@ -252,7 +252,7 @@
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	!function() {
-/******/ 		__webpack_require__.p = "/nextjs-website/_next/";
+/******/ 		__webpack_require__.p = "/_next/";
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */

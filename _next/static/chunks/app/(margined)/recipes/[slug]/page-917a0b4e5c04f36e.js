@@ -13,7 +13,7 @@ Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_
 /***/ (function(module) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"style":{"fontFamily":"'__DM_Sans_4c5bd0', '__DM_Sans_Fallback_4c5bd0'","fontWeight":400,"fontStyle":"normal"},"className":"__className_4c5bd0"};
+module.exports = {"style":{"fontFamily":"'__DM_Sans_2e19ce', '__DM_Sans_Fallback_2e19ce'","fontWeight":400,"fontStyle":"normal"},"className":"__className_2e19ce"};
 
 /***/ }),
 
@@ -21,7 +21,7 @@ module.exports = {"style":{"fontFamily":"'__DM_Sans_4c5bd0', '__DM_Sans_Fallback
 /***/ (function(module) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"style":{"fontFamily":"'__DM_Serif_Display_aff5e3', '__DM_Serif_Display_Fallback_aff5e3'","fontWeight":400,"fontStyle":"normal"},"className":"__className_aff5e3"};
+module.exports = {"style":{"fontFamily":"'__DM_Serif_Display_59b087', '__DM_Serif_Display_Fallback_59b087'","fontWeight":400,"fontStyle":"normal"},"className":"__className_59b087"};
 
 /***/ })
 

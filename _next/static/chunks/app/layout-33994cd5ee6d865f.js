@@ -116,7 +116,7 @@ function Navbar() {
 /***/ (function(module) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"style":{"fontFamily":"'__Capriola_1eed3e', '__Capriola_Fallback_1eed3e'","fontWeight":400,"fontStyle":"normal"},"className":"__className_1eed3e"};
+module.exports = {"style":{"fontFamily":"'__Capriola_baad2a', '__Capriola_Fallback_baad2a'","fontWeight":400,"fontStyle":"normal"},"className":"__className_baad2a"};
 
 /***/ }),
 
@@ -124,7 +124,7 @@ module.exports = {"style":{"fontFamily":"'__Capriola_1eed3e', '__Capriola_Fallba
 /***/ (function(module) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"style":{"fontFamily":"'__Inter_dba512', '__Inter_Fallback_dba512'","fontStyle":"normal"},"className":"__className_dba512"};
+module.exports = {"style":{"fontFamily":"'__Inter_0ec1f4', '__Inter_Fallback_0ec1f4'","fontStyle":"normal"},"className":"__className_0ec1f4"};
 
 /***/ }),
 
@@ -132,7 +132,7 @@ module.exports = {"style":{"fontFamily":"'__Inter_dba512', '__Inter_Fallback_dba
 /***/ (function(module) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"style":{"fontFamily":"'__Exo_2_54cce4', '__Exo_2_Fallback_54cce4'","fontWeight":500,"fontStyle":"italic"},"className":"__className_54cce4"};
+module.exports = {"style":{"fontFamily":"'__Exo_2_6cf34a', '__Exo_2_Fallback_6cf34a'","fontWeight":500,"fontStyle":"italic"},"className":"__className_6cf34a"};
 
 /***/ }),
 
