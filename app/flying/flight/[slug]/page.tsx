@@ -2,7 +2,9 @@
  * Shows a summary page for a flight
  */
 
+import ClientMdxRenderer from '@/components/MdxRenderer.react';
 import { GetFlights } from '@/lib/flying';
+import { getSingleFlight } from '@/lib/mdx';
 import tw from 'tailwind-styled-components';
 
 const Header = tw.td`text-xd font-medium text-gray-700 pr-4`;
@@ -17,6 +19,16 @@ export default async function Page(props: Props) {
 
   const flights = await GetFlights();
   const flight = flights.filter((f) => f.number?.toString() == flightNo)[0];
+
+  // Allow us to display mdx based comments
+  let commentsCode = undefined;
+  if (flight.commentsFileName) {
+    const flightMdx = await getSingleFlight(flight);
+    commentsCode = flightMdx.code;
+  }
+
+  // Link to the file name if there's an IGC file for this
+
 
   return (
     <article className="max-w-3xl">
@@ -77,19 +89,27 @@ export default async function Page(props: Props) {
                 <Value>{flight.wing}</Value>
               </tr>
               <tr>
-                <Header>IGC File:</Header>
-                <Value>
-                  <a href="/flying/tracklogs/{$flight.fileName}">Download</a>
-                </Value>
+                {
+                  flight.fileName && (
+                    <>
+                      <Header>IGC File:</Header>
+                      <Value>
+                        <a href={`/${flight.fileName.replace(/^public\//, '')}`}>Download</a>
+                      </Value>
+                    </>
+                  )
+                }
               </tr>
             </tbody>
           </table>
         </div>
         <br />
-        {flight.comments && (
+        {commentsCode && (
           <>
             <strong>Comments:</strong>
-            <div id="comments" className="prose">{flight.comments}</div>
+            <div id="comments" className="prose">
+              <ClientMdxRenderer code={commentsCode} />
+            </div>
           </>
         )}
       </section>

@@ -17,7 +17,6 @@ export default async function Post(props: PostProps) {
   // Load up the MDX file
   const slug = props.params.slug.join("/");
   const post = await getSinglePost(slug);
-//  return <ClientMdxRenderer code={post.code} />;
 
   // Load up the MDX post
   const meta = post.frontmatter as PostFrontmatter;

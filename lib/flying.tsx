@@ -30,6 +30,7 @@ export interface Flight {
   fileName?: string;
   comments?: string;
   commentsTruncated?: string;
+  commentsFileName?: string;
 
   /*
    * Additional information from launch database (or manual CSV)
@@ -240,6 +241,7 @@ async function gscFlights(): Promise<Flight[]> {
           excerpt_separator: '{/* EXCERPT */}'
         });
         ret.comments = m.excerpt || m.content;
+        ret.commentsFileName = commentsFile;
       }
 
       return ret;

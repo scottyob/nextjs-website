@@ -3,6 +3,7 @@ import matter from "gray-matter";
 import { bundleMDX } from "mdx-bundler";
 import remarkMdxImages from "remark-mdx-images";
 import path from "path";
+import { Flight } from "./flying";
 
 export const ROOT = process.cwd();
 export const POSTS_PATH = path.join(process.cwd(), "siteContent/posts");
@@ -11,11 +12,7 @@ export const getFileContent = (filename: string) => {
   return fs.readFileSync(path.join(POSTS_PATH, filename), "utf8");
 };
 
-
-export const getSinglePost = async (slug: string) => {
-  const imagesUrl = `posts/${slug}`;
-  const source = `${POSTS_PATH}/${slug}/page.mdx`
-
+export async function LoadMdx(imagesUrl: string, source: string) {
   const { code, frontmatter } = await bundleMDX({
     file: source,
     cwd: ROOT,
@@ -54,21 +51,25 @@ export const getSinglePost = async (slug: string) => {
     code,
   }
 
+}
 
-  //   const {code, frontmatter} = await bundleMDX({
-  //     file: `${POSTS_PATH}/${slug}/page.mdx`,
-  //     cwd: ROOT
-  //   });
+export const getSinglePost = async (slug: string) => {
+  const imagesUrl = `posts/${slug}`;
+  const source = `${POSTS_PATH}/${slug}/page.mdx`
 
-  //   const source = getFileContent(`${slug}/page.mdx`);
-  // //  const { code, frontmatter } = await getCompiledMDX(source);
-
-  //   return {
-  //     frontmatter,
-  //     code,
-  //   };
+  return await LoadMdx(imagesUrl, source);
 };
 
+
+export async function getSingleFlight(flight: Flight) {
+  if(!flight.commentsFileName) {
+    throw new Error("Cannot get MDX flight as no file name in flight");
+  }
+  const imagesUrl = `flights/${flight.number}`;
+  const source = flight.commentsFileName;
+
+  return await LoadMdx(imagesUrl, source);
+}
 
 
 export const getAllPosts = () => {
