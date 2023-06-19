@@ -23,15 +23,17 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="flex max-w-full w-full flex-col pt-8 pb-8">
-          <div className="self-center">
+          <div className="self-center w-full">
             <h1
               className={['text-center text-4xl', capriola.className].join(' ')}
             >
-              <Link href="/">Scott O&apos;Brien</Link>
+              <Link href="/">{"Scott O'Brien"}</Link>
             </h1>
             <Navbar />
           </div>
-          {children}
+          <div className="w-full flex flex-col" id='main-content'>
+            {children}
+          </div>
         </div>
       </body>
     </html>

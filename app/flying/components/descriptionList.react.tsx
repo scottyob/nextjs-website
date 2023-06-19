@@ -33,7 +33,7 @@ export default function DescriptionList(props: { flights: Flight[] }) {
       <div key={i} className="pb-4 text-sm text-gray-500">
         <div className="grid grid-cols-2">
           <Header>#</Header>
-          <Content>
+          <Content className="font-bold">
             <Link href={`/flying/flight/${r.number}`}>{r.number}</Link>
           </Content>
         </div>

@@ -24,9 +24,9 @@ export default async function Recipe(props: RecipeProps) {
       await import(`/siteContent/recipes/${props.params.slug}/${meta.img}`)
     ).default;
     img = (
-      <Link href={imgModule.src}>
+      <a href={imgModule.src}>
         <Image src={imgModule} alt={meta.Title} className="m-auto w-[80%]" />
-      </Link>
+      </a>
     );
   }
 

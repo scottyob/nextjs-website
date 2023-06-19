@@ -29,7 +29,7 @@ export default function Navbar() {
   return (
     <ul
       className={[
-        'flex flex-wrap justify-center space-x-2 text-gray-400 italic pt-3 max-w-full mb-8',
+        'flex flex-wrap justify-center space-x-2 text-gray-400 italic pt-3 mb-8 max-w-2xl w-[80%] m-auto',
         exo_2.className
       ].join(' ')}
     >

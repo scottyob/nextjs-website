@@ -10,7 +10,7 @@ export default function FlightTable(props: { flights: Flight[] }) {
 
     return (
       <tr key={i} className="odd:bg-slate-100">
-        <td className="px-5 py-4">
+        <td className="px-5 py-4 font-bold">
           <Link href={`/flying/flight/${r.number}`}>{r.number}</Link>
         </td>
         <td className="px-5 py-4">
@@ -38,7 +38,7 @@ export default function FlightTable(props: { flights: Flight[] }) {
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
+          <tr className="font-extrabold text-sm">
             <th className="px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               #
             </th>

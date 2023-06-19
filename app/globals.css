@@ -7,3 +7,11 @@
 .prose img {
   margin: auto;
 }
+
+#main-content a {
+  color: #FC7E0F;
+}
+
+#main-content h2 a {
+  color: black;
+}
