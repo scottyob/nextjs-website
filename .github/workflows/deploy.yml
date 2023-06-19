@@ -22,7 +22,7 @@ jobs:
 
       - name: Build
         run: |
-          npm i
+          npm i --force
           npm run build
           npm run export
 
