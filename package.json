@@ -44,6 +44,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-gist": "^1.2.4",
+    "react-icons": "^4.9.0",
     "react-image-gallery": "^1.2.12",
     "react-photo-album": "^2.2.2",
     "react-photo-view": "^1.2.3",
