@@ -1,12 +1,32 @@
 (self["webpackChunk_N_E"] = self["webpackChunk_N_E"] || []).push([[726],{
 
-/***/ 6749:
+/***/ 5588:
 /***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
 
 Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 8707, 23));
 Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 2853));
+Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 8288));
 Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 3267, 23));
 Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 9351, 23))
+
+/***/ }),
+
+/***/ 8288:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ ViewDate; }
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9268);
+/* __next_internal_client_entry_do_not_use__ default auto */ 
+function ViewDate(props) {
+    return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+        children: props.date.toLocaleString()
+    });
+}
+
 
 /***/ }),
 
@@ -150,7 +170,7 @@ function getMDXExport(code, globals) {
 },
 /******/ function(__webpack_require__) { // webpackRuntimeModules
 /******/ var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId); }
-/******/ __webpack_require__.O(0, [707,253,488,744], function() { return __webpack_exec__(6749); });
+/******/ __webpack_require__.O(0, [707,253,488,744], function() { return __webpack_exec__(5588); });
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ _N_E = __webpack_exports__;
 /******/ }
