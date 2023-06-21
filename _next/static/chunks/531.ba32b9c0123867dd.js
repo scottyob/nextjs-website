@@ -174,7 +174,7 @@ var __webpack_unused_export__;
 
 
 const base64 = __webpack_require__(216)
-const ieee754 = __webpack_require__(7217)
+const ieee754 = __webpack_require__(6493)
 const customInspectSymbol =
   (typeof Symbol === 'function' && typeof Symbol['for'] === 'function') // eslint-disable-line dot-notation
     ? Symbol['for']('nodejs.util.inspect.custom') // eslint-disable-line dot-notation
@@ -2273,7 +2273,7 @@ function BufferBigIntNotDefined () {
 
 /***/ }),
 
-/***/ 7217:
+/***/ 6493:
 /***/ (function(__unused_webpack_module, exports) {
 
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
