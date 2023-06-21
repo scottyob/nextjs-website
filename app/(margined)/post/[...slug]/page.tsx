@@ -5,6 +5,7 @@ import { DM_Sans, DM_Serif_Display } from 'next/font/google';
 import Image from "next/image";
 import React from 'react';
 import ClientMdxRenderer from '@/components/MdxRenderer.react';
+import DateViewer from "@/components/DateViewer.react";
 
 const titleFont = DM_Serif_Display({ weight: '400', subsets: ['latin'] });
 const articleFont = DM_Sans({ weight: '400', subsets: ['latin'] });
@@ -37,7 +38,7 @@ export default async function Post(props: PostProps) {
       <div className={articleFont.className + ' mb-9'}>
         <h2 className={titleFont.className + " text-2xl"}>{meta.title}</h2>
         <div className="text-xs text-gray-400 italic mb-5">
-          Created: {date.toLocaleDateString()}
+          Created: <DateViewer date={date} />
         </div>
         {hero}
         <div className="prose lg:prose-lg">
