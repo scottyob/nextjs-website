@@ -1,3 +1,5 @@
+"use client";
+
 import { Flight } from '@/lib/flying';
 import { Duration } from 'luxon';
 import Link from 'next/link';
