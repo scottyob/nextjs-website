@@ -41,13 +41,13 @@ const Header = tailwind_styled_components__WEBPACK_IMPORTED_MODULE_4__/* ["defau
 const Content = tailwind_styled_components__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z.dd(_templateObject1());
 function DescriptionList(props) {
     const flights = props.flights;
-    const tableRows = flights.map(async (r, i)=>{
+    const tableRows = flights.map((r, i)=>{
         var _r_location;
         var _r_durationSeconds;
         const duration = luxon__WEBPACK_IMPORTED_MODULE_2__/* .Duration */ .nL.fromMillis(((_r_durationSeconds = r === null || r === void 0 ? void 0 : r.durationSeconds) !== null && _r_durationSeconds !== void 0 ? _r_durationSeconds : 0) * 1000);
         let comments = undefined;
         if (r.comments) {
-            comments = /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            comments = /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("dl", {
                 className: "grid grid-cols-1",
                 children: [
                     /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Header, {
@@ -63,7 +63,7 @@ function DescriptionList(props) {
         return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
             className: "pb-4 text-sm text-gray-500",
             children: [
-                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("dl", {
                     className: "grid grid-cols-2",
                     children: [
                         /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Header, {
@@ -78,7 +78,7 @@ function DescriptionList(props) {
                         })
                     ]
                 }),
-                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("dl", {
                     className: "grid grid-cols-2",
                     children: [
                         /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Header, {
@@ -92,7 +92,7 @@ function DescriptionList(props) {
                         })
                     ]
                 }),
-                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("dl", {
                     className: "grid grid-cols-2",
                     children: [
                         /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Header, {
@@ -103,7 +103,7 @@ function DescriptionList(props) {
                         })
                     ]
                 }),
-                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("dl", {
                     className: "grid grid-cols-2",
                     children: [
                         /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Header, {
@@ -114,7 +114,7 @@ function DescriptionList(props) {
                         })
                     ]
                 }),
-                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("dl", {
                     className: "grid grid-cols-2",
                     children: [
                         /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Header, {
@@ -125,7 +125,7 @@ function DescriptionList(props) {
                         })
                     ]
                 }),
-                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("dl", {
                     className: "grid grid-cols-2",
                     children: [
                         /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Header, {
@@ -136,7 +136,7 @@ function DescriptionList(props) {
                         })
                     ]
                 }),
-                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("dl", {
                     className: "grid grid-cols-2",
                     children: [
                         /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Header, {
@@ -529,7 +529,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function FlightTable(props) {
     const flights = props.flights;
-    const tableRows = flights.map(async (r, i)=>{
+    const tableRows = flights.map((r, i)=>{
         var _r_location;
         var _r_durationSeconds;
         const duration = luxon__WEBPACK_IMPORTED_MODULE_1__/* .Duration */ .nL.fromMillis(((_r_durationSeconds = r === null || r === void 0 ? void 0 : r.durationSeconds) !== null && _r_durationSeconds !== void 0 ? _r_durationSeconds : 0) * 1000);
