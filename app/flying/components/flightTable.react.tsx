@@ -7,7 +7,7 @@ import Link from 'next/link';
 export default function FlightTable(props: { flights: Flight[] }) {
   const flights = props.flights;
 
-  const tableRows = flights.map(async (r, i) => {
+  const tableRows = flights.map((r, i) => {
     const duration = Duration.fromMillis((r?.durationSeconds ?? 0) * 1000);
 
     return (
