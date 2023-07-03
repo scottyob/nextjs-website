@@ -255,7 +255,14 @@ async function gscFlights(): Promise<Flight[]> {
  * Builds a cache for all local flights
  */
 async function populateFlights() {
-  const spreadsheetFlights = await getSpreadsheetFlights();
+  let spreadsheetFlights: Flight[] = [];
+
+  try {
+    spreadsheetFlights = await getSpreadsheetFlights();
+  } catch(error) {
+    console.error("Unable to load flights from spreadsheet.  Carrying on without any.  Check your google auth settings");
+  }
+  
   const igcFlights = await gscFlights();
   flights = [...spreadsheetFlights, ...igcFlights];
   flights.sort((a, b) => a.launchTime - b.launchTime);
