@@ -2,11 +2,7 @@ import remarkFrontmatter from 'remark-frontmatter'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 import nextMdx from '@next/mdx'
 
-
-// For setting up on Github Pages
-// https://github.com/gregrickaby/nextjs-github-pages
-
-const isProd = process.env.NODE_ENV === 'production'
+import webpackMod from "webpack"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -18,6 +14,7 @@ const nextConfig = {
   // plugin to be able to strip the Frontmatter.
   experimental: {
     mdxRs: false,
+    // esmExternals: true,
   },
 
   // This is a static page, no dynamic content
@@ -43,8 +40,16 @@ const nextConfig = {
       ],
     });
 
+    // For react-igc
+    config.plugins.push(
+      new webpackMod.DefinePlugin({
+        CESIUM_BASE_URL: JSON.stringify('/cesium'),
+      }),
+    );
+
     // TODO:  This needs to be figured out!  No idea why it's chucking errors
-    config.optimization.minimizer = []
+    // Can probably get this after moving away from Github pages
+    // config.optimization.minimizer = []
 
     return config;
   }

@@ -17,3 +17,17 @@ website which is just a blog.  My problem is, a blog is only one part of my webs
 importing my paragliding flight logs, and, it was just not pleasant to use, so I found I didn't.
 
 NextJS has an "external" deployment method, meaning I still get to generate static HTML/CSS, which is a goal for my site.
+
+
+## IGC Viewer
+
+I really wanted a way of being able to review my track logs, see how well I did, and where I could have gone better.  The idea is that igc files
+have the tasks I was attempting to fly embedded in them.  I could write a tool to be able to show all of the waypoints, and when and if I hit them.
+
+*Problem 1:  Accuracy*
+It turns out that the [IGC file format](https://xp-soaring.github.io/igc_file_format/igc_format_2008.html) defines the waypoints in a form of:
+```
+C DD MM MMM N DDD MM MMM E TURN TEXT STRING CR LF
+```
+Where DD is degreese, MM minutes, MMM seconds... Which, might be fine for sail plane flying, but not for the paragliding tasks that we do.
+

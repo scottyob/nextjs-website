@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier-format": "prettier --config .prettierrc '**/*.tsx' --write"
+    "prettier-format": "prettier --config .prettierrc '**/*.tsx' --write",
+    "postinstall": "symlink-dir node_modules/cesium/Build/Cesium public/cesium"
   },
   "dependencies": {
     "@googleapis/sheets": "^4.0.2",
@@ -60,10 +61,12 @@
     "tailwind-styled-components": "^2.2.0",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4",
+    "webpack": "^5.88.1",
     "yet-another-react-lightbox": "^3.11.1"
   },
   "devDependencies": {
     "@types/plotly.js": "^2.12.18",
-    "@types/react-plotly.js": "^2.6.0"
+    "@types/react-plotly.js": "^2.6.0",
+    "symlink-dir": "^5.1.1"
   }
 }
