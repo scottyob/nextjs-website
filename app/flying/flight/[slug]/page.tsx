@@ -9,6 +9,7 @@ import { Duration } from 'luxon';
 import tw from 'tailwind-styled-components';
 import FlightViewer from './flightViewer';
 import { readFileSync } from 'fs';
+import Link from 'next/link';
 
 const Header = tw.td`text-xd font-medium text-gray-700 pr-4`;
 const Value = tw.td``;
@@ -109,7 +110,8 @@ export default async function Page(props: Props) {
           </table>
         </div>
         <br />
-        <div className="w-full h-96 flex">
+        <div className="w-full h-96 flex flex-col pb-4">
+          <Link className="self-center" href={`/flying/replay/${flight.fileName}`}>Replay in 3D</Link>
           <FlightViewer igc={igcFileContents} />
         </div>
         {commentsCode && (
