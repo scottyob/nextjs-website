@@ -24,7 +24,7 @@ export default async function Page(props: Props) {
   const flights = await GetFlights();
   const flight = flights.filter((f) => f.number?.toString() == flightNo)[0];
 
-  const igcFileContents = readFileSync(flight.fileName, { encoding: 'utf8', flag: 'r'});
+  const igcFileContents = readFileSync(flight.filePath, { encoding: 'utf8', flag: 'r'});
 
   // Allow us to display mdx based comments
   let commentsCode = undefined;
@@ -96,11 +96,11 @@ export default async function Page(props: Props) {
               </tr>
               <tr>
                 {
-                  flight.fileName && (
+                  flight.filePath && (
                     <>
                       <Header>IGC File:</Header>
                       <Value>
-                        <a href={`/${flight.fileName.replace(/^public\//, '')}`}>Download</a>
+                        <a href={`/${flight.filePath.replace(/^public\//, '')}`}>Download</a>
                       </Value>
                     </>
                   )

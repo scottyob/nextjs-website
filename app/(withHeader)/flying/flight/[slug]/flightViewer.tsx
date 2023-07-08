@@ -4,7 +4,7 @@
 import { lazy, useEffect, useState } from "react";
 
 // Hack from https://github.com/vercel/next.js/discussions/42319#discussioncomment-4061453
-const IgcViewer = lazy(() => import("@scottyob/react-igc/dist/esm/components/IgcViewer"));
+const IgcViewer = lazy(() => import("@scottyob/react-igc/IgcViewer"));
 
 // import { IgcViewer } from "@scottyob/react-igc";
 

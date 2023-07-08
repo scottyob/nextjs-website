@@ -27,7 +27,9 @@ export interface Flight {
   maxAltitudeMeters?: number;
   trackLengthMeters?: number;
   altitudeGainMeters?: number;
+  filePath?: string;
   fileName?: string;
+  fileContents?: string;
   comments?: string;
   commentsTruncated?: string;
   commentsFileName?: string;
@@ -230,7 +232,9 @@ async function gscFlights(): Promise<Flight[]> {
       const buffer = readFileSync(f, { flag: 'r', encoding: 'utf8' });
       const igc = IGCParser.parse(buffer);
       let ret = parseFile(igc, launches);
-      ret.fileName = f;
+      ret.filePath = f;
+      ret.fileName = path.basename(f).replace('.igc', '');
+      ret.fileContents = buffer;
 
       // Load in the comments from disk
       const igcDirectory = path.dirname(f);
