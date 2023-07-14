@@ -3,7 +3,7 @@
 import { Flight } from '@/lib/flying';
 import React from 'react';
 import dynamic from 'next/dynamic';
-const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
+const Plot = dynamic(async () => (await import('react-plotly.js')).default, { ssr: false });
 
 interface HoursByLocationProps {
   flights: Flight[];
