@@ -61,6 +61,7 @@ export default function ScatterPlot(props: { flights: Flight[] }) {
       useResizeHandler={true}
       style={{ width: '100%' }}
       layout={{
+        dragmode: false,
         legend: {
           orientation: 'h'
         },
@@ -69,11 +70,18 @@ export default function ScatterPlot(props: { flights: Flight[] }) {
           l: 30,
           t: 30,
           pad: 0
+        },
+        yaxis: {
+          fixedrange: true,
+        },
+        xaxis: {
+          fixedrange: true,
         }
       }}
       config={{
         displayModeBar: false,
-        displaylogo: false
+        displaylogo: false,
+        scrollZoom: false,
       }}
     />
   );
