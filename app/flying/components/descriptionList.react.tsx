@@ -32,7 +32,7 @@ export default function DescriptionList(props: { flights: Flight[] }) {
     }
 
     return (
-      <div key={i} className="pb-4 text-sm text-gray-500">
+      <div key={i} className="pb-4 text-sm text-gray-500 text-ellipsis truncate">
         <dl className="grid grid-cols-2">
           <Header>#</Header>
           <Content className="font-bold">

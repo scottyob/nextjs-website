@@ -7,6 +7,8 @@ import { GetFlights } from '@/lib/flying';
 import { getSingleFlight } from '@/lib/mdx';
 import { Duration } from 'luxon';
 import tw from 'tailwind-styled-components';
+import Viewer2D from './Viewer2D';
+import { readFileSync } from 'fs';
 
 const Header = tw.td`text-xd font-medium text-gray-700 pr-4`;
 const Value = tw.td``;
@@ -20,6 +22,8 @@ export default async function Page(props: Props) {
 
   const flights = await GetFlights();
   const flight = flights.filter((f) => f.number?.toString() == flightNo)[0];
+
+  const igcFileContents = flight.fileName ? readFileSync(flight.fileName, { encoding: 'utf8', flag: 'r' }) : undefined;
 
   // Allow us to display mdx based comments
   let commentsCode = undefined;
@@ -105,6 +109,11 @@ export default async function Page(props: Props) {
           </table>
         </div>
         <br />
+        {igcFileContents &&
+          <div className="w-full">
+            <Viewer2D igc={igcFileContents} />
+          </div>
+        }
         {commentsCode && (
           <>
             <strong>Comments:</strong>
