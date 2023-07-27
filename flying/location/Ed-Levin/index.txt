@@ -2,7 +2,7 @@
 2:HL["/_next/static/media/42e58f5a516ebb1b-s.p.woff2",{"as":"font","type":"font/woff2"}]
 3:HL["/_next/static/media/4e8dfc5aa8742fdc-s.p.woff2",{"as":"font","type":"font/woff2"}]
 4:HL["/_next/static/css/9cf8a63f1413a643.css",{"as":"style"}]
-0:["uOt5FbJRqbg5lLekjZWYV",[[["",{"children":["flying",{"children":["location",{"children":[["slug","Ed-Levin","d"],{"children":["__PAGE__?{\"slug\":\"Ed-Levin\"}",{}]}]}]}]},"$undefined","$undefined",true],"$L5",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/9cf8a63f1413a643.css","precedence":"next"}]],["$L6",["$","meta",null,{"name":"next-size-adjust"}]]]]]]
+0:["7ZsjOjk7vyBr-W6eVExxr",[[["",{"children":["flying",{"children":["location",{"children":[["slug","Ed-Levin","d"],{"children":["__PAGE__?{\"slug\":\"Ed-Levin\"}",{}]}]}]}]},"$undefined","$undefined",true],"$L5",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/9cf8a63f1413a643.css","precedence":"next"}]],["$L6",["$","meta",null,{"name":"next-size-adjust"}]]]]]]
 7:HL["/_next/static/media/af1939b13935fec8-s.p.woff2",{"as":"font","type":"font/woff2"}]
 8:HL["/_next/static/css/be395c3e3c2dd5cc.css",{"as":"style"}]
 9:I{"id":"7477","chunks":["477:static/chunks/477-c7daa421fa7a3179.js","153:static/chunks/153-afb6e58fe5b824a3.js","651:static/chunks/651-daa55fd5fca8dd15.js","534:static/chunks/app/flying/location/[slug]/page-4cc2569618afec26.js"],"name":"","async":false}
