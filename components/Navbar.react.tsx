@@ -3,8 +3,9 @@
 import { Exo_2 } from 'next/font/google';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ImPencil2, ImMan, ImList2 } from "react-icons/im";
+import { ImPencil2, ImMan } from "react-icons/im";
 import { GiCampCookingPot, GiLibertyWing } from "react-icons/gi";
+import { BsCardList } from "react-icons/bs";
 
 const exo_2 = Exo_2({ weight: '500', subsets: ['latin'], style: 'italic' });
 
@@ -16,7 +17,7 @@ export default function Navbar() {
 
   // Underline components
   const underlineClass =
-    'block group-hover:max-w-[50%] ml-2 transition-all duration-500 h-0.5';
+    'block group-hover:max-w-[75%] m-auto transition-all duration-500 h-0.5';
   const unselected = (
     <span
       className={
@@ -25,13 +26,15 @@ export default function Navbar() {
     />
   );
   const selected = (
-    <span className={underlineClass + ' max-w-[50%] bg-orange-500'} />
+    <span className={underlineClass + ' max-w-[85%] bg-orange-500'} />
   );
 
   return (
     <ul
       className={[
-        'flex flex-wrap justify-around space-x-4 text-gray-400 italic pt-3 mb-8 max-w-2xl w-[80%] m-auto',
+        'flex flex-wrap justify-center text-gray-400 italic pt-3 mb-8 max-w-2xl w-[80%] m-auto',
+        '[&>li]:ml-3',
+        '[&>li]:mr-3',
         '[&_svg]:inline [&_svg]:mr-1',
         exo_2.className,
       ].join(' ')}
@@ -47,7 +50,7 @@ export default function Navbar() {
         {pathname.startsWith('/about') ? selected : unselected}
       </li>
       <li className={liClass}>
-        <Link href="/bucketlist"><ImList2 />Bucket List</Link>
+        <Link href="/bucketlist"><BsCardList />Bucket List</Link>
         {pathname.startsWith('/bucketlist') ? selected : unselected}
       </li>
       <li className={liClass}>
