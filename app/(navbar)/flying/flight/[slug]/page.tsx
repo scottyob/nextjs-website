@@ -9,6 +9,7 @@ import { Duration } from 'luxon';
 import tw from 'tailwind-styled-components';
 import Viewer2D from './Viewer2D';
 import { readFileSync } from 'fs';
+import Link from 'next/link';
 
 const Header = tw.td`text-xd font-medium text-gray-700 pr-4`;
 const Value = tw.td``;
@@ -111,6 +112,8 @@ export default async function Page(props: Props) {
         <br />
         {igcFileContents &&
           <div className="w-full">
+            <Link href={`/flying/replay/${flight.fileName}`}>Replay flight</Link>
+            <Link href={`/flying/replay/${flight.fileName?.split("/")[3]}`}>Replay flight</Link>
             <Viewer2D igc={igcFileContents} />
           </div>
         }

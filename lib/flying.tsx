@@ -28,6 +28,7 @@ export interface Flight {
   trackLengthMeters?: number;
   altitudeGainMeters?: number;
   fileName?: string;
+  filePath?: string;
   comments?: string;
   commentsTruncated?: string;
   commentsFileName?: string;
@@ -282,4 +283,15 @@ export async function GetFlights(): Promise<Flight[]> {
     await populateFlights();
   }
   return flights;
+}
+
+/*
+ * Builds a local flight database
+ */
+export async function DownloadFlights() {
+  // Populate the flight database
+  await populateFlights();
+
+  // Save it to disk
+  
 }
