@@ -15,10 +15,10 @@ type Props = {
 
 export default async function FlightsForLocation(props: Props) {
   let results = await GetFlights();
-  const location = props.params.slug.replace('-', ' ');
+  const location = props.params.slug.replaceAll('-', ' ');
 
   // Filter out the flights that are for this location
-  results = results.filter((f) => f.location == location);
+  results = results.filter((f) => f.locationUrl == props.params.slug);
 
   return (
     <div className="min-w-full">

@@ -13,10 +13,10 @@ export default function FlightTable(props: { flights: Flight[] }) {
     return (
       <tr key={i} className="odd:bg-slate-100">
         <td className="px-5 py-4 font-bold">
-          <Link href={`/flying/flight/${r.number}`}>{r.number}</Link>
+          <Link href={`/flying/flight/${r.id}`}>{r.number}</Link>
         </td>
         <td className="px-5 py-4">
-          <Link href={`/flying/location/${r.location?.replace(' ', '-')}`}>
+          <Link href={`/flying/location/${r.locationUrl}`}>
             {r.location}
           </Link>
         </td>

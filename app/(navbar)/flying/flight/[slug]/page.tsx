@@ -19,12 +19,14 @@ type Props = {
 };
 
 export default async function Page(props: Props) {
-  const flightNo = props.params.slug;
+  const flightId = props.params.slug;
 
   const flights = await GetFlights();
-  const flight = flights.filter((f) => f.number?.toString() == flightNo)[0];
 
-  const igcFileContents = flight.fileName ? readFileSync(flight.fileName, { encoding: 'utf8', flag: 'r' }) : undefined;
+  // Look up the flight based on the ID number
+  const flight = flights.filter((f) => f.id == flightId)[0];
+
+  const igcFileContents = flight?.igcFile ? readFileSync(flight.igcFile.filePath , { encoding: 'utf8', flag: 'r' }) : undefined;
 
   // Allow us to display mdx based comments
   let commentsCode = undefined;
@@ -96,11 +98,11 @@ export default async function Page(props: Props) {
               </tr>
               <tr>
                 {
-                  flight.fileName && (
+                  flight.igcFile && (
                     <>
                       <Header>IGC File:</Header>
                       <Value>
-                        <a href={`/${flight.fileName.replace(/^public\//, '')}`}>Download</a>
+                        <a href={`/${flight.igcFile.filePath.replace(/^public\//, '')}`}>Download</a>
                       </Value>
                     </>
                   )
@@ -112,8 +114,7 @@ export default async function Page(props: Props) {
         <br />
         {igcFileContents &&
           <div className="w-full">
-            <Link href={`/flying/replay/${flight.fileName}`}>Replay flight</Link>
-            <Link href={`/flying/replay/${flight.fileName?.split("/")[3]}`}>Replay flight</Link>
+            <Link href={`/flying/replay/${flight.id}`}>Replay flight</Link>
             <Viewer2D igc={igcFileContents} />
           </div>
         }

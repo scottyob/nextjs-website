@@ -18,8 +18,16 @@ import path from 'path';
 import fs from 'fs';
 import matter from 'gray-matter';
 import { DateTime } from 'luxon';
+import { basename } from 'path';
+
+export interface FlightIgcFile {
+  fileName: string;  // eg. someIgcFile.igc
+  fileNameWitoutExtension: string;  // eg. someIgcFile
+  filePath: string;  // eg.  ./public/logbook/flights/someIgc/someIgcFile.igc
+}
 
 export interface Flight {
+  id: string;  // Going to be either the IGC file name, or the google record number
   date: string;
   wing?: string;
   durationSeconds?: number;
@@ -27,8 +35,7 @@ export interface Flight {
   maxAltitudeMeters?: number;
   trackLengthMeters?: number;
   altitudeGainMeters?: number;
-  fileName?: string;
-  filePath?: string;
+  igcFile?: FlightIgcFile;
   comments?: string;
   commentsTruncated?: string;
   commentsFileName?: string;
@@ -37,6 +44,7 @@ export interface Flight {
    * Additional information from launch database (or manual CSV)
    */
   location?: string;
+  locationUrl?: string;
   launchName?: string;
 
   /*
@@ -73,6 +81,11 @@ function truncateComments(comments: string, maxLength: number): string {
   return truncatedText + '...';
 }
 
+// Replaces a location with URL unfriendly names, with friendly ones
+function urlFriendlyLocationName(location: string): string {
+  const specialCharactersRegex = /[^\w\-./?=&]/g;
+  return location.replace(specialCharactersRegex, '-').replaceAll('/', '-');
+}
 
 // Gets flights from google docs
 async function getSpreadsheetFlights(): Promise<Flight[]> {
@@ -110,17 +123,20 @@ async function getSpreadsheetFlights(): Promise<Flight[]> {
   const keys = values[0];
 
   // Create a list of objects
-  const results = values.slice(1).map((entry) => {
+  const results = values.slice(1).map((entry, j) => {
+    j = j + 2;  // Account for index based 0, and the header row
     const obj: Record<string, string> = {};
     keys.forEach((key, index) => {
       obj[key] = entry[index];
     });
+    obj["id"] = `g${j}`;  // Set the ID to be the record number
     return obj;
   });
 
   return results.map((r, i) => {
     const date = r['date'] ?? '01-01-1980';
     return {
+      id: r.id,
       date: date,
       launchTime: DateTime.fromISO(date).toMillis() + i,
       launchName: r.launchName ?? '',
@@ -128,7 +144,8 @@ async function getSpreadsheetFlights(): Promise<Flight[]> {
       wing: r.wing,
       fileName: r.fileName,
       comments: r.comment,
-      location: r.location
+      location: r.location,
+      locationUrl: urlFriendlyLocationName(r.location),
     };
   });
 }
@@ -136,7 +153,7 @@ async function getSpreadsheetFlights(): Promise<Flight[]> {
 /*
  * Parse an IGC file into a flight record
  */
-function parseFile(igc: IGCParser.IGCFile, launches: Launch[]): Flight {
+function parseFile(igc: IGCParser.IGCFile, launches: Launch[], fileInfo: FlightIgcFile): Flight {
   // Calculate the closest launch (within a 1km margin)
   const launchDistances = launches.map((l) => distanceTo(igc.fixes[0], l));
   const shortestDistance = Math.min(...launchDistances);
@@ -146,6 +163,7 @@ function parseFile(igc: IGCParser.IGCFile, launches: Launch[]): Flight {
       : undefined;
 
   return {
+    id: fileInfo.fileNameWitoutExtension,
     date: igc.date,
     wing: igc.gliderType!,
     durationSeconds:
@@ -209,6 +227,11 @@ function replaceLocations(fileName: string, logbook: Flight[]): Flight[] {
         return;
       }
     });
+
+    // If there's a location, set the URL friendly location
+    if(r.location)
+      r.locationUrl = urlFriendlyLocationName(r.location);
+
     return r;
   });
 }
@@ -230,8 +253,15 @@ async function gscFlights(): Promise<Flight[]> {
       // Load the igc file into memory
       const buffer = readFileSync(f, { flag: 'r', encoding: 'utf8' });
       const igc = IGCParser.parse(buffer);
-      let ret = parseFile(igc, launches);
-      ret.fileName = f;
+
+      const igcFileInfo: FlightIgcFile = {
+        filePath: f,
+        fileName: basename(f),
+        fileNameWitoutExtension: basename(f).split(".")[0]
+      }
+
+      let ret = parseFile(igc, launches, igcFileInfo);
+      ret.igcFile = igcFileInfo;
 
       // Load in the comments from disk
       const igcDirectory = path.dirname(f);
@@ -260,10 +290,10 @@ async function populateFlights() {
 
   try {
     spreadsheetFlights = await getSpreadsheetFlights();
-  } catch(error) {
+  } catch (error) {
     console.error("Unable to load flights from spreadsheet.  Carrying on without any.  Check your google auth settings");
   }
-  
+
   const igcFlights = await gscFlights();
   flights = [...spreadsheetFlights, ...igcFlights];
   flights.sort((a, b) => a.launchTime - b.launchTime);
@@ -293,5 +323,5 @@ export async function DownloadFlights() {
   await populateFlights();
 
   // Save it to disk
-  
+
 }
