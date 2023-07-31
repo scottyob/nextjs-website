@@ -12,7 +12,7 @@
 import { google } from 'googleapis';
 import IGCParser from 'igc-parser';
 import { distanceTo } from 'geolocation-utils';
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { glob } from 'glob';
 import path from 'path';
 import fs from 'fs';
@@ -229,7 +229,7 @@ function replaceLocations(fileName: string, logbook: Flight[]): Flight[] {
     });
 
     // If there's a location, set the URL friendly location
-    if(r.location)
+    if (r.location)
       r.locationUrl = urlFriendlyLocationName(r.location);
 
     return r;
@@ -285,7 +285,8 @@ async function gscFlights(): Promise<Flight[]> {
 /*
  * Builds a cache for all local flights
  */
-async function populateFlights() {
+export async function PopulateFlights() {
+  console.log("Pulling flights (...slow)")
   let spreadsheetFlights: Flight[] = [];
 
   try {
@@ -310,7 +311,12 @@ async function populateFlights() {
 // Gets, caches, and returns flights
 export async function GetFlights(): Promise<Flight[]> {
   if (flights.length == 0) {
-    await populateFlights();
+    // Check if we can load it up from disk
+    if (fs.existsSync('./flights.json')) {
+      flights = JSON.parse(readFileSync('./flights.json', 'utf-8'));
+    } else {
+      await PopulateFlights();
+    }
   }
   return flights;
 }
@@ -320,8 +326,7 @@ export async function GetFlights(): Promise<Flight[]> {
  */
 export async function DownloadFlights() {
   // Populate the flight database
-  await populateFlights();
+  await PopulateFlights();
 
-  // Save it to disk
-
+  writeFileSync('./flights.json', JSON.stringify(flights));
 }

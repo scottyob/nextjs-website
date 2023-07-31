@@ -36,3 +36,5 @@ next-env.d.ts
 
 # Esbuild generated content
 public/posts
+
+flights.json

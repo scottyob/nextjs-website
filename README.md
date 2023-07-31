@@ -14,9 +14,19 @@ client_email=
 client_id=
 ```
 
+## Downloading dynamic assets
+
+Dynamic assets, such as Paragliding logbook flights from Google Sheets are cached and should be updated periodically (or when deploying the site).
+
+To deploy this, you can use the *update-dynamic* script.
+
+```
+set -a
+source .env.local
+npm run update-dynamic
+```
+
 ## TODO:
-* Fix up flying comment formatting
-* clean up logbook
 * Rock climbing page
 * get page x/y working
 * taxonomy
