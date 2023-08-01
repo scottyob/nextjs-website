@@ -114,7 +114,7 @@ export default async function Page(props: Props) {
         <br />
         {igcFileContents &&
           <div className="w-full">
-            <Link href={`/flying/replay/${flight.id}`}>Replay flight</Link>
+            <Link href={`/flying/replay/${flight.id}`} target='_blank'>Replay flight</Link>
             <Viewer2D igc={igcFileContents} />
           </div>
         }

@@ -4,9 +4,11 @@ import Viewer from "@scottyob/react-igc"
 import 'cesium/Source/Widgets/widgets.css';
 
 type Props = {
-  igc: string
+  igc: string;
+  cesiumToken: string;
+  locationsXml: string;
 }
 
 export default function Viewer3D(props: Props) {
-  return <Viewer igc={props.igc} />;
+  return <Viewer igc={props.igc} cesiumToken={props.cesiumToken} locationsXml={props.locationsXml} />;
 }
