@@ -37,4 +37,6 @@ next-env.d.ts
 # Esbuild generated content
 public/posts
 
+# For flight tracker
 flights.json
+public/cesium

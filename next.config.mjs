@@ -1,7 +1,7 @@
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 import nextMdx from '@next/mdx'
-
+import webpackMod from "webpack"
 
 // For setting up on Github Pages
 // https://github.com/gregrickaby/nextjs-github-pages
@@ -42,6 +42,13 @@ const nextConfig = {
         },
       ],
     });
+
+    // for react-igc
+    config.plugins.push(
+      new webpackMod.DefinePlugin({
+        CESIUM_BASE_URL: JSON.stringify('/cesium'),
+      }),
+    );
 
     // TODO:  This needs to be figured out!  No idea why it's chucking errors
     config.optimization.minimizer = []
