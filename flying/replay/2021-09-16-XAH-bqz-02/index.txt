@@ -1,0 +1,454 @@
+1:HL["/_next/static/css/8a1e8ec2da824aa2.css",{"as":"style"}]
+0:["qM5d7cw-vDbPGZohIedvu",[[["",{"children":["(fullscreen)",{"children":["flying",{"children":["replay",{"children":[["slug","2021-09-16-XAH-bqz-02","d"],{"children":["__PAGE__?{\"slug\":\"2021-09-16-XAH-bqz-02\"}",{}]}]}]}]}]},"$undefined","$undefined",true],"$L2",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/8a1e8ec2da824aa2.css","precedence":"next"}]],"$L3"]]]]
+4:HL["/_next/static/css/1b58f8f3a0bf8d5b.css",{"as":"style"}]
+5:I{"id":7767,"chunks":["272:static/chunks/webpack-6a94f4f450a79057.js","971:static/chunks/fd9d1056-f562485b1666a0a3.js","596:static/chunks/596-5b64dbf019a905f5.js"],"name":"default","async":false}
+6:I{"id":7920,"chunks":["272:static/chunks/webpack-6a94f4f450a79057.js","971:static/chunks/fd9d1056-f562485b1666a0a3.js","596:static/chunks/596-5b64dbf019a905f5.js"],"name":"default","async":false}
+2:[["$","html",null,{"lang":"en","children":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":[["$","body",null,{"className":"h-screen m-0 p-0","children":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","(fullscreen)","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","(fullscreen)","children","flying","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","(fullscreen)","children","flying","children","replay","children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","(fullscreen)","children","flying","children","replay","children",["slug","2021-09-16-XAH-bqz-02","d"],"children"],"error":"$undefined","errorStyles":"$undefined","loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"template":["$","$L6",null,{}],"templateStyles":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined","childProp":{"current":["$L7",null],"segment":"__PAGE__?{\"slug\":\"2021-09-16-XAH-bqz-02\"}"},"styles":[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/1b58f8f3a0bf8d5b.css","precedence":"next"}]]}],"segment":["slug","2021-09-16-XAH-bqz-02","d"]},"styles":[]}],"segment":"replay"},"styles":[]}],"segment":"flying"},"styles":[]}]}],null],"segment":"(fullscreen)"},"styles":[]}]}],null]
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","link","2",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"any"}],["$","meta","3",{"name":"next-size-adjust"}]]
+8:I{"id":7629,"chunks":["133:static/chunks/133-cdbe9bd765b9e9a7.js","662:static/chunks/app/(fullscreen)/flying/replay/[slug]/page-68a2704773e72b33.js"],"name":"","async":false}
+9:T1387,AXAHbqz
+HFDTEDATE:160921
+HFPLTPILOTINCHARGE:Scott O'Brien
+HFCM2CREW2:NIL
+HFGTYGLIDERTYPE:BGD Winter, EN-B
+HFGIDGLIDERID:NKN
+HFDTMGPSDATUM:WGS84
+HFRFWFIRMWAREVERSION:2.432
+HFRHWHARDWAREVERSION:2.007
+HFFTYFRTYPE:Ascent,h2
+HFGPSRECEIVER:u-blox,CAM-M8Q,32,50000,GPS,GLO
+HFPRSPRESSALTSENSOR:Measurement Specialties,MS5611-01BA03
+I013638FXA
+B1527324027323N11154155WA0151601499004
+B1527334027321N11154156WA0151501498004
+B1527344027318N11154158WA0151501497003
+B1527354027316N11154161WA0151401497003
+B1527364027314N11154165WA0151301497003
+B1527374027313N11154169WA0151301497003
+B1527384027311N11154171WA0151301496003
+B1527394027309N11154173WA0151401496003
+B1527404027306N11154174WA0151401497003
+B1527414027304N11154175WA0151401497003
+B1527424027303N11154178WA0151501497003
+B1527434027302N11154181WA0151501495003
+B1527444027300N11154183WA0151301494003
+B1527454027298N11154185WA0151101493003
+B1527464027294N11154186WA0151101494003
+B1527474027291N11154187WA0151101495003
+B1527484027290N11154188WA0151301496003
+B1527494027288N11154190WA0151401497003
+B1527504027287N11154191WA0151601496003
+B1527514027286N11154193WA0151501495003
+B1527524027284N11154195WA0151401494003
+B1527534027282N11154198WA0151301493003
+B1527544027280N11154202WA0151201492003
+B1527554027278N11154204WA0151201491003
+B1527564027275N11154204WA0151101490003
+B1527574027273N11154201WA0151101489003
+B1527584027272N11154195WA0151001489003
+B1527594027274N11154189WA0150901488003
+B1528004027276N11154183WA0150801489003
+B1528014027279N11154177WA0150701489003
+B1528024027282N11154172WA0150701488003
+B1528034027284N11154166WA0150701487003
+B1528044027286N11154161WA0150601487003
+B1528054027288N11154155WA0150601487004
+B1528064027291N11154149WA0150601487004
+B1528074027294N11154144WA0150601487004
+B1528084027298N11154140WA0150701486004
+B1528094027301N11154136WA0150701486004
+B1528104027304N11154131WA0150501484004
+B1528114027307N11154126WA0150501484004
+B1528124027310N11154121WA0150301483004
+B1528134027313N11154115WA0150201482004
+B1528144027315N11154110WA0150201480004
+B1528154027314N11154104WA0149901478004
+B1528164027312N11154099WA0149701477004
+B1528174027308N11154095WA0149601478004
+B1528184027306N11154093WA0149701479004
+B1528194027304N11154091WA0149801479004
+B1528204027302N11154091WA0149801478003
+B1528214027299N11154091WA0149701476003
+B1528224027297N11154091WA0149501474003
+B1528234027294N11154091WA0149401474003
+B1528244027291N11154090WA0149301473003
+B1528254027289N11154088WA0149401472003
+B1528264027288N11154084WA0149201470003
+B1528274027286N11154079WA0149001468003
+B1528284027286N11154072WA0148801467003
+B1528294027288N11154065WA0148701467003
+B1528304027289N11154058WA0148801467004
+B1528314027290N11154053WA0148801467004
+B1528324027290N11154048WA0148701466004
+B1528334027289N11154043WA0148501465004
+B1528344027288N11154037WA0148501464004
+B1528354027287N11154032WA0148501464004
+B1528364027287N11154028WA0148401463004
+B1528374027287N11154024WA0148301462004
+B1528384027286N11154021WA0148301462004
+B1528394027286N11154020WA0148301462004
+B1528404027286N11154019WA0148401462005
+B1528414027286N11154018WA0148401462005
+B1528424027286N11154018WA0148301463005
+B1528434027286N11154018WA0148301463005
+B1528444027286N11154018WA0148301463004
+B1528454027286N11154018WA0148301463004
+B1528464027286N11154017WA0148301463005
+B1528474027286N11154017WA0148301463005
+B1528484027286N11154017WA0148301463005
+B1528494027286N11154017WA0148301463005
+B1528504027286N11154017WA0148301463005
+B1528514027286N11154017WA0148301463005
+B1528524027286N11154017WA0148301463005
+B1528534027286N11154017WA0148301463005
+B1528544027286N11154017WA0148301463005
+B1528554027286N11154017WA0148301462005
+B1528564027286N11154017WA0148301463005
+B1528574027286N11154017WA0148301463006
+B1528584027286N11154017WA0148301463006
+B1528594027286N11154017WA0148301463006
+B1529004027286N11154017WA0148301463006
+B1529014027286N11154017WA0148301463006
+B1529024027286N11154017WA0148301463006
+B1529034027286N11154017WA0148301463006
+B1529044027286N11154017WA0148301463006
+B1529054027286N11154017WA0148301463006
+B1529064027286N11154017WA0148301463006
+B1529074027286N11154017WA0148301463006
+B1529084027286N11154017WA0148301463006
+B1529094027286N11154017WA0148301462006
+B1529104027286N11154017WA0148301462006
+B1529114027286N11154017WA0148301462006
+B1529124027286N11154017WA0148301462006
+B1529134027286N11154017WA0148301462006
+B1529144027286N11154017WA0148301462006
+B1529154027286N11154017WA0148301462006
+B1529164027286N11154017WA0148301463006
+B1529174027286N11154017WA0148301463006
+B1529184027286N11154017WA0148301462005
+B1529194027286N11154017WA0148301462005
+B1529204027286N11154017WA0148301463005
+B1529214027285N11154017WA0148301463005
+B1529224027285N11154017WA0148301463005
+B1529234027285N11154017WA0148301464005
+B1529244027285N11154017WA0148301464005
+LXAH DDS version Mac 1.25
+LXAH Downloaded 2021-10-02 22:07:42
+G59be8d426f6493bcb03dca644785d9de0239b209a702cf8070d0e3817bc3f1b9
+a:T266b,<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+  <Document>
+    <Folder>
+      <name>Waypoints</name>
+      <Placemark>
+        <name>4160</name>
+        <description> HILL</description>
+        <Point>
+        <coordinates>-122.687974,39.389287,1245.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>49917</name>
+        <description> 49917</description>
+        <Point>
+        <coordinates>-119.121414,36.781434,1511.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>4LNTRN</name>
+        <description>4 LANE TURN</description>
+        <Point>
+        <coordinates>-119.456674,37.065125,645.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>AIRSTR</name>
+        <description>AIRSTRIP</description>
+        <Point>
+        <coordinates>-119.137649,36.716483,641.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>BALDMT</name>
+        <description>BALD MOUNTAIN</description>
+        <Point>
+        <coordinates>-119.203370,36.765950,1081.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>BIGCAT</name>
+        <description>PROJECT SURVIVAL</description>
+        <Point>
+        <coordinates>-119.129500,36.766384,785.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>BLKDMD</name>
+        <description>BLACK DIAMOND</description>
+        <Point>
+        <coordinates>-122.621188,39.409858,978.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>BLKMTN</name>
+        <description>BLACK MOUNTAIN</description>
+        <Point>
+        <coordinates>-119.451973,37.012841,1091.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>BRITTA</name>
+        <description>BRITTAN RANCH</description>
+        <Point>
+        <coordinates>-122.663827,39.397054,741.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>TIM</name>
+        <description>TIMS LZ</description>
+        <Point>
+        <coordinates>-119.105132,36.735500,632.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>DAVIS</name>
+        <description>DAVIS</description>
+        <Point>
+        <coordinates>-122.654673,39.362252,491.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>DELILA</name>
+        <description>DELILAH</description>
+        <Point>
+        <coordinates>-119.118986,36.789115,1623.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>DLTNMT</name>
+        <description>DALTON MOUNTAIN</description>
+        <Point>
+        <coordinates>-119.241068,36.774402,1053.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>TMLNCH</name>
+        <description>TIMS LAUNCH</description>
+        <Point>
+        <coordinates>-119.098432,36.765267,1415.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>GRNY</name>
+        <description>GRANY S KNOB</description>
+        <Point>
+        <coordinates>-119.134483,36.729831,881.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>HAPPY</name>
+        <description>Y CAMPERS</description>
+        <Point>
+        <coordinates>-122.675356,39.380036,749.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>HILLOC</name>
+        <description>HILLOCK YOU PILL</description>
+        <Point>
+        <coordinates>-122.710809,39.395486,1444.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>HOPE</name>
+        <description>HOPEWELL ROAD</description>
+        <Point>
+        <coordinates>-119.169082,36.760156,635.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>JOHNLO</name>
+        <description>LOW ON ST JOHN</description>
+        <Point>
+        <coordinates>-122.673678,39.419556,1668.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>KNOB</name>
+        <description></description>
+        <Point>
+        <coordinates>-119.410428,37.022163,832.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>LASTCH</name>
+        <description>LAST CHANCE</description>
+        <Point>
+        <coordinates>-119.079649,36.737117,1053.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>NONAME</name>
+        <description>NO NAME KNOB</description>
+        <Point>
+        <coordinates>-119.121182,36.721367,854.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>POTLAU</name>
+        <description>POTATO LAUNCH</description>
+        <Point>
+        <coordinates>-122.685269,39.340662,1040.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>POTLZ</name>
+        <description>POTATO LZ</description>
+        <Point>
+        <coordinates>-122.662075,39.349642,518.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>RUTH</name>
+        <description>RUTH HILL</description>
+        <Point>
+        <coordinates>-119.191886,36.730317,815.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>SANDYM</name>
+        <description>SANDY MOUNTAIN</description>
+        <Point>
+        <coordinates>-119.465090,37.073890,930.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>SJUHS</name>
+        <description>RA JOINT UNI</description>
+        <Point>
+        <coordinates>-119.454840,37.036241,587.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>SKNOB</name>
+        <description>SANDY KNOB</description>
+        <Point>
+        <coordinates>-119.450690,37.046408,643.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>SNOWLO</name>
+        <description>SNOW MOUNTAIN L</description>
+        <Point>
+        <coordinates>-122.699824,39.371072,1600.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>SNOWVL</name>
+        <description>VERY LOW ON SNOW</description>
+        <Point>
+        <coordinates>-122.690083,39.370823,1361.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>SONTAG</name>
+        <description>SONTAG POINT</description>
+        <Point>
+        <coordinates>-119.076666,36.746933,1277.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>SQVAL</name>
+        <description>SQUAW VALLEY</description>
+        <Point>
+        <coordinates>-119.251518,36.738768,507.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>STJOHN</name>
+        <description>St JOHN MOUNTAIN</description>
+        <Point>
+        <coordinates>-122.691621,39.430433,1939.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>STONYF</name>
+        <description>STONYFORD</description>
+        <Point>
+        <coordinates>-122.543858,39.375019,360.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>TANK</name>
+        <description></description>
+        <Point>
+        <coordinates>-119.211554,36.713770,700.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>TIT</name>
+        <description>SQUAW TIT</description>
+        <Point>
+        <coordinates>-119.386606,37.033307,1190.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>TOLLLN</name>
+        <description>TOLLHOUSE LAUNCH</description>
+        <Point>
+        <coordinates>-119.373355,37.015507,1241.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>TOLLLZ</name>
+        <description>TOLLHOUSE LZ</description>
+        <Point>
+        <coordinates>-119.400388,37.014007,581.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>TOP</name>
+        <description>POTATO TOP</description>
+        <Point>
+        <coordinates>-122.698033,39.334906,1073.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>TROUGH</name>
+        <description>TROUGH SPUR</description>
+        <Point>
+        <coordinates>-122.646633,39.349706,775.000000</coordinates>
+        </Point>
+      </Placemark>
+ <Placemark>
+        <name>LODGE</name>
+        <description>LODGE ROAD HILL</description>
+        <Point>
+        <coordinates>-119.412419,37.002029,770.000000</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>TURKEY</name>
+        <description>TURKEY FARM</description>
+        <Point>
+        <coordinates>-119.129448,36.740185,568.000000</coordinates>
+        </Point>
+      </Placemark>
+ <Placemark>
+        <name>DNLNCH</name>
+        <description>DUNLAP LAUNCH</description>
+        <Point>
+        <coordinates>-119.097968,36.765116,1415.000000</coordinates>
+        </Point>
+      </Placemark>
+ <Placemark>
+        <name>DNLPLZ</name>
+        <description>DUNLAP LZ</description>
+        <Point>
+        <coordinates>-119.104777,36.735891,568.000000</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
+7:["$","div",null,{"className":"flex flex-col h-full","children":["$","$L8",null,{"igc":"$9","cesiumToken":"","locationsXml":"$a"}]}]
