@@ -51,7 +51,7 @@ const nextConfig = {
     );
 
     // TODO:  This needs to be figured out!  No idea why it's chucking errors
-    config.optimization.minimizer = []
+    // config.optimization.minimizer = []
 
     return config;
   }

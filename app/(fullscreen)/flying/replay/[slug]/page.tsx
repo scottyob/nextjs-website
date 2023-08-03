@@ -25,3 +25,11 @@ export default async function Replay(props: Props) {
     </div>
   )
 }
+
+export async function generateStaticParams() {
+  const flights = await GetFlights();
+  return flights.map((f) => {
+    return { slug: f.id.toString() };
+  });
+}
+

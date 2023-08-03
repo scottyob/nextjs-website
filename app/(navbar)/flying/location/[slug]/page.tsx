@@ -39,11 +39,10 @@ export default async function FlightsForLocation(props: Props) {
 export async function generateStaticParams() {
   const flights = await GetFlights();
   return flights.map((f) => {
-    let location = f.location ?? 'Unknown';
+    let location = f.locationUrl ?? 'Unknown';
     if (location == '') {
       location = 'Unknown';
     }
-    location = location.replace(' ', '-');
 
     return { slug: location };
   });

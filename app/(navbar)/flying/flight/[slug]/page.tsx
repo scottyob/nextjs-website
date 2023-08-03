@@ -134,6 +134,6 @@ export default async function Page(props: Props) {
 export async function generateStaticParams() {
   const flights = await GetFlights();
   return flights.map((f) => {
-    return { slug: f.number?.toString() };
+    return { slug: f.id.toString() };
   });
 }
