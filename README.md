@@ -32,3 +32,10 @@ npm run update-dynamic
 * taxonomy
 * RSS feed
 * Look to add a heatmap [like this](https://cal-heatmap.com/docs/showcase)
+
+### Issue with react-igc
+I can't for the life of me figure out npm issues.  The packages are used to get components/react-igc to work that can be removed once @scottyob/react-igc works as expected.
+- resium
+- geolib
+- fast-xml-parser
+- @scottyob/react-igc (reinstall)

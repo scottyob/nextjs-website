@@ -1,6 +1,6 @@
 "use client";
 
-import Viewer from "@scottyob/react-igc"
+import Viewer from "@/components/react-igc/Igc3DViewer"
 import 'cesium/Source/Widgets/widgets.css';
 
 type Props = {
