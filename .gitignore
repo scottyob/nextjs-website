@@ -40,3 +40,4 @@ public/posts
 # For flight tracker
 flights.json
 public/cesium
+public/logbook
