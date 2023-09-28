@@ -8,6 +8,7 @@ import { getSingleFlight } from '@/lib/mdx';
 import { Duration } from 'luxon';
 import tw from 'tailwind-styled-components';
 import Viewer2D from './Viewer2D';
+import FlightLinks from './FlightLinks';
 import { readFileSync } from 'fs';
 import Link from 'next/link';
 
@@ -29,10 +30,9 @@ export default async function Page(props: Props) {
   const igcFileContents = flight?.igcFile ? readFileSync(flight.igcFile.filePath , { encoding: 'utf8', flag: 'r' }) : undefined;
 
   // Allow us to display mdx based comments
-  let commentsCode = undefined;
+  let flightMdx = undefined;
   if (flight.commentsFileName) {
-    const flightMdx = await getSingleFlight(flight);
-    commentsCode = flightMdx.code;
+    flightMdx = await getSingleFlight(flight);
   }
 
   const duration = Duration.fromMillis((flight?.durationSeconds ?? 0) * 1000);
@@ -114,15 +114,15 @@ export default async function Page(props: Props) {
         <br />
         {igcFileContents &&
           <div className="w-full">
-            <Link href={`/flying/replay/${flight.id}`} target='_blank'>Replay flight</Link>
+            <FlightLinks sportsTrackLiveUrl={flightMdx?.frontmatter?.sportsTrackLiveUrl} flight={flight}  />
             <Viewer2D igc={igcFileContents} />
           </div>
         }
-        {commentsCode && (
+        {flightMdx && (
           <>
             <strong>Comments:</strong>
             <div id="comments" className="prose">
-              <ClientMdxRenderer code={commentsCode} />
+              <ClientMdxRenderer code={flightMdx.code} />
             </div>
           </>
         )}
