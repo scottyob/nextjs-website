@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "git -C public/logbook pull || git clone https://github.com/scottyob/paragliding-logbook.git public/logbook && next build",
+    "next-build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prettier-format": "prettier --config .prettierrc '**/*.tsx' --write",

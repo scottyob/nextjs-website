@@ -262,11 +262,17 @@ export default function Igc3DViewer(props: Props) {
     return wallPoints
   }, false);
 
+  // Default tracking is far too zoomed in.  Dodgy ass hack
+  useEffect(() => {
+    setTimeout(() => {
+      ref.current?.cesiumElement?.scene?.camera.zoomOut(1000);
+    }, 3000)
+  }, [])
+
   return (terrainProvider ?
-    <Viewer style={{ height: '100%' }} ref={ref} >
+    <Viewer style={{ height: '100vh' }} ref={ref} >
       <Scene terrainProvider={terrainProvider} />
       <Globe depthTestAgainstTerrain={true} />
-      <Camera defaultZoomAmount={10000} />
       <Clock
         startTime={start}
         stopTime={endTime}
