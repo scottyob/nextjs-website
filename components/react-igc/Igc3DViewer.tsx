@@ -266,11 +266,12 @@ export default function Igc3DViewer(props: Props) {
   useEffect(() => {
     setTimeout(() => {
       ref.current?.cesiumElement?.scene?.camera.zoomOut(1000);
+      ref.current?.cesiumElement?.timeline?.zoomTo(start, endTime);
     }, 3000)
   }, [])
 
   return (terrainProvider ?
-    <Viewer style={{ height: '100vh' }} ref={ref} >
+    <Viewer style={{ height: '100svh' }} ref={ref} >
       <Scene terrainProvider={terrainProvider} />
       <Globe depthTestAgainstTerrain={true} />
       <Clock
