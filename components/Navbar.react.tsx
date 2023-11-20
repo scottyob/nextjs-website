@@ -4,7 +4,7 @@ import { Exo_2 } from 'next/font/google';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ImPencil2, ImMan } from "react-icons/im";
-import { GiCampCookingPot, GiLibertyWing } from "react-icons/gi";
+import { GiCampCookingPot, GiLibertyWing, GiMountainClimbing } from "react-icons/gi";
 import { BsCardList } from "react-icons/bs";
 
 const exo_2 = Exo_2({ weight: '500', subsets: ['latin'], style: 'italic' });
@@ -56,6 +56,10 @@ export default function Navbar() {
       <li className={liClass}>
         <Link href="/recipes"><GiCampCookingPot />Cooking</Link>
         {pathname.startsWith('/recipes') ? selected : unselected}
+      </li>
+      <li className={liClass}>
+        <Link href="/climbing"><GiMountainClimbing/>Climbing</Link>
+        {pathname.startsWith('/climbing') ? selected : unselected}
       </li>
       <li className={liClass}>
         <Link href="/flying"><GiLibertyWing />Flying</Link>
