@@ -184,6 +184,8 @@ function Waypoints(props: { igc: string; locationsXml: string; flight: IGCParser
               bottomRadius={w.radiusMeters}
               length={1200}
               material={new ColorMaterialProperty(colorAtTime)}
+              outline={true}
+              outlineColor={Color.GRAY}
             />
           </Entity>
         )
