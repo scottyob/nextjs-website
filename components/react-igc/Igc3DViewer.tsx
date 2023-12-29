@@ -203,7 +203,7 @@ export default function Igc3DViewer(props: Props) {
 
   // I often forget to clear my task.  Assume no waypoints if we
   // didn't get the first
-  if(waypoints?.[0].achievedTime == undefined) {
+  if(!waypoints?.[0]?.achievedTime) {
     waypoints = [];
   }
 
