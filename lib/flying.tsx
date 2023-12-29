@@ -321,9 +321,9 @@ export async function PopulateFlights() {
 
 // Gets, caches, and returns flights
 export async function GetFlights(): Promise<Flight[]> {
-  if (true || flights.length == 0) {
+  if (flights.length == 0) {
     // Check if we can load it up from disk
-    if (false && fs.existsSync('./flights.json')) {
+    if (fs.existsSync('./flights.json')) {
       flights = JSON.parse(readFileSync('./flights.json', 'utf-8'));
     } else {
       await PopulateFlights();
