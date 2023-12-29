@@ -19,15 +19,16 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import { DateTime } from 'luxon';
 import { basename } from 'path';
+import { GscWaypoints, Waypoint } from './waypoints';
 
 export interface FlightIgcFile {
-  fileName: string;  // eg. someIgcFile.igc
-  fileNameWitoutExtension: string;  // eg. someIgcFile
-  filePath: string;  // eg.  ./public/logbook/flights/someIgc/someIgcFile.igc
+  fileName: string; // eg. someIgcFile.igc
+  fileNameWitoutExtension: string; // eg. someIgcFile
+  filePath: string; // eg.  ./public/logbook/flights/someIgc/someIgcFile.igc
 }
 
 export interface Flight {
-  id: string;  // Going to be either the IGC file name, or the google record number
+  id: string; // Going to be either the IGC file name, or the google record number
   date: string;
   wing?: string;
   durationSeconds?: number;
@@ -52,6 +53,7 @@ export interface Flight {
    */
   number?: number; // The record number of the flight
   launchTime: number; //Timestamp, useful for orderinhg and sequence
+  waypoints?: Waypoint[];
 }
 
 /*
@@ -124,12 +126,12 @@ async function getSpreadsheetFlights(): Promise<Flight[]> {
 
   // Create a list of objects
   const results = values.slice(1).map((entry, j) => {
-    j = j + 2;  // Account for index based 0, and the header row
+    j = j + 2; // Account for index based 0, and the header row
     const obj: Record<string, string> = {};
     keys.forEach((key, index) => {
       obj[key] = entry[index];
     });
-    obj["id"] = `g${j}`;  // Set the ID to be the record number
+    obj['id'] = `g${j}`; // Set the ID to be the record number
     return obj;
   });
 
@@ -145,7 +147,7 @@ async function getSpreadsheetFlights(): Promise<Flight[]> {
       fileName: r.fileName,
       comments: r.comment,
       location: r.location,
-      locationUrl: urlFriendlyLocationName(r.location),
+      locationUrl: urlFriendlyLocationName(r.location)
     };
   });
 }
@@ -153,7 +155,12 @@ async function getSpreadsheetFlights(): Promise<Flight[]> {
 /*
  * Parse an IGC file into a flight record
  */
-function parseFile(igc: IGCParser.IGCFile, launches: Launch[], fileInfo: FlightIgcFile): Flight {
+function parseFile(
+  igc: IGCParser.IGCFile,
+  launches: Launch[],
+  fileInfo: FlightIgcFile,
+  rawFile: string
+): Flight {
   // Calculate the closest launch (within a 1km margin)
   const launchDistances = launches.map((l) => distanceTo(igc.fixes[0], l));
   const shortestDistance = Math.min(...launchDistances);
@@ -162,6 +169,7 @@ function parseFile(igc: IGCParser.IGCFile, launches: Launch[], fileInfo: FlightI
       ? launches[launchDistances.indexOf(shortestDistance)]
       : undefined;
 
+  // Build the flight to return
   return {
     id: fileInfo.fileNameWitoutExtension,
     date: igc.date,
@@ -196,8 +204,9 @@ function parseFile(igc: IGCParser.IGCFile, launches: Launch[], fileInfo: FlightI
       })
       .reduce((partialSum, a) => partialSum + a, 0),
     launchTime: igc.fixes[0].timestamp,
+    waypoints: GscWaypoints(rawFile, igc),
     ...(igc?.task?.comment && { comment: igc?.task?.comment }),
-    launchName: closestLaunch?.name
+    launchName: closestLaunch?.name,
   };
 }
 
@@ -229,8 +238,7 @@ function replaceLocations(fileName: string, logbook: Flight[]): Flight[] {
     });
 
     // If there's a location, set the URL friendly location
-    if (r.location)
-      r.locationUrl = urlFriendlyLocationName(r.location);
+    if (r.location) r.locationUrl = urlFriendlyLocationName(r.location);
 
     return r;
   });
@@ -257,10 +265,10 @@ async function gscFlights(): Promise<Flight[]> {
       const igcFileInfo: FlightIgcFile = {
         filePath: f,
         fileName: basename(f),
-        fileNameWitoutExtension: basename(f).split(".")[0]
-      }
+        fileNameWitoutExtension: basename(f).split('.')[0]
+      };
 
-      let ret = parseFile(igc, launches, igcFileInfo);
+      let ret = parseFile(igc, launches, igcFileInfo, buffer);
       ret.igcFile = igcFileInfo;
 
       // Load in the comments from disk
@@ -286,15 +294,18 @@ async function gscFlights(): Promise<Flight[]> {
  * Builds a cache for all local flights
  */
 export async function PopulateFlights() {
-  console.log("Pulling flights (...slow)")
+  console.log('Pulling flights (...slow)');
   let spreadsheetFlights: Flight[] = [];
 
   try {
     spreadsheetFlights = await getSpreadsheetFlights();
   } catch (error) {
-    console.error("Unable to load flights from spreadsheet.  Carrying on without any.  Check your google auth settings");
+    console.error(
+      'Unable to load flights from spreadsheet.  Carrying on without any.  Check your google auth settings'
+    );
   }
 
+  // Build comments and badges
   const igcFlights = await gscFlights();
   flights = [...spreadsheetFlights, ...igcFlights];
   flights.sort((a, b) => a.launchTime - b.launchTime);
@@ -310,9 +321,9 @@ export async function PopulateFlights() {
 
 // Gets, caches, and returns flights
 export async function GetFlights(): Promise<Flight[]> {
-  if (flights.length == 0) {
+  if (true || flights.length == 0) {
     // Check if we can load it up from disk
-    if (fs.existsSync('./flights.json')) {
+    if (false && fs.existsSync('./flights.json')) {
       flights = JSON.parse(readFileSync('./flights.json', 'utf-8'));
     } else {
       await PopulateFlights();

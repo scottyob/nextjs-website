@@ -3,6 +3,7 @@
 import { Flight } from '@/lib/flying';
 import { Duration } from 'luxon';
 import Link from 'next/link';
+import FlightCommentsField from './flightCommentsField';
 
 export default function FlightTable(props: { flights: Flight[] }) {
   const flights = props.flights;
@@ -31,7 +32,7 @@ export default function FlightTable(props: { flights: Flight[] }) {
         <td className="px-5 py-4 hidden lg:table-cell whitespace-nowrap">
           {r.wing}
         </td>
-        <td className="px-5 py-4">{r.commentsTruncated}</td>
+        <td className="px-5 py-4"><FlightCommentsField flight={r} /></td>
       </tr>
     );
   });

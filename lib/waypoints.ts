@@ -1,4 +1,5 @@
-// import IGCParser from 'igc-parser'
+import { getDistance } from 'geolib';
+import IGCParser from 'igc-parser';
 
 export type Waypoint = {
   longitude: number
@@ -7,6 +8,28 @@ export type Waypoint = {
   name: string
   description?: string
   radiusMeters?: number
+  achievedTime?: number
+}
+
+// Calcualtes when waypoints were hit, given a recorded flight
+function WaypointStartTimes(waypoints: Waypoint[], flight: IGCParser.IGCFile) {
+  let currentWaypointIndex = 0;
+  let currentWaypoint = waypoints[currentWaypointIndex];
+
+  const achievedTime: number[] = [];
+  flight.fixes.every((f) => {
+    if (currentWaypoint == null) {
+      return false;
+    }
+    const distanceToWaypoint = getDistance(f, currentWaypoint);
+    if (distanceToWaypoint < (currentWaypoint.radiusMeters || 0)) {
+      achievedTime.push(f.timestamp);
+      currentWaypointIndex++;
+      currentWaypoint = waypoints[currentWaypointIndex];
+    }
+    return true;
+  });
+  return achievedTime;
 }
 
 // Parses an IGC file to extract tasks
@@ -14,7 +37,7 @@ export type Waypoint = {
 // SeeYou Navigator
 // See https://xp-soaring.github.io/igc_file_format/igc_format_2008.html
 // for more details
-export function GscWaypoints(input: string) {
+export function GscWaypoints(input: string, flight: IGCParser.IGCFile) {
   // This will match up the C records that contain the waypoint in Navigator files
   // With the log information that contains width
   // C3645907N11905878WDNLNCH
@@ -45,8 +68,15 @@ export function GscWaypoints(input: string) {
     } else {
       // The first characters are where the C, and coordinates.
       // "C....0012000 0032000 122000 182000TURN AREA" would be an area from 12 to 32 km from the WP between the bearings 122 and 182 from the Point
-      const str = task.slice(18).slice(8, 7 * 2)
-      radius = parseInt(str, 10)
+      let str = task.slice(18).slice(7, 7 * 2 );
+      // A little dodgy, but if the radius is "9999999", then take the first area
+      if(str == "9999999") {
+        str = task.slice(18, 25);
+      }
+      
+      radius = parseInt(str, 10);
+
+      
     }
 
     // Pull from C records
@@ -78,6 +108,10 @@ export function GscWaypoints(input: string) {
     })
   }
 
+  // Set the time the waypoint was achieved.
+  WaypointStartTimes(waypoints, flight).forEach((t, i) => {
+    waypoints[i].achievedTime = t;
+  })
 
   return waypoints
 }

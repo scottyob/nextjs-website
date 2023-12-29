@@ -4,6 +4,7 @@ import { Flight } from '@/lib/flying';
 import { Duration } from 'luxon';
 import Link from 'next/link';
 import tw from 'tailwind-styled-components';
+import FlightCommentsField from './flightCommentsField';
 
 const Header = tw.dt`
   p-1
@@ -22,11 +23,11 @@ export default function DescriptionList(props: { flights: Flight[] }) {
   const tableRows = flights.map((r, i) => {
     const duration = Duration.fromMillis((r?.durationSeconds ?? 0) * 1000);
     let comments = undefined;
-    if (r.comments) {
+    if (r.comments || r.waypoints) {
       comments = (
         <dl className="grid grid-cols-1">
           <Header>Comments</Header>
-          <Content className="p-1 pt-0">{r.commentsTruncated}</Content>
+          <Content className="p-1 pt-0"><FlightCommentsField flight={r} /></Content>
         </dl>
       );
     }
