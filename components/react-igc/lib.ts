@@ -9,32 +9,6 @@ export type Waypoint = {
   radiusMeters?: number
 }
 
-function parseCoordinate(position: string, direction: string) {
-  const [degrees, minutes, seconds] = toDegreesMinutesSeconds(position)
-
-  let dd = degrees + minutes / 60.0 + seconds / (60 * 60.0)
-
-  if (direction == 'S' || direction == 'W') {
-    dd = dd * -1
-  } // Don't do anything for N or E
-  return dd
-}
-
-function toDegreesMinutesSeconds(input: string) {
-  let deg = parseInt(input.slice(0, 2), 10)
-  let min = parseInt(input.slice(2, 4), 10)
-  let sec = parseInt(input.slice(4, 7), 10)
-
-  // East / West has one more degree
-  if (input.length == 8) {
-    deg = parseInt(input.slice(0, 3), 10)
-    min = parseInt(input.slice(3, 5), 10)
-    sec = parseInt(input.slice(5, 8), 10)
-  }
-
-  return [deg, min, sec]
-}
-
 // Parses an IGC file to extract tasks
 // This works with FlySkyHy files and
 // SeeYou Navigator
@@ -75,21 +49,35 @@ export function GscWaypoints(input: string) {
       radius = parseInt(str, 10)
     }
 
-    const taskRegex = /C(?<ns>[0-9]+)(?<nsBearing>[NS])(?<ew>[0-9]+)(?<ewBearing>[EW])(?<name>.*)/g
-    const taskGroups = taskRegex.exec(task)?.groups
+    // Pull from C records
+    const taskRegex = /C(?<nsDegree>[0-9]{2})(?<nsMinute>[0-9]{2})(?<nsMinuteFraction>[0-9]{3})(?<nsBearing>[NS])(?<ewDegree>[0-9]{3})(?<ewMinute>[0-9]{2})(?<ewMinuteFraction>[0-9]{3})(?<ewBearing>[EW])[0-9]*\ ?(?<name>.*)/g;
+    const taskGroups = taskRegex.exec(task)?.groups;
 
     if (taskGroups == null) {
       continue
     }
+   
+    // Build the Degrees, Minutes, Seconds for latitude and longitude
+    const latitude = (
+      (Number.parseInt(taskGroups['nsDegree']) + 
+      (Number.parseFloat(`${taskGroups['nsMinute']}.${taskGroups['nsMinuteFraction']}`) / 60))
+      * (taskGroups['nsBearing'] == 'S' ? -1 : 1)
+    );
+    const longitude = (
+      (Number.parseInt(taskGroups['ewDegree']) + 
+      (Number.parseFloat(`${taskGroups['ewMinute']}.${taskGroups['ewMinuteFraction']}`) / 60))
+      * (taskGroups['ewBearing'] == 'W' ? -1 : 1)
+    );
 
     waypoints.push({
-      latitude: parseCoordinate(taskGroups['ns'], taskGroups['nsBearing']),
-      longitude: parseCoordinate(taskGroups['ew'], taskGroups['ewBearing']),
+      latitude,
+      longitude,
       name: taskGroups['name'],
       radiusMeters: radius,
       altitude: 0,
     })
   }
+
 
   return waypoints
 }

@@ -73,7 +73,10 @@ function WaypointStartTimes(waypoints: Waypoint[], flight: IGCParser.IGCFile) {
 }
 
 function Waypoints(props: { igc: string; locationsXml: string; flight: IGCParser.IGCFile }) {
-  const waypoints = GscWaypoints(props.igc)
+  // Load in the waypoints from the GSC file.
+  const waypoints = GscWaypoints(props.igc);
+  
+  // Show other points of interest from the file
   const parser = new XMLParser()
   const jsonObj = parser.parse(props.locationsXml)
 
@@ -88,19 +91,6 @@ function Waypoints(props: { igc: string; locationsXml: string; flight: IGCParser
       radiusMeters: 10,
     }
   })
-
-  for (let i = 0; i < waypoints.length; i++) {
-    const name = waypoints[i].name.split(' ').slice(-1)[0]
-    const poiWaypoint = poi.find((w) => w.name == name)
-    if (poiWaypoint == null) {
-      waypoints[i].altitude = 2000
-      continue
-    }
-
-    waypoints[i].latitude = poiWaypoint.latitude
-    waypoints[i].longitude = poiWaypoint.longitude
-    waypoints[i].altitude = poiWaypoint.altitude
-  }
 
   // Let's add an achieved time to the waypoints
   const achievedTimes = WaypointStartTimes(waypoints, props.flight)
@@ -182,10 +172,10 @@ function Waypoints(props: { igc: string; locationsXml: string; flight: IGCParser
             <CylinderGraphics
               topRadius={w.radiusMeters}
               bottomRadius={w.radiusMeters}
-              length={1200}
+              length={3000}
               material={new ColorMaterialProperty(colorAtTime)}
               outline={true}
-              outlineColor={Color.GRAY}
+              outlineColor={Color.BLUE}
             />
           </Entity>
         )
