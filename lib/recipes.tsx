@@ -5,6 +5,7 @@ export interface Recipe {
   title: string;
   slug: string;
   img?: string;
+  categories: string[];
 }
 
 export async function getAllRecipes() {
@@ -22,6 +23,7 @@ export async function getAllRecipes() {
     return {
       title: m.data['title'] || m.data['Title'],
       img: m.data['img'],
+      categories: m.data['categories'] || [],
       slug
     };
   });

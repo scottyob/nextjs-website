@@ -1,15 +1,10 @@
-import { getAllRecipes } from '@/lib/recipes';
-import { RecipeCard } from './RecipeCard';
+import { getAllRecipes } from "@/lib/recipes";
+import RecipeList from "./components/RecipeList";
 
 export default async function Home() {
-  const cards = (await getAllRecipes()).map((r) => (
-    // @ts-expect-error Server Component
-    <RecipeCard key={r.path} recipe={r} />
-  ));
 
-  return (
-    <div className="flex flex-row flex-wrap justify-center">
-      {cards}
-    </div>
-  );
+  const recipies = await getAllRecipes();
+
+  return <RecipeList recipies={recipies} />
+
 }
