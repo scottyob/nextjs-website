@@ -6,6 +6,7 @@ const articleFont = DM_Sans({ weight: '400', subsets: ['latin'] });
 import Image from 'next/image';
 import RecipeList from '../components/RecipeList';
 import { Metadata, ResolvingMetadata } from 'next/types';
+import { toProdUrl } from '@/lib/images';
 
 type RecipeProps = {
   params: { slug: string };
@@ -110,7 +111,7 @@ export async function generateMetadata(props: RecipeProps, parent: ResolvingMeta
     title = `Recipe: ${recipe.title}`;
     description = recipe.title;
     if(recipeData.imgModule) {
-      images = [recipeData.imgModule.src, ...images];
+      images = [toProdUrl(recipeData.imgModule.src), ...images];
     }
   }
 
