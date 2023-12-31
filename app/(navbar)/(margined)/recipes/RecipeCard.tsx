@@ -12,7 +12,7 @@ export async function RecipeCard(props: { recipe: Recipe }) {
     ).default;
     img = (
       <Image
-        className="object-cover h-56 w-56"
+        className="object-cover h-32 w-32 md:h-52 md:w-52"
         src={imgModule}
         alt={recipe.title}
         width={250}
@@ -24,7 +24,7 @@ export async function RecipeCard(props: { recipe: Recipe }) {
   return (
     <Link
       href={`/recipes/${recipe.slug}/`}
-      className="w-56 p-3 flex flex-col min-h-[274px] transition hover:translate-y-2 hover:scale-110"
+      className="text-sm md:text-base w-32 md:w-52 p-3 flex flex-col md:min-h-[274px] transition hover:translate-y-2 hover:scale-110"
     >
       {img}
       <h2 className="text-center">{recipe.title}</h2>

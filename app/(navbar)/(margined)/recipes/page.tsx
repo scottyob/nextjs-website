@@ -7,5 +7,9 @@ export default async function Home() {
     <RecipeCard key={r.path} recipe={r} />
   ));
 
-  return <div className="flex flex-row flex-wrap justify-center min-[845px]:justify-start">{cards}</div>;
+  return (
+    <div className="flex flex-row flex-wrap justify-center">
+      {cards}
+    </div>
+  );
 }
