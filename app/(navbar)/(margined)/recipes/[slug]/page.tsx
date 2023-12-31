@@ -33,13 +33,16 @@ export default async function Recipe(props: RecipeProps) {
   // and render the recipe list if it's a category
   const recipies = await getAllRecipes();
   const recipe = recipies.find((r) => r.slug === props.params.slug);
-  if(!recipe) {
-    throw Error("No recipe found");
-  }
 
   const categories = new Set(recipies.flatMap((r) => r.categories));
   if (categories.has(props.params.slug)) {
     return <RecipeList recipies={recipies} filteredTag={props.params.slug} />;
+  }
+  
+  // We should have either a category or a recipe at this point.  Assert
+  // that there's a recipe
+  if(!recipe) {
+    throw Error("No recipe found");
   }
 
   // Load up the MDX post
@@ -81,31 +84,42 @@ export default async function Recipe(props: RecipeProps) {
 
 export async function generateStaticParams() {
   const posts = await getAllRecipes();
-  return posts.map((p) => {
-    return { slug: p.slug };
+  const categories = Array.from(new Set(posts.flatMap((r) => r.categories)));
+  const postSlugs = posts.map(p => p.slug);
+
+  return [...postSlugs, ...categories].map((p) => {
+    return { slug: p };
   });
 }
 
 export async function generateMetadata(props: RecipeProps, parent: ResolvingMetadata): Promise<Metadata> {
   const recipies = await getAllRecipes();
   const recipe = recipies.find((r) => r.slug === props.params.slug);
-  if(!recipe) {
-    throw Error("No recipe found");
-  }
 
-  // Load the metadata and image data from recipe
-  const recipeData = await recipeMetadata(props.params.slug);
 
   // access and extend parent metadata
-  const previousImages = (await parent).openGraph?.images || []
+  const previousImages = (await parent).openGraph?.images || [];
 
-  const title = `Recipe: ${recipe.title}`;
+  let title = "Recipes: " + props.params.slug;
+  let description = `${props.params.slug} Recipes`;
+  let images = previousImages;
+  if(recipe) {
+    // Load the metadata and image data from recipe
+    const recipeData = await recipeMetadata(props.params.slug);
+
+    title = `Recipe: ${recipe.title}`;
+    description = recipe.title;
+    if(recipeData.imgModule) {
+      images = [recipeData.imgModule.src, ...images];
+    }
+  }
+
   return {
     title, 
     openGraph: {
-      images: [recipeData.imgModule.src, ...previousImages],
+      images,
       title,
-      description: recipe.title
+      description
     }
   }
 }

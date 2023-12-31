@@ -12,7 +12,7 @@ export default function RecipeList(props: {
   // Build a list of tags for taxonomy
   const tagStyles = {
     selected: 'bg-green-200 font-bold',
-    unselected: 'bg-gray-200',
+    unselected: 'bg-gray-100',
     common: 'rounded-md text-sm p-1 mb-1'
   };
 
