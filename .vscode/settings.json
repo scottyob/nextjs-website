@@ -4,5 +4,11 @@
     "className",
     "ngClass",
     ".*Styles.*" // Add ".*Styles.*" (or whatever matches your naming scheme)
+  ],
+  "cSpell.enableFiletypes": [
+    "mdx"
+  ],
+  "cSpell.words": [
+    "Ganoush"
   ]
 }
