@@ -7,6 +7,7 @@ export interface Post {
   path: string;
   excerpt: string;
   hero?: string;
+  draft: boolean;
   slug: string;
   date: Date;
 }
@@ -16,6 +17,7 @@ export interface PostFrontmatter {
   hero?: string;
   hideHero?: boolean;
   image?: string;
+  draft: boolean;
   date: string;
 }
 
@@ -42,10 +44,11 @@ export async function getAllPosts() {
       hero: m.data['hero'],
       hideHero: m.data['hideHero'],
       date: m.data['date'],
+      draft: m.data['draft'] || false,
       path: '/post/' + slug,
       slug
     };
-  });
+  }).filter(p => !p.draft);
 
   // Sort them from newest to oldest
   posts.sort((a, b) => (+b.date - +a.date));
