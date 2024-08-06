@@ -7,7 +7,6 @@ img: img.jpg
 ---
 import before from "./before-running.jpg";
 import after from "./baba-ganoush.jpg";
-import Image from "next/image";
 
 ## Baba Ganoush
 ## Ingredients
@@ -28,9 +27,9 @@ import Image from "next/image";
 - scoop out eggplant meat, push through small strainer to remove moisture
 - pace eggplant in foot processor, run to combine.
 
-<div className="flex">
-<Image alt="Before running food processor" src={before.src} width={300} height={300} />
-<Image alt="Baba Ganoush After Food Processor" src={after.src} width={300} height={300} />
+<div className="flex flex-wrap space-x-4 space-y-4">
+    <img className="p-2" alt="Before running food processor" src={before.src} height={100} width={300} />
+    <img className="p-2" alt="Baba Ganoush After Food Processor" src={after.src} height={100} width={300} />
 </div>
 
 ## Pizza
