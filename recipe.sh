@@ -19,7 +19,7 @@ mkdir -p "$directory_path"
 page_content="---
 Title: '${1}'
 categories:
- - programming
+ - main
 img: img.jpg 
 ---
 
