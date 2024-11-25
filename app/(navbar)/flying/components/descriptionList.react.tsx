@@ -66,7 +66,11 @@ export default function DescriptionList(props: { flights: Flight[] }) {
         </dl>
         <dl className="grid grid-cols-2">
           <Header>Wing</Header>
-          <Content>{r.wing}</Content>
+          <Content>
+            <Link href={`/flying/wing/${r.wing?.replaceAll(' ', '-')}`}>
+              {r.wing}
+            </Link>
+          </Content>
         </dl>
         {comments}
         <hr />

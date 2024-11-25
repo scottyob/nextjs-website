@@ -21,6 +21,7 @@ export default function FlightTable(props: { flights: Flight[] }) {
             {r.location}
           </Link>
         </td>
+        {/* <td className="px-5 py-4">{r.commentsFileName}</td> */}
         <td className="px-5 py-4">{r.date}</td>
         <td className="px-5 py-4">{duration.toFormat('hh:mm')}</td>
         <td className="px-5 py-4 hidden lg:table-cell">
@@ -30,7 +31,9 @@ export default function FlightTable(props: { flights: Flight[] }) {
           {r.altitudeGainMeters}
         </td>
         <td className="px-5 py-4 hidden lg:table-cell whitespace-nowrap">
-          {r.wing}
+          <Link href={`/flying/wing/${r.wing?.replaceAll(' ', '-')}`}>
+            {r.wing}
+          </Link>
         </td>
         <td className="px-5 py-4"><FlightCommentsField flight={r} /></td>
       </tr>
@@ -46,6 +49,7 @@ export default function FlightTable(props: { flights: Flight[] }) {
               #
             </th>
             <th className="px-5 py-3 whitespace-nowrap">Location</th>
+            {/* <th className="px-5 py-3 whitespace-nowrap">Filename</th> */}
             <th className="px-5 py-3 whitespace-nowrap">Date</th>
             <th className="px-5 py-3 whitespace-nowrap">Duration</th>
             <th className="px-5 py-3 hidden lg:table-cell whitespace-nowrap">

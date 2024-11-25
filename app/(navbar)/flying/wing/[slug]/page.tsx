@@ -1,5 +1,5 @@
 /**
- * Page will return all of the flights for a given site
+ * Page will return all of the flights for a given wing
  */
 
 import { GetFlights } from '@/lib/flying';
@@ -15,18 +15,18 @@ type Props = {
 
 export default async function FlightsForLocation(props: Props) {
   let results = await GetFlights();
-  const location = props.params.slug.replaceAll('-', ' ');
+  const wing = props.params.slug.replaceAll('-', ' ');
 
   // Filter out the flights that are for this location
-  results = results.filter((f) => f.locationUrl == props.params.slug);
+  results = results.filter((f) => f.wing == wing);
 
   return (
     <div className="min-w-full">
       <article className="prose min-w-full">
         <div className={articleFont.className}>
           <h2 className="text-center mt-2">
-            <Link href="/flying">Flying</Link> {' > '}Site {' > '}
-            {location}
+            <Link href="/flying">Flying</Link> {' > '}Wing {' > '}
+            {wing}
           </h2>
         </div>
         {/* TODO Need to load up the dynamic site information here */}
@@ -39,11 +39,12 @@ export default async function FlightsForLocation(props: Props) {
 export async function generateStaticParams() {
   const flights = await GetFlights();
   return flights.map((f) => {
-    let location = f.locationUrl ?? 'Unknown';
-    if (location == '') {
-      location = 'Unknown';
+    let wing = f.wing ?? 'Unknown';
+    if (wing == '') {
+      wing = 'Unknown';
     }
 
-    return { slug: location };
+    return { slug: wing.replaceAll(' ', '-')};
   });
 }
+
