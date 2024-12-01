@@ -43,7 +43,7 @@ export default function ScatterPlot(props: { flights: Flight[] }) {
           ${f.location}<br />
           <i>${f.launchName}</i>
           `
-        if(f.commentsTruncated) {
+        if (f.commentsTruncated) {
           hover += `
             <br /><br />${f.commentsTruncated}
           `
@@ -63,19 +63,26 @@ export default function ScatterPlot(props: { flights: Flight[] }) {
       layout={{
         dragmode: false,
         legend: {
-          orientation: 'h'
+          orientation: 'h',
         },
         margin: {
           r: 0,
-          l: 30,
+          l: 60,
           t: 30,
+          b: 0,
           pad: 0
         },
         yaxis: {
           fixedrange: true,
+          title: {
+            text: "Flight Duration (minutes)",
+          }
         },
         xaxis: {
           fixedrange: true,
+          title: {
+            text: "Date",
+          }
         }
       }}
       config={{
